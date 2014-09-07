@@ -3,5 +3,7 @@
 export(project)
 export(project_count)
 export(project_list)
+export(protein_count)
+export(protein_list)
 export(search_projects)
 importFrom(rjson,fromJSON)
