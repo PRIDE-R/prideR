@@ -7,6 +7,5 @@ Author: Jose A. Dianes
 Maintainer: Jose A. Dianes <jadianes@gmail.com>
 Imports:
     rjson
-Description: An R package to programatically access the PRIDE Archive Web
-    Service
+Description: An R package to programatically access the PRIDE Archive Web Service
 License: GPL-3

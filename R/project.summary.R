@@ -1,3 +1,8 @@
+#' ProjectSummary represents a PRIDE Archive project dataset
+#'
+#' @importFrom rjson fromJSON
+#' @export 
+#' @exportClass ProjectSummary
 setClass(
     "ProjectSummary", 
     representation(
@@ -28,6 +33,15 @@ setClass(
     )
 )
 
+#' Returns a ProjectSummary instance from a JSON string representation
+#'
+#' @param json_str The JSON object
+#' @param x The project summaries
+#' @param row.names optional row names
+#' @return The project summaries as a data frame
+#' @author Jose A. Dianes
+#' @details TODO
+#' @export
 as.data.frame.ProjectSummary <-
     function(x, row.names=NULL, optional=FALSE, ...)
 {
@@ -56,8 +70,18 @@ as.data.frame.ProjectSummary <-
 
 format.ProjectSummary <- function(x, ...) paste0(x@accession, ", ", x@title)
 
-fromJSON.ProjectSummary <- function(json_str, file, method = "C", unexpected.escape = "error") {
-    json.list <- fromJSON(json_str, file, method, unexpected.escape)
+#' Returns a ProjectSummary instance from a JSON string representation
+#'
+#' @param json_str The JSON object
+#' @param json_str the name of a file to read the json_str from; this can also be a URL. Only one of json_str or file must be supplied.
+#' @param method use the C implementation, or the older slower (and one day to be depricated) R implementation
+#' @param unexpected.escape changed handling of unexpected escaped characters. Handling value should be one of "error", "skip", or "keep"; on unexpected characters issue an error, skip the character, or keep the character
+#' @return The ProjectSummary instance
+#' @author Jose A. Dianes
+#' @details TODO
+#' @importFrom rjson fromJSON
+fromJSON.ProjectSummary <- function(json_str, file, method = "C") {
+    json.list <- fromJSON(json_str, file, method)
     
     res <- new("ProjectSummary",
                accession = json.list$accession,

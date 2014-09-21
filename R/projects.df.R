@@ -39,10 +39,7 @@ project_list <- function(count) {
 #' @export
 #' @importFrom rjson fromJSON
 project <- function(accession) {
-  prideJson <- fromJSON(file=paste0(pride_archive_url, "/project/", accession), method="C")
-  prideDataFrame <- fromJsonToDataFrame(prideJson)
-  prideDataFrame$numAssays <- as.numeric(prideDataFrame$numAssays)
-  prideDataFrame
+  fromJSON.ProjectSummary(file=paste0(pride_archive_url, "/project/", accession), method="C")
 }
 
 #' Returns a series of PRIDE Archive projects
