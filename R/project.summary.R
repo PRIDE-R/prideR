@@ -99,3 +99,15 @@ fromJSON.ProjectSummary <- function(json_str, file, method = "C") {
     
     return (res)
 }
+
+#' Returns a PRIDE Archive project
+#'
+#' @param accession The project accession
+#' @return The project in a data frame
+#' @author Jose A. Dianes
+#' @details TODO
+#' @export
+#' @importFrom rjson fromJSON
+project <- function(accession) {
+    fromJSON.ProjectSummary(file=paste0(pride_archive_url, "/project/", accession), method="C")
+}

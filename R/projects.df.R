@@ -30,18 +30,6 @@ project_list <- function(count) {
   prideDataFrame
 }
 
-#' Returns a PRIDE Archive project
-#'
-#' @param accession The project accession
-#' @return The project in a data frame
-#' @author Jose A. Dianes
-#' @details TODO
-#' @export
-#' @importFrom rjson fromJSON
-project <- function(accession) {
-  fromJSON.ProjectSummary(file=paste0(pride_archive_url, "/project/", accession), method="C")
-}
-
 #' Returns a series of PRIDE Archive projects
 #' to satisify a given query. This is actually a 
 #' query filtered version of project_list
