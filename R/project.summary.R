@@ -55,3 +55,23 @@ as.data.frame.ProjectSummary <-
 }
 
 format.ProjectSummary <- function(x, ...) paste0(x@accession, ", ", x@title)
+
+fromJSON.ProjectSummary <- function(json_str, file, method = "C", unexpected.escape = "error") {
+    json.list <- fromJSON(json_str, file, method, unexpected.escape)
+    
+    res <- new("ProjectSummary",
+               accession = json.list$accession,
+               title = json.list$title,
+               projectDescription = json.list$projectDescription,
+               publicationDate = as.POSIXct(json.list$publicationDate),
+               numAssays = json.list$numAssays,
+               species = json.list$species,
+               tissues = json.list$tissues,
+               ptmNames = json.list$ptmNames,
+               instrumentNames = json.list$instrumentNames,
+               projectTags = json.list$projectTags,
+               submissionType = json.list$submissionType
+               )
+    
+    return (res)
+}
