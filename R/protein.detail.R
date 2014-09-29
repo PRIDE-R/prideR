@@ -68,16 +68,14 @@ as.data.frame.ProteinDetail <-
 #' @importFrom rjson fromJSON
 #' @export
 from.json.ProteinDetail <- function(json_str, file, method = "C") {
-  print(file)
   json.list <- fromJSON(json_str, file, method)[[1]][[1]]
-  
   res <- new("ProteinDetail",
              accession = json.list$accession,
              projectAccession = json.list$projectAccession,
              assayAccession = json.list$assayAccession,
-             synonyms = json.list$synonyms,
-             description = json.list$description,
-             sequence = json.list$sequence
+             synonyms = ifelse(json.list$synonyms==NULL, c("Not available"), json.list$synonyms),
+             description = as.character(json.list$description),
+             sequence =  as.character(json.list$sequence)
   )
   
   return (res)
