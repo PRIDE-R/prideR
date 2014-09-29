@@ -108,6 +108,6 @@ fromJSON.ProjectSummary <- function(json_str, file, method = "C") {
 #' @details TODO
 #' @export
 #' @importFrom rjson fromJSON
-project <- function(accession) {
+get.ProjectSummary <- function(accession) {
     fromJSON.ProjectSummary(file=paste0(pride_archive_url, "/project/", accession), method="C")
 }

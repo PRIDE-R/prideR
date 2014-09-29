@@ -1,3 +1,7 @@
+pride_archive_url <- "http://www.ebi.ac.uk/pride/ws/archive"
+pride_archive_url_dev <- "http://wwwdev.ebi.ac.uk/pride/ws/archive"
+
+
 #' ProteinDetail represents a PRIDE Archive protein identification
 #'
 #' @importFrom rjson fromJSON
@@ -52,8 +56,6 @@ as.data.frame.ProteinDetail <-
     return(value)
   }
 
-format.ProteinDetail <- function(x, ...) paste0(x@accession, ", ", x@assayAccession)
-
 #' Returns a ProteinDetail instance from a JSON string representation
 #'
 #' @param json_str The JSON object
@@ -65,8 +67,9 @@ format.ProteinDetail <- function(x, ...) paste0(x@accession, ", ", x@assayAccess
 #' @details TODO
 #' @importFrom rjson fromJSON
 #' @export
-fromJSON.ProteinDetail <- function(json_str, file, method = "C") {
-  json.list <- fromJSON(json_str, file, method)
+from.json.ProteinDetail <- function(json_str, file, method = "C") {
+  print(file)
+  json.list <- fromJSON(json_str, file, method)[[1]][[1]]
   
   res <- new("ProteinDetail",
              accession = json.list$accession,
@@ -79,3 +82,16 @@ fromJSON.ProteinDetail <- function(json_str, file, method = "C") {
   
   return (res)
 }
+
+#' Returns a list of PRIDE Archive PSMs associated with a given project
+#'
+#' @param accession The project accession
+#' @return The list of ProteinDetail objects
+#' @author Jose A. Dianes
+#' @details TODO
+#' @export
+get.list.ProteinDetail <- function(project.accession, count=1) {
+  from.json.ProteinDetail(file=paste0(pride_archive_url_dev, "/protein/list/project/", project.accession, "?show=", count), method="C")
+}
+
+format.ProteinDetail <- function(x, ...) paste0(x@accession, ", ", x@assayAccession)
