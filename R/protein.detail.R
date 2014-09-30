@@ -67,15 +67,15 @@ as.data.frame.ProteinDetail <-
 #' @details TODO
 #' @importFrom rjson fromJSON
 #' @export
-from.json.ProteinDetail <- function(json_str, file, method = "C") {
-  json.list <- fromJSON(json_str, file, method)[[1]][[1]]
+from.json.ProteinDetail <- function(json.object) {
+  
   res <- new("ProteinDetail",
-             accession = json.list$accession,
-             projectAccession = json.list$projectAccession,
-             assayAccession = json.list$assayAccession,
-             synonyms = ifelse(json.list$synonyms==NULL, c("Not available"), json.list$synonyms),
-             description = as.character(json.list$description),
-             sequence =  as.character(json.list$sequence)
+             accession = json.object$accession,
+             projectAccession = json.object$projectAccession,
+             assayAccession = json.object$assayAccession,
+             synonyms = ifelse(json.object$synonyms==NULL, c("Not available"), json.object$synonyms),
+             description = as.character(json.object$description),
+             sequence =  as.character(json.object$sequence)
   )
   
   return (res)
@@ -89,7 +89,10 @@ from.json.ProteinDetail <- function(json_str, file, method = "C") {
 #' @details TODO
 #' @export
 get.list.ProteinDetail <- function(project.accession, count=1) {
-  from.json.ProteinDetail(file=paste0(pride_archive_url_dev, "/protein/list/project/", project.accession, "?show=", count), method="C")
+  json.list <- fromJSON(file=paste0(pride_archive_url_dev, "/protein/list/project/", project.accession, "?show=", count), method="C")
+  details.list <- lapply(json.list, function(x) { from.json.ProteinDetail(x[[1]])})
+  
+  return(details.list)
 }
 
 format.ProteinDetail <- function(x, ...) paste0(x@accession, ", ", x@assayAccession)
