@@ -1,6 +1,6 @@
 pride_archive_url <- "http://www.ebi.ac.uk/pride/ws/archive"
 pride_archive_url_dev <- "http://wwwdev.ebi.ac.uk/pride/ws/archive"
-
+MISSING_VALUE <- "Not available"
 
 #' ProteinDetail represents a PRIDE Archive protein identification
 #'
@@ -8,23 +8,23 @@ pride_archive_url_dev <- "http://wwwdev.ebi.ac.uk/pride/ws/archive"
 #' @export 
 #' @exportClass ProteinDetail
 setClass(
-  "ProteinDetail", 
-  representation(
-    accession = "character", 
-    projectAccession = "character", 
-    assayAccession = "character", 
-    synonyms = "vector", 
-    description = "character", 
-    sequence = "character"
-  ),
-  prototype(
-    accession = "Not available", 
-    projectAccession = "Not available", 
-    assayAccession = "Not available", 
-    synonyms = c("Not available"), 
-    description = "Not available", 
-    sequence = "Not available"
-  )
+    "ProteinDetail", 
+    representation(
+        accession = "character", 
+        projectAccession = "character", 
+        assayAccession = "character", 
+        synonyms = "vector", 
+        description = "character", 
+        sequence = "character"
+    ),
+    prototype(
+        accession = "Not available", 
+        projectAccession = "Not available", 
+        assayAccession = "Not available", 
+        synonyms = c("Not available"), 
+        description = "Not available", 
+        sequence = "Not available"
+    )
 )
 
 #' Returns a data frame from ProteinDetail inputs
@@ -36,26 +36,39 @@ setClass(
 #' @details TODO
 #' @export
 as.data.frame.ProteinDetail <-
-  function(x, row.names=NULL, optional=FALSE, ...)
-  {
-    # set row names if provided
-    if (is.null(row.names))
-      row.names <- x@accession
-    # create the data frame just with the accession column
-    value <- list(x@accession)
-    attr(value, "row.names") <- row.names
-    class(value) <- "data.frame"
-    names(value) <- c("accession")
-    # add the rest of the columns
-    value$project.accession <- x@projectAccession
-    value$assay.accession <- x@assayAccession
-    value$synonyms <- paste(x@synonyms, collapse=" || ")
-    value$description <- x@description
-    value$sequence <- x@sequence
-    
-    return(value)
-  }
+    function(x, row.names=NULL, optional=FALSE, ...)
+    {
+        # set row names if provided
+        if (is.null(row.names))
+            row.names <- x@accession
+        # create the data frame just with the accession column
+        value <- list(x@accession)
+        attr(value, "row.names") <- row.names
+        class(value) <- "data.frame"
+        names(value) <- c("accession")
+        # add the rest of the columns
+        value$project.accession <- x@projectAccession
+        value$assay.accession <- x@assayAccession
+        value$synonyms <- paste(x@synonyms, collapse=" || ")
+        value$description <- x@description
+        value$sequence <- x@sequence
+        
+        return(value)
+    }
 
+#' Returns a data frame from ProteinDetail list
+#'
+#' @param list.of.ProteinDetail The protein detail list
+#' @return The protein identification details as a data frame
+#' @author Jose A. Dianes
+#' @details TODO
+#' @export
+list.to.data.frame.ProteinDetail <- 
+    function(list.of.ProteinDetail)
+    {
+        do.call(rbind.data.frame, lapply(list.of.ProteinDetail, as.data.frame))
+    }
+    
 #' Returns a ProteinDetail instance from a JSON string representation
 #'
 #' @param json_str The JSON object
@@ -68,17 +81,17 @@ as.data.frame.ProteinDetail <-
 #' @importFrom rjson fromJSON
 #' @export
 from.json.ProteinDetail <- function(json.object) {
-  
-  res <- new("ProteinDetail",
-             accession = json.object$accession,
-             projectAccession = json.object$projectAccession,
-             assayAccession = json.object$assayAccession,
-             synonyms = ifelse(json.object$synonyms==NULL, c("Not available"), json.object$synonyms),
-             description = as.character(json.object$description),
-             sequence =  as.character(json.object$sequence)
-  )
-  
-  return (res)
+
+    res <- new("ProteinDetail",
+               accession = json.object$accession,
+               projectAccession = json.object$projectAccession,
+               assayAccession = json.object$assayAccession,
+               synonyms = ifelse(is.null(json.object$synonyms), c(MISSING_VALUE), json.object$synonyms),
+               description = ifelse(is.null(json.object$description), MISSING_VALUE, json.object$description),
+               sequence = ifelse(is.null(json.object$sequence), MISSING_VALUE, json.object$sequence)
+    )
+    
+    return (res)
 }
 
 #' Returns a list of PRIDE Archive PSMs associated with a given project
@@ -89,10 +102,9 @@ from.json.ProteinDetail <- function(json.object) {
 #' @details TODO
 #' @export
 get.list.ProteinDetail <- function(project.accession, count=1) {
-  json.list <- fromJSON(file=paste0(pride_archive_url_dev, "/protein/list/project/", project.accession, "?show=", count), method="C")
-  details.list <- lapply(json.list, function(x) { from.json.ProteinDetail(x[[1]])})
-  
-  return(details.list)
+    json.list <- fromJSON(file=paste0(pride_archive_url_dev, "/protein/list/project/", project.accession, "?show=", count), method="C")
+    details.list <- lapply(json.list[[1]], function(x) { from.json.ProteinDetail(x)})
+    return(details.list)
 }
 
 format.ProteinDetail <- function(x, ...) paste0(x@accession, ", ", x@assayAccession)

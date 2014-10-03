@@ -43,29 +43,29 @@ setClass(
 #' @export
 as.data.frame.ProjectSummary <-
     function(x, row.names=NULL, optional=FALSE, ...)
-{
-    # set row names if provided
-    if (is.null(row.names))
-        row.names <- x@accession
-    # create the data frame just with the accession column
-    value <- list(x@accession)
-    attr(value, "row.names") <- row.names
-    class(value) <- "data.frame"
-    names(value) <- c("accession")
-    # add the rest of the columns
-    value$title <- x@title
-    value$project.description <- x@projectDescription
-    value$publication.date <- x@publicationDate
-    value$num.assays <- x@numAssays
-    value$species <- paste(x@species, collapse=" || ")
-    value$tissues <- paste(x@tissues, collapse=" || ")
-    value$ptm.names <- paste(x@ptmNames, collapse=" || ")
-    value$instrument.names <- paste(x@instrumentNames, collapse=" || ")
-    value$project.tags <- paste(x@projectTags, collapse=" || ")
-    value$submissionType <- x@submissionType
-    
-    return(value)
-}
+    {
+        # set row names if provided
+        if (is.null(row.names))
+            row.names <- x@accession
+        # create the data frame just with the accession column
+        value <- list(x@accession)
+        attr(value, "row.names") <- row.names
+        class(value) <- "data.frame"
+        names(value) <- c("accession")
+        # add the rest of the columns
+        value$title <- x@title
+        value$project.description <- x@projectDescription
+        value$publication.date <- x@publicationDate
+        value$num.assays <- x@numAssays
+        value$species <- paste(x@species, collapse=" || ")
+        value$tissues <- paste(x@tissues, collapse=" || ")
+        value$ptm.names <- paste(x@ptmNames, collapse=" || ")
+        value$instrument.names <- paste(x@instrumentNames, collapse=" || ")
+        value$project.tags <- paste(x@projectTags, collapse=" || ")
+        value$submissionType <- x@submissionType
+        
+        return(value)
+    }
 
 format.ProjectSummary <- function(x, ...) paste0(x@accession, ", ", x@title)
 
@@ -95,7 +95,7 @@ fromJSON.ProjectSummary <- function(json_str, file, method = "C") {
                instrumentNames = json.list$instrumentNames,
                projectTags = json.list$projectTags,
                submissionType = json.list$submissionType
-               )
+    )
     
     return (res)
 }

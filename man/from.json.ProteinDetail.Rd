@@ -3,7 +3,7 @@
 \alias{from.json.ProteinDetail}
 \title{Returns a ProteinDetail instance from a JSON string representation}
 \usage{
-from.json.ProteinDetail(json_str, file, method = "C")
+from.json.ProteinDetail(json.object)
 }
 \arguments{
 \item{json_str}{The JSON object}
