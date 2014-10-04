@@ -11,16 +11,16 @@ setClass(
     "ProteinDetail", 
     representation(
         accession = "character", 
-        projectAccession = "character", 
-        assayAccession = "character", 
+        project.accession = "character", 
+        assay.accession = "character", 
         synonyms = "vector", 
         description = "character", 
         sequence = "character"
     ),
     prototype(
         accession = "Not available", 
-        projectAccession = "Not available", 
-        assayAccession = "Not available", 
+        project.accession = "Not available", 
+        assay.accession = "Not available", 
         synonyms = c("Not available"), 
         description = "Not available", 
         sequence = "Not available"
@@ -47,8 +47,8 @@ as.data.frame.ProteinDetail <-
         class(value) <- "data.frame"
         names(value) <- c("accession")
         # add the rest of the columns
-        value$project.accession <- x@projectAccession
-        value$assay.accession <- x@assayAccession
+        value$project.accession <- x@project.accession
+        value$assay.accession <- x@assay.accession
         value$synonyms <- paste(x@synonyms, collapse=" || ")
         value$description <- x@description
         value$sequence <- x@sequence
@@ -71,8 +71,8 @@ from.json.ProteinDetail <- function(json.object) {
 
     res <- new("ProteinDetail",
                accession = json.object$accession,
-               projectAccession = json.object$projectAccession,
-               assayAccession = json.object$assayAccession,
+               project.accession = json.object$projectAccession,
+               assay.accession = json.object$assayAccession,
                synonyms = ifelse(is.null(json.object$synonyms), c(MISSING_VALUE), json.object$synonyms),
                description = ifelse(is.null(json.object$description), MISSING_VALUE, json.object$description),
                sequence = ifelse(is.null(json.object$sequence), MISSING_VALUE, json.object$sequence)

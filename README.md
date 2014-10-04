@@ -25,7 +25,7 @@ Get project `PXD000001` summary:
 
     get.ProjectSummary("PXD000001")
 
-Search for projects at most 20 projects by term `blood`. The results are returned as a `list` of `ProjectSummary` objects:  
+Search for at most 20 projects by term `blood`. The results are returned as a `list` of `ProjectSummary` objects:  
 
     search.list.ProjectSummary("blood",20)
 

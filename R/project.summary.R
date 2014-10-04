@@ -13,28 +13,28 @@ setClass(
     representation(
         accession = "character", 
         title = "character",
-        projectDescription = "character",
-        publicationDate = "POSIXct",
-        numAssays = "numeric",
+        project.description = "character",
+        publication.date = "POSIXct",
+        num.assays = "numeric",
         species = "vector",
         tissues = "vector",
-        ptmNames = "vector",
-        instrumentNames = "vector",
-        projectTags = "vector",
-        submissionType = "character"
+        ptm.names = "vector",
+        instrument.names = "vector",
+        project.tags = "vector",
+        submission.type = "character"
     ),
     prototype(
         accession = MISSING_VALUE, 
         title = MISSING_VALUE,
-        projectDescription = MISSING_VALUE,
-        publicationDate = Sys.time(),
-        numAssays = 0,
+        project.description = MISSING_VALUE,
+        publication.date = Sys.time(),
+        num.assays = 0,
         species = c(MISSING_VALUE),
         tissues = c(MISSING_VALUE),
-        ptmNames = c(MISSING_VALUE),
-        instrumentNames = c(MISSING_VALUE),
-        projectTags = c(MISSING_VALUE),
-        submissionType = MISSING_VALUE
+        ptm.names = c(MISSING_VALUE),
+        instrument.names = c(MISSING_VALUE),
+        project.tags = c(MISSING_VALUE),
+        submission.type = MISSING_VALUE
     )
 )
 
@@ -59,15 +59,15 @@ as.data.frame.ProjectSummary <-
         names(value) <- c("accession")
         # add the rest of the columns
         value$title <- x@title
-        value$project.description <- x@projectDescription
-        value$publication.date <- x@publicationDate
-        value$num.assays <- x@numAssays
+        value$project.description <- x@project.description
+        value$publication.date <- x@publication.date
+        value$num.assays <- x@num.assays
         value$species <- paste(x@species, collapse=" || ")
         value$tissues <- paste(x@tissues, collapse=" || ")
-        value$ptm.names <- paste(x@ptmNames, collapse=" || ")
-        value$instrument.names <- paste(x@instrumentNames, collapse=" || ")
-        value$project.tags <- paste(x@projectTags, collapse=" || ")
-        value$submissionType <- x@submissionType
+        value$ptm.names <- paste(x@ptm.names, collapse=" || ")
+        value$instrument.names <- paste(x@instrument.names, collapse=" || ")
+        value$project.tags <- paste(x@project.tags, collapse=" || ")
+        value$submissionType <- x@submission.type
         
         return(value)
     }
@@ -89,15 +89,15 @@ from.json.ProjectSummary <- function(json.object) {
     res <- new("ProjectSummary",
                accession = json.object$accession,
                title = json.object$title,
-               projectDescription = ifelse(is.null(json.object$projectDescription), MISSING_VALUE, json.object$projectDescription),
-               publicationDate = as.POSIXct(json.object$publicationDate),
-               numAssays = json.object$numAssays,
+               project.description = ifelse(is.null(json.object$projectDescription), MISSING_VALUE, json.object$projectDescription),
+               publication.date = as.POSIXct(json.object$publicationDate),
+               num.assays = json.object$numAssays,
                species = json.object$species,
                tissues = json.object$tissues,
-               ptmNames = json.object$ptmNames,
-               instrumentNames = json.object$instrumentNames,
-               projectTags = json.object$projectTags,
-               submissionType = json.object$submissionType
+               ptm.names = json.object$ptmNames,
+               instrument.names = json.object$instrumentNames,
+               project.tags = json.object$projectTags,
+               submission.type = json.object$submissionType
     )
     
     return (res)
