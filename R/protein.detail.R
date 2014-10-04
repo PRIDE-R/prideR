@@ -107,4 +107,20 @@ get.list.ProteinDetail <- function(project.accession, count=1) {
     return(details.list)
 }
 
+#' Returns the number of proteins for a particual public project
+#'
+#' @param project.accession The project accession to count proteins from
+#' @return The count of proteins
+#' @author Jose A. Dianes
+#' @details TODO
+#' @export
+#' @importFrom rjson fromJSON
+count.ProteinDetail <- function(project.accession) {    
+    protein.count <- fromJSON(file=URLencode(paste0(pride_archive_url_dev, "/protein/count/project/", project.accession)), method="C")
+    protein.count                          
+}
+
+
 format.ProteinDetail <- function(x, ...) paste0(x@accession, ", ", x@assayAccession)
+
+
