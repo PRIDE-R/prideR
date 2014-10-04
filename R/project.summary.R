@@ -1,3 +1,6 @@
+pride_archive_url <- "http://www.ebi.ac.uk/pride/ws/archive"
+pride_archive_url_dev <- "http://wwwdev.ebi.ac.uk/pride/ws/archive"
+
 MISSING_VALUE <- "Not available"
 
 #' ProjectSummary represents a PRIDE Archive project dataset
@@ -136,5 +139,34 @@ get.list.ProjectSummary <- function(count=1) {
     json.list <- fromJSON(file=paste0(pride_archive_url, "/project/list", "?show=", count), method="C")
     project.list <- lapply(json.list[[1]], function(x) { from.json.ProjectSummary(x)})
     return(project.list)
+}
+
+#' Returns a series of PRIDE Archive projects
+#' to satisify a given query. This is actually a 
+#' query filtered version of project_list
+#'
+#' @param q The query terms
+#' @param count The maximum number of search results
+#' @return The search results in a data frame
+#' @author Jose A. Dianes
+#' @details TODO
+#' @export
+#' @importFrom rjson fromJSON
+search.list.ProjectSummary <- function(q,count) {
+    json.list <- fromJSON(file=paste0(pride_archive_url, "/project/list", "?show=", count,"&q=", q), method="C")
+    project.list <- lapply(json.list[[1]], function(x) { from.json.ProjectSummary(x)})
+    return(project.list)
+}
+
+#' Returns the number of public projects in PRIDE Archive
+#'
+#' @return The count of projects
+#' @author Jose A. Dianes
+#' @details TODO
+#' @export
+#' @importFrom rjson fromJSON
+count.ProjectSummary <- function() {
+    projectCount <- fromJSON(file=paste0(pride_archive_url, "/project/count"), method="C")
+    projectCount                          
 }
 
