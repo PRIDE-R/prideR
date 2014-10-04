@@ -1,3 +1,5 @@
+MISSING_VALUE <- "Not available"
+
 #' ProjectSummary represents a PRIDE Archive project dataset
 #'
 #' @importFrom rjson fromJSON
@@ -19,17 +21,17 @@ setClass(
         submissionType = "character"
     ),
     prototype(
-        accession = "Not available", 
-        title = "Not available",
-        projectDescription = "Not available",
+        accession = MISSING_VALUE, 
+        title = MISSING_VALUE,
+        projectDescription = MISSING_VALUE,
         publicationDate = Sys.time(),
         numAssays = 0,
-        species = c("Not available"),
-        tissues = c("Not available"),
-        ptmNames = c("Not available"),
-        instrumentNames = c("Not available"),
-        projectTags = c("Not available"),
-        submissionType = "Not available"
+        species = c(MISSING_VALUE),
+        tissues = c(MISSING_VALUE),
+        ptmNames = c(MISSING_VALUE),
+        instrumentNames = c(MISSING_VALUE),
+        projectTags = c(MISSING_VALUE),
+        submissionType = MISSING_VALUE
     )
 )
 
@@ -67,6 +69,19 @@ as.data.frame.ProjectSummary <-
         return(value)
     }
 
+#' Returns a data frame from a  list of ProjectSummary
+#'
+#' @param list.of.ProjectSummary The project summary list
+#' @return The project summaries as a data frame
+#' @author Jose A. Dianes
+#' @details TODO
+#' @export
+list.to.data.frame.ProjectSummary <- 
+    function(list.of.ProjectSummary)
+    {
+        do.call(rbind.data.frame, lapply(list.of.ProjectSummary, as.data.frame))
+    }
+
 format.ProjectSummary <- function(x, ...) paste0(x@accession, ", ", x@title)
 
 #' Returns a ProjectSummary instance from a JSON string representation
@@ -80,21 +95,19 @@ format.ProjectSummary <- function(x, ...) paste0(x@accession, ", ", x@title)
 #' @details TODO
 #' @importFrom rjson fromJSON
 #' @export
-fromJSON.ProjectSummary <- function(json_str, file, method = "C") {
-    json.list <- fromJSON(json_str, file, method)
-    
+from.json.ProjectSummary <- function(json.object) {
     res <- new("ProjectSummary",
-               accession = json.list$accession,
-               title = json.list$title,
-               projectDescription = json.list$projectDescription,
-               publicationDate = as.POSIXct(json.list$publicationDate),
-               numAssays = json.list$numAssays,
-               species = json.list$species,
-               tissues = json.list$tissues,
-               ptmNames = json.list$ptmNames,
-               instrumentNames = json.list$instrumentNames,
-               projectTags = json.list$projectTags,
-               submissionType = json.list$submissionType
+               accession = json.object$accession,
+               title = json.object$title,
+               projectDescription = ifelse(is.null(json.object$projectDescription), MISSING_VALUE, json.object$projectDescription),
+               publicationDate = as.POSIXct(json.object$publicationDate),
+               numAssays = json.object$numAssays,
+               species = json.object$species,
+               tissues = json.object$tissues,
+               ptmNames = json.object$ptmNames,
+               instrumentNames = json.object$instrumentNames,
+               projectTags = json.object$projectTags,
+               submissionType = json.object$submissionType
     )
     
     return (res)
@@ -111,3 +124,17 @@ fromJSON.ProjectSummary <- function(json_str, file, method = "C") {
 get.ProjectSummary <- function(accession) {
     fromJSON.ProjectSummary(file=paste0(pride_archive_url, "/project/", accession), method="C")
 }
+
+#' Returns a list of PRIDE Archive project summaries
+#'
+#' @param count the maximum number of projects
+#' @return The list of ProjectSummary objects
+#' @author Jose A. Dianes
+#' @details TODO
+#' @export
+get.list.ProjectSummary <- function(count=1) {
+    json.list <- fromJSON(file=paste0(pride_archive_url, "/project/list", "?show=", count), method="C")
+    project.list <- lapply(json.list[[1]], function(x) { from.json.ProjectSummary(x)})
+    return(project.list)
+}
+

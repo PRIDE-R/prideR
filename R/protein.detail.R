@@ -56,7 +56,7 @@ as.data.frame.ProteinDetail <-
         return(value)
     }
 
-#' Returns a data frame from ProteinDetail list
+#' Returns a data frame from a  list of ProteinDetail
 #'
 #' @param list.of.ProteinDetail The protein detail list
 #' @return The protein identification details as a data frame
