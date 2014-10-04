@@ -1,3 +1,7 @@
+pride_archive_url <- "http://www.ebi.ac.uk/pride/ws/archive"
+pride_archive_url_dev <- "http://wwwdev.ebi.ac.uk/pride/ws/archive"
+MISSING_VALUE <- "Not available"
+
 #' PsmDetail represents a PRIDE Archive peptide-spectrum matching
 #'
 #' @importFrom rjson fromJSON
@@ -90,44 +94,67 @@ as.data.frame.PsmDetail <-
 
 format.PsmDetail <- function(x, ...) paste0(x@id, ", ", x@assayAccession)
 
-#' Returns a PsmDetail instance from a JSON string representation
+#' Returns a ProteinDetail instance from a JSON string representation
 #'
 #' @param json_str The JSON object
 #' @param file the name of a file to read the json_str from; this can also be a URL. Only one of json_str or file must be supplied.
 #' @param method use the C implementation, or the older slower (and one day to be depricated) R implementation
 #' @param unexpected.escape changed handling of unexpected escaped characters. Handling value should be one of "error", "skip", or "keep"; on unexpected characters issue an error, skip the character, or keep the character
-#' @return The PsmDetail instance
+#' @return The ProteinDetail instance
 #' @author Jose A. Dianes
 #' @details TODO
 #' @importFrom rjson fromJSON
 #' @export
-fromJSON.PsmDetail <- function(json.str, file, method = "C") {
-  json.list <- fromJSON(json.str, file, method)
-  
-  res <- new("PsmDetail",
-             id = json.list$id,
-             project.accession = json.list$projectAccession,
-             assay.accession = json.list$assayAccession,
-             protein.accession = json.list$proteinAccession,
-             start.position = json.list$startPosition,
-             end.position = json.list$endPosition,
-             modifications = json.list$modifications,             
-             search.engines = json.list$searchEngines,
-             search.engines.scores = json.list$searchEnginesScores,
-             retention.time = json.list$retentionTime,
-             charge = json.list$charge,
-             calculated.mz = json.list$calculatedMZ,
-             experimental.mz = json.list$experimentalMZ,
-             pre.aa = json.list$preAA,
-             post.aa = x@post.aa,
-             spectrum.id = json.list$spectrumID,
-             reported.id = json.list$reportedID,            
-             sequence = json.list$sequence
-  )
-  
-  return (res)
+from.json.PsmDetail <- function(json.object) {
+    
+    res <- new("PsmDetail",
+               id = json.object$id,
+               project.accession = json.object$projectAccession,
+               assay.accession = json.object$assay.accession,
+               start.position = json.object$start.position, 
+               end.position = json.object$end.position, 
+               modifications = ifelse(is.null(json.object$modifications), c(MISSING_VALUE), json.object$modifications),
+               search.engines = ifelse(is.null(json.object$searchEngines), c(MISSING_VALUE), json.object$searchEngines),
+               search.engines.scores = ifelse(is.null(json.object$searchEnginesScores), c(MISSING_VALUE), json.object$searchEnginesScores),
+               retention.time = json.object$retentionTime,
+               charge = json.object$charge,
+               calculated.mz = json.object$calculatedMz,
+               experimental.mz = json.object$experimentalMz,
+               pre.aa = json.object$preAA,
+               post.aa = json.object$postAA,
+               spectrum.id = json.object$spectrumId,
+               reported.id = json.object$reportedId,
+               sequence = json.object$sequence
+    )
+    
+    return (res)
 }
 
+#' Returns a list of PRIDE Archive PSMs associated with a given project
+#'
+#' @param accession The project accession
+#' @return The list of PSM objects
+#' @author Jose A. Dianes
+#' @details TODO
+#' @export
+get.list.PsmDetail <- function(project.accession, count=1) {
+    json.list <- fromJSON(file=paste0(pride_archive_url_dev, "/peptide/list/project/", project.accession, "?show=", count), method="C")
+    details.list <- lapply(json.list[[1]], function(x) { from.json.PsmDetail(x)})
+    return(details.list)
+}
+
+#' Returns the number of PSM for a particual public project
+#'
+#' @param project.accession The project accession to count PSM from
+#' @return The count of PSM
+#' @author Jose A. Dianes
+#' @details TODO
+#' @export
+#' @importFrom rjson fromJSON
+count.PsmDetail <- function(project.accession) {    
+    psm.count <- fromJSON(file=URLencode(paste0(pride_archive_url_dev, "/peptide/count/project/", project.accession)), method="C")
+    psm.count                          
+}
 
 
 

@@ -72,19 +72,6 @@ as.data.frame.ProjectSummary <-
         return(value)
     }
 
-#' Returns a data frame from a  list of ProjectSummary
-#'
-#' @param list.of.ProjectSummary The project summary list
-#' @return The project summaries as a data frame
-#' @author Jose A. Dianes
-#' @details TODO
-#' @export
-list.to.data.frame.ProjectSummary <- 
-    function(list.of.ProjectSummary)
-    {
-        do.call(rbind.data.frame, lapply(list.of.ProjectSummary, as.data.frame))
-    }
-
 format.ProjectSummary <- function(x, ...) paste0(x@accession, ", ", x@title)
 
 #' Returns a ProjectSummary instance from a JSON string representation
