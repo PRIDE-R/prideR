@@ -1,4 +1,5 @@
-## About  
+prideR
+======
 
 This is an R package to obtain data from the EMBL-EBI Proteomics Repository Identifications Database (PRIDE). It uses its RESTful Web Service for that purpose.  
 
