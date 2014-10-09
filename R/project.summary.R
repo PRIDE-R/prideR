@@ -38,6 +38,24 @@ setClass(
     )
 )
 
+setMethod("show",
+          signature = "ProjectSummary",
+          definition = function(object) {
+              cat("An object of class ", class(object), "\n", sep="")
+              cat(" with ", object@num.assays, " assays and made public in ", as.character(object@publication.date), "\n", sep="")
+              cat("    Accession: ", object@accession, "\n", sep="")
+              cat("    Title: ", object@title, "\n", sep="")
+              cat("    Description: ", object@project.description, "\n", sep="")
+              cat("    Species: ", object@species, "\n", sep=" ")
+              cat("    Tissues: ", object@tissues, "\n", sep=" ")
+              cat("    PTMs: ", object@ptm.names, "\n", sep=" ")
+              cat("    Instruments: ", object@instrument.names, "\n", sep=" ")
+              cat("    Tags: ", object@project.tags, "\n", sep=" ")
+              cat("    Submission type: ", object@submission.type, "\n", sep="")
+              invisible(NULL)
+          }
+)
+
 #' Returns a data frame from ProjectSummary inputs
 #'
 #' @param x The project summaries
@@ -112,7 +130,7 @@ from.json.ProjectSummary <- function(json.object) {
 #' @export
 #' @importFrom rjson fromJSON
 get.ProjectSummary <- function(accession) {
-    fromJSON.ProjectSummary(file=paste0(pride_archive_url, "/project/", accession), method="C")
+    from.json.ProjectSummary(fromJSON(file=paste0(pride_archive_url, "/project/", accession), method="C"))
 }
 
 #' Returns a list of PRIDE Archive project summaries
