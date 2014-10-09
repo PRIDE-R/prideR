@@ -56,6 +56,105 @@ setMethod("show",
           }
 )
 
+setGeneric("accession", function(object, ...) standardGeneric("accession"))
+#' Returns a project accession
+#' 
+#' @param object a ProjectSummary
+#' @return the accession
+#' @author Jose A. Dianes
+#' @export
+setMethod("accession", "ProjectSummary", function(object) object@accession)
+
+setGeneric("title", function(object, ...) standardGeneric("title"))
+#' Returns a project title
+#' 
+#' @param object a ProjectSummary
+#' @return the project title
+#' @author Jose A. Dianes
+#' @export
+setMethod("title", "ProjectSummary", function(object) object@title)
+
+setGeneric("description", function(object, ...) standardGeneric("description"))
+#' Returns a project description
+#' 
+#' @param object a ProjectSummary
+#' @return the project description
+#' @author Jose A. Dianes
+#' @export
+setMethod("description", "ProjectSummary", function(object) object@project.description)
+
+setGeneric("publication.date", function(object, ...) standardGeneric("publication.date"))
+#' Returns a project publication date
+#' 
+#' @param object a ProjectSummary
+#' @return the project publication date
+#' @author Jose A. Dianes
+#' @export
+setMethod("publication.date", "ProjectSummary", function(object) object@publication.date)
+
+setGeneric("num.assays", function(object, ...) standardGeneric("num.assays"))
+#' Returns a project number of assays
+#' 
+#' @param object a ProjectSummary
+#' @return the number of assays
+#' @author Jose A. Dianes
+#' @export
+setMethod("num.assays", "ProjectSummary", function(object) object@num.assays)
+
+setGeneric("species", function(object, ...) standardGeneric("species"))
+#' Returns a project species
+#' 
+#' @param object a ProjectSummary
+#' @return the project species
+#' @author Jose A. Dianes
+#' @export
+setMethod("species", "ProjectSummary", function(object) object@species)
+
+setGeneric("tissues", function(object, ...) standardGeneric("tissues"))
+#' Returns a project tissues
+#' 
+#' @param object a ProjectSummary
+#' @return the project tissues
+#' @author Jose A. Dianes
+#' @export
+setMethod("tissues", "ProjectSummary", function(object) object@tissues)
+
+setGeneric("ptm.names", function(object, ...) standardGeneric("ptm.names"))
+#' Returns a project modification names
+#' 
+#' @param object a ProjectSummary
+#' @return the project modification names
+#' @author Jose A. Dianes
+#' @export
+setMethod("ptm.names", "ProjectSummary", function(object) object@ptm.names)
+
+setGeneric("instrument.names", function(object, ...) standardGeneric("instrument.names"))
+#' Returns a project instrument names
+#' 
+#' @param object a ProjectSummary
+#' @return the project instrument names
+#' @author Jose A. Dianes
+#' @export
+setMethod("instrument.names", "ProjectSummary", function(object) object@instrument.names)
+
+setGeneric("tags", function(object, ...) standardGeneric("tags"))
+#' Returns a project tags
+#' 
+#' @param object a ProjectSummary
+#' @return the project tags
+#' @author Jose A. Dianes
+#' @export
+setMethod("tags", "ProjectSummary", function(object) object@project.tags)
+
+setGeneric("submission.type", function(object, ...) standardGeneric("submission.type"))
+#' Returns a project submission type
+#' 
+#' @param object a ProjectSummary
+#' @return the project submission type
+#' @author Jose A. Dianes
+#' @export
+setMethod("submission.type", "ProjectSummary", function(object) object@submission.type)
+
 #' Returns a data frame from ProjectSummary inputs
 #'
 #' @param x The project summaries
