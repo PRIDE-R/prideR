@@ -42,8 +42,7 @@ setMethod("show",
 )
 
 if (!isGeneric("accession")) {
-    fun <- function(object) standardGeneric("accession")
-    setGeneric("accession", fun)
+    setGeneric("accession", function(object) standardGeneric("accession"))
 }
 #' Returns a protein accession
 #' 
@@ -71,8 +70,7 @@ setMethod("accession<-", "ProteinDetail",
 )
 
 if (!isGeneric("project.accession")) {
-    fun <- function(object) standardGeneric("project.accession")
-    setGeneric("project.accession", fun)
+    setGeneric("project.accession", function(object) standardGeneric("project.accession"))
 }
 #' Returns a protein project accession
 #' 
@@ -100,8 +98,7 @@ setMethod("project.accession<-", "ProteinDetail",
 )
 
 if (!isGeneric("assay.accession")) {
-    fun <- function(object) standardGeneric("assay.accession")
-    setGeneric("assay.accession", fun)
+    setGeneric("assay.accession", function(object) standardGeneric("assay.accession"))
 }
 #' Returns a protein assay accession
 #' 
@@ -123,6 +120,90 @@ if (!isGeneric("assay.accession<-")) {
 setMethod("assay.accession<-", "ProteinDetail",
           function(object, value) {
               object@assay.accession <- value
+              if (validObject(object))
+                  return(object)
+          }
+)
+
+if (!isGeneric("synonyms")) {
+    setGeneric("synonyms", function(object) standardGeneric("synonyms"))
+}
+#' Returns a protein synonyms
+#' 
+#' @param object a ProjectDetail
+#' @return the synonyms
+#' @author Jose A. Dianes
+#' @export
+setMethod("synonyms", "ProteinDetail", function(object) object@synonyms)
+
+if (!isGeneric("synonyms<-")) {
+    setGeneric("synonyms<-", function(object, value) standardGeneric("synonyms<-"))
+}
+#' Replaces a protein synonyms
+#' 
+#' @param object a ProteinDetail
+#' @param value the synonyms
+#' @author Jose A. Dianes
+#' @export
+setMethod("synonyms<-", "ProteinDetail",
+          function(object, value) {
+              object@synonyms <- value
+              if (validObject(object))
+                  return(object)
+          }
+)
+
+if (!isGeneric("description")) {
+    setGeneric("description", function(object) standardGeneric("description"))
+}
+#' Returns a protein description
+#' 
+#' @param object a ProjectDetail
+#' @return the description
+#' @author Jose A. Dianes
+#' @export
+setMethod("description", "ProteinDetail", function(object) object@description)
+
+if (!isGeneric("description<-")) {
+    setGeneric("description<-", function(object, value) standardGeneric("description<-"))
+}
+#' Replaces a protein description
+#' 
+#' @param object a ProteinDetail
+#' @param value the description
+#' @author Jose A. Dianes
+#' @export
+setMethod("description<-", "ProteinDetail",
+          function(object, value) {
+              object@description <- value
+              if (validObject(object))
+                  return(object)
+          }
+)
+
+if (!isGeneric("sequence")) {
+    setGeneric("sequence", function(object) standardGeneric("sequence"))
+}
+#' Returns a protein sequence
+#' 
+#' @param object a ProjectDetail
+#' @return the sequence
+#' @author Jose A. Dianes
+#' @export
+setMethod("sequence", "ProteinDetail", function(object) object@sequence)
+
+if (!isGeneric("sequence<-")) {
+    setGeneric("sequence<-", function(object, value) standardGeneric("sequence<-"))
+}
+#' Replaces a protein sequence
+#' 
+#' @param object a ProteinDetail
+#' @param value the sequence
+#' @author Jose A. Dianes
+#' @export
+setMethod("sequence<-", "ProteinDetail",
+          function(object, value) {
+              object@sequence <- value
               if (validObject(object))
                   return(object)
           }
