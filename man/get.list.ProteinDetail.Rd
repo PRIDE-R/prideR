@@ -3,7 +3,7 @@
 \alias{get.list.ProteinDetail}
 \title{Returns a list of PRIDE Archive PSMs associated with a given project}
 \usage{
-get.list.ProteinDetail(project.accession, count = 1)
+get.list.ProteinDetail(project.accession, count = 100)
 }
 \arguments{
 \item{accession}{The project accession}

@@ -138,7 +138,7 @@ from.json.PsmDetail <- function(json.object) {
 #' @author Jose A. Dianes
 #' @details TODO
 #' @export
-get.list.PsmDetail <- function(project.accession, count=1) {
+get.list.PsmDetail <- function(project.accession, count=100) {
     json.list <- fromJSON(file=paste0(pride_archive_url_dev, "/peptide/list/project/", project.accession, "?show=", count), method="C")
     details.list <- lapply(json.list[[1]], function(x) { from.json.PsmDetail(x)})
     return(details.list)
