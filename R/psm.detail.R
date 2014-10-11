@@ -133,6 +133,7 @@ from.json.PsmDetail <- function(json.object) {
 #' Returns a list of PRIDE Archive PSMs associated with a given project
 #'
 #' @param accession The project accession
+#' @param count The maximum PSMs to return from the project (deault is 1)
 #' @return The list of PSM objects
 #' @author Jose A. Dianes
 #' @details TODO

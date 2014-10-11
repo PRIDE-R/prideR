@@ -6,7 +6,6 @@
 #' @details TODO
 #' @export
 list.to.data.frame <- 
-    function(list.of.objects)
-    {
+    function(list.of.objects) {
         do.call(rbind.data.frame, lapply(list.of.objects, as.data.frame))
     }

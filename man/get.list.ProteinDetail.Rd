@@ -7,6 +7,8 @@ get.list.ProteinDetail(project.accession, count = 1)
 }
 \arguments{
 \item{accession}{The project accession}
+
+\item{count}{The maximum proteins to return from the project (deault is 1)}
 }
 \value{
 The list of ProteinDetail objects

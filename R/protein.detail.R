@@ -27,6 +27,107 @@ setClass(
     )
 )
 
+setMethod("show",
+          signature = "ProteinDetail",
+          definition = function(object) {
+              cat("An object of class ", class(object), " with\n", sep="")
+              cat("    Accession: ", object@accession, "\n", sep="")
+              cat("    Project accession: ", object@project.accession, "\n", sep="")
+              cat("    Assay accession: ", object@assay.accession, "\n", sep="")
+              cat("    Synonyms: ", object@synonyms, "\n", sep=" ")
+              cat("    Description: ", object@description, "\n", sep=" ")
+              cat("    Sequence: ", object@sequence, "\n", sep=" ")
+              invisible(NULL)
+          }
+)
+
+if (!isGeneric("accession")) {
+    fun <- function(object) standardGeneric("accession")
+    setGeneric("accession", fun)
+}
+#' Returns a protein accession
+#' 
+#' @param object a ProjectDetail
+#' @return the accession
+#' @author Jose A. Dianes
+#' @export
+setMethod("accession", "ProteinDetail", function(object) object@accession)
+
+if (!isGeneric("accession<-")) {
+    setGeneric("accession<-", function(object, value) standardGeneric("accession<-"))
+}
+#' Replaces a protein accession
+#' 
+#' @param object a ProteinDetail
+#' @param value the accession
+#' @author Jose A. Dianes
+#' @export
+setMethod("accession<-", "ProteinDetail",
+          function(object, value) {
+              object@accession <- value
+              if (validObject(object))
+                  return(object)
+          }
+)
+
+if (!isGeneric("project.accession")) {
+    fun <- function(object) standardGeneric("project.accession")
+    setGeneric("project.accession", fun)
+}
+#' Returns a protein project accession
+#' 
+#' @param object a ProjectDetail
+#' @return the project accession
+#' @author Jose A. Dianes
+#' @export
+setMethod("project.accession", "ProteinDetail", function(object) object@project.accession)
+
+if (!isGeneric("project.accession<-")) {
+    setGeneric("project.accession<-", function(object, value) standardGeneric("project.accession<-"))
+}
+#' Replaces a protein project accession
+#' 
+#' @param object a ProteinDetail
+#' @param value the project accession
+#' @author Jose A. Dianes
+#' @export
+setMethod("project.accession<-", "ProteinDetail",
+          function(object, value) {
+              object@project.accession <- value
+              if (validObject(object))
+                  return(object)
+          }
+)
+
+if (!isGeneric("assay.accession")) {
+    fun <- function(object) standardGeneric("assay.accession")
+    setGeneric("assay.accession", fun)
+}
+#' Returns a protein assay accession
+#' 
+#' @param object a ProjectDetail
+#' @return the assay accession
+#' @author Jose A. Dianes
+#' @export
+setMethod("assay.accession", "ProteinDetail", function(object) object@assay.accession)
+
+if (!isGeneric("assay.accession<-")) {
+    setGeneric("assay.accession<-", function(object, value) standardGeneric("assay.accession<-"))
+}
+#' Replaces a protein assay accession
+#' 
+#' @param object a ProteinDetail
+#' @param value the assay accession
+#' @author Jose A. Dianes
+#' @export
+setMethod("assay.accession<-", "ProteinDetail",
+          function(object, value) {
+              object@assay.accession <- value
+              if (validObject(object))
+                  return(object)
+          }
+)
+
 #' Returns a data frame from ProteinDetail inputs
 #'
 #' @param x The protein detail inputs
@@ -84,6 +185,7 @@ from.json.ProteinDetail <- function(json.object) {
 #' Returns a list of PRIDE Archive PSMs associated with a given project
 #'
 #' @param accession The project accession
+#' @param count The maximum proteins to return from the project (deault is 1)
 #' @return The list of ProteinDetail objects
 #' @author Jose A. Dianes
 #' @details TODO

@@ -56,7 +56,10 @@ setMethod("show",
           }
 )
 
-setGeneric("accession", function(object, ...) standardGeneric("accession"))
+if (!isGeneric("accession")) {
+    fun <- function(object) standardGeneric("accession")
+    setGeneric("accession", fun)
+}
 #' Returns a project accession
 #' 
 #' @param object a ProjectSummary
@@ -65,7 +68,9 @@ setGeneric("accession", function(object, ...) standardGeneric("accession"))
 #' @export
 setMethod("accession", "ProjectSummary", function(object) object@accession)
 
-setGeneric("accession<-", function(object, value) standardGeneric("accession<-"))
+if (!isGeneric("accession<-")) {
+    setGeneric("accession<-", function(object, value) standardGeneric("accession<-"))
+}
 #' Replaces a project accession
 #' 
 #' @param object a ProjectSummary
@@ -80,7 +85,9 @@ setMethod("accession<-", "ProjectSummary",
     }
 )
 
-setGeneric("title", function(object, ...) standardGeneric("title"))
+if (!isGeneric("title")) {
+    setGeneric("title", function(object) standardGeneric("title"))
+}
 #' Returns a project title
 #' 
 #' @param object a ProjectSummary
@@ -89,7 +96,9 @@ setGeneric("title", function(object, ...) standardGeneric("title"))
 #' @export
 setMethod("title", "ProjectSummary", function(object) object@title)
 
-setGeneric("title<-", function(object, value) standardGeneric("title<-"))
+if (!isGeneric("title<-")) {
+    setGeneric("title<-", function(object, value) standardGeneric("title<-"))
+}
 #' Replaces a project title
 #' 
 #' @param object a ProjectSummary
@@ -104,7 +113,9 @@ setMethod("title<-", "ProjectSummary",
           }
 )
 
-setGeneric("description", function(object, ...) standardGeneric("description"))
+if (!isGeneric("description")) {
+    setGeneric("description", function(object) standardGeneric("description"))
+}
 #' Returns a project description
 #' 
 #' @param object a ProjectSummary
@@ -113,7 +124,9 @@ setGeneric("description", function(object, ...) standardGeneric("description"))
 #' @export
 setMethod("description", "ProjectSummary", function(object) object@project.description)
 
-setGeneric("description<-", function(object, value) standardGeneric("description<-"))
+if (!isGeneric("description<-")) {
+    setGeneric("description<-", function(object, value) standardGeneric("description<-"))
+}
 #' Replaces a project description
 #' 
 #' @param object a ProjectSummary
@@ -128,7 +141,9 @@ setMethod("description<-", "ProjectSummary",
           }
 )
 
-setGeneric("publication.date", function(object, ...) standardGeneric("publication.date"))
+if (!isGeneric("publication.date")) {
+    setGeneric("publication.date", function(object) standardGeneric("publication.date"))
+}
 #' Returns a project publication date
 #' 
 #' @param object a ProjectSummary
@@ -137,7 +152,9 @@ setGeneric("publication.date", function(object, ...) standardGeneric("publicatio
 #' @export
 setMethod("publication.date", "ProjectSummary", function(object) object@publication.date)
 
-setGeneric("publication.date<-", function(object, value) standardGeneric("publication.date<-"))
+if (!isGeneric("publication.date<-")) {
+    setGeneric("publication.date<-", function(object, value) standardGeneric("publication.date<-"))
+}
 #' Replaces a project publication date
 #' 
 #' @param object a ProjectSummary
@@ -152,7 +169,9 @@ setMethod("publication.date<-", "ProjectSummary",
           }
 )
 
-setGeneric("num.assays", function(object, ...) standardGeneric("num.assays"))
+if (!isGeneric("num.assays")) {
+    setGeneric("num.assays", function(object) standardGeneric("num.assays"))
+}
 #' Returns a project number of assays
 #' 
 #' @param object a ProjectSummary
@@ -161,7 +180,9 @@ setGeneric("num.assays", function(object, ...) standardGeneric("num.assays"))
 #' @export
 setMethod("num.assays", "ProjectSummary", function(object) object@num.assays)
 
-setGeneric("num.assays<-", function(object, value) standardGeneric("num.assays<-"))
+if (!isGeneric("num.assays<-")) {
+    setGeneric("num.assays<-", function(object, value) standardGeneric("num.assays<-"))
+}
 #' Replaces a project number of assays
 #' 
 #' @param object a ProjectSummary
@@ -176,7 +197,9 @@ setMethod("num.assays<-", "ProjectSummary",
           }
 )
 
-setGeneric("species", function(object, ...) standardGeneric("species"))
+if (!isGeneric("species")) {
+    setGeneric("species", function(object) standardGeneric("species"))
+}
 #' Returns a project species
 #' 
 #' @param object a ProjectSummary
@@ -185,7 +208,9 @@ setGeneric("species", function(object, ...) standardGeneric("species"))
 #' @export
 setMethod("species", "ProjectSummary", function(object) object@species)
 
-setGeneric("species<-", function(object, value) standardGeneric("species<-"))
+if (!isGeneric("species<-")) {
+    setGeneric("species<-", function(object, value) standardGeneric("species<-"))
+}
 #' Replaces the project species
 #' 
 #' @param object a ProjectSummary
@@ -200,7 +225,9 @@ setMethod("species<-", "ProjectSummary",
           }
 )
 
-setGeneric("tissues", function(object, ...) standardGeneric("tissues"))
+if (!isGeneric("tissues")) {
+    setGeneric("tissues", function(object) standardGeneric("tissues"))
+}
 #' Returns a project tissues
 #' 
 #' @param object a ProjectSummary
@@ -209,7 +236,9 @@ setGeneric("tissues", function(object, ...) standardGeneric("tissues"))
 #' @export
 setMethod("tissues", "ProjectSummary", function(object) object@tissues)
 
-setGeneric("tissues<-", function(object, value) standardGeneric("tissues<-"))
+if (!isGeneric("tissues<-")) {
+    setGeneric("tissues<-", function(object, value) standardGeneric("tissues<-"))
+}
 #' Replaces the project tissues
 #' 
 #' @param object a ProjectSummary
@@ -224,7 +253,9 @@ setMethod("tissues<-", "ProjectSummary",
           }
 )
 
-setGeneric("ptm.names", function(object, ...) standardGeneric("ptm.names"))
+if (!isGeneric("ptm.names")) {
+    setGeneric("ptm.names", function(object) standardGeneric("ptm.names"))
+}
 #' Returns a project modification names
 #' 
 #' @param object a ProjectSummary
@@ -233,7 +264,9 @@ setGeneric("ptm.names", function(object, ...) standardGeneric("ptm.names"))
 #' @export
 setMethod("ptm.names", "ProjectSummary", function(object) object@ptm.names)
 
-setGeneric("ptm.names<-", function(object, value) standardGeneric("ptm.names<-"))
+if (!isGeneric("ptm.names<-")) {
+    setGeneric("ptm.names<-", function(object, value) standardGeneric("ptm.names<-"))
+}
 #' Replaces the project PTMs
 #' 
 #' @param object a ProjectSummary
@@ -248,7 +281,9 @@ setMethod("ptm.names<-", "ProjectSummary",
           }
 )
 
-setGeneric("instrument.names", function(object, ...) standardGeneric("instrument.names"))
+if (!isGeneric("instrument.names")) {
+    setGeneric("instrument.names", function(object) standardGeneric("instrument.names"))
+}
 #' Returns a project instrument names
 #' 
 #' @param object a ProjectSummary
@@ -257,7 +292,9 @@ setGeneric("instrument.names", function(object, ...) standardGeneric("instrument
 #' @export
 setMethod("instrument.names", "ProjectSummary", function(object) object@instrument.names)
 
-setGeneric("instrument.names<-", function(object, value) standardGeneric("instrument.names<-"))
+if (!isGeneric("instrument.names<-")) {
+    setGeneric("instrument.names<-", function(object, value) standardGeneric("instrument.names<-"))
+}
 #' Replaces the project instrument nanmes
 #' 
 #' @param object a ProjectSummary
@@ -272,7 +309,9 @@ setMethod("instrument.names<-", "ProjectSummary",
           }
 )
 
-setGeneric("tags", function(object, ...) standardGeneric("tags"))
+if (!isGeneric("tags")) {
+    setGeneric("tags", function(object) standardGeneric("tags"))
+}
 #' Returns a project tags
 #' 
 #' @param object a ProjectSummary
@@ -281,7 +320,9 @@ setGeneric("tags", function(object, ...) standardGeneric("tags"))
 #' @export
 setMethod("tags", "ProjectSummary", function(object) object@project.tags)
 
-setGeneric("tags<-", function(object, value) standardGeneric("tags<-"))
+if (!isGeneric("tags<-")) {
+    setGeneric("tags<-", function(object, value) standardGeneric("tags<-"))
+}
 #' Replaces the project tags
 #' 
 #' @param object a ProjectSummary
@@ -296,7 +337,9 @@ setMethod("tags<-", "ProjectSummary",
           }
 )
 
-setGeneric("submission.type", function(object, ...) standardGeneric("submission.type"))
+if (!isGeneric("submission.type")) {
+    setGeneric("submission.type", function(object) standardGeneric("submission.type"))
+}
 #' Returns a project submission type
 #' 
 #' @param object a ProjectSummary
@@ -305,7 +348,9 @@ setGeneric("submission.type", function(object, ...) standardGeneric("submission.
 #' @export
 setMethod("submission.type", "ProjectSummary", function(object) object@submission.type)
 
-setGeneric("submission.type<-", function(object, value) standardGeneric("submission.type<-"))
+if (!isGeneric("submission.type<-")) {
+    setGeneric("submission.type<-", function(object, value) standardGeneric("submission.type<-"))
+}
 #' Replaces the project submission type
 #' 
 #' @param object a ProjectSummary
