@@ -58,5 +58,5 @@ Some things to be done, sooner than later:
 
 ### How to cite
 
-* Vizcaíno, J. A., Côté, R. G., Csordas, A., Dianes, J. A., Fabregat, A., Foster, J. M., ... & Hermjakob, H. (2013). *The PRoteomics IDEntifications (PRIDE) database and associated tools: status in 2013*. Nucleic acids research, 41(D1), D1063-D1069. [PDF](http://www.nature.com/nbt/journal/v30/n2/pdf/nbt.2112.pdf), [PubMed](http://www.ncbi.nlm.nih.gov/pubmed/22318026)  
+* Vizcaíno, J. A., Côté, R. G., Csordas, A., Dianes, J. A., Fabregat, A., Foster, J. M., ... & Hermjakob, H. (2013). *The PRoteomics IDEntifications (PRIDE) database and associated tools: status in 2013*. Nucleic acids research, 41(D1), D1063-D1069. [HERE](http://www.nature.com/nbt/journal/v32/n3/full/nbt.2839.html)  
 
