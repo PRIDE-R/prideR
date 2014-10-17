@@ -56,4 +56,7 @@ Some things to be done, sooner than later:
 - Write setters and getters  
 - Deal with `AssaySummary`, `FileDetail`, and `SpectrumDetail` entities  
 
+### How to cite
+
+* Vizcaíno, J. A., Côté, R. G., Csordas, A., Dianes, J. A., Fabregat, A., Foster, J. M., ... & Hermjakob, H. (2013). *The PRoteomics IDEntifications (PRIDE) database and associated tools: status in 2013*. Nucleic acids research, 41(D1), D1063-D1069.  
 
