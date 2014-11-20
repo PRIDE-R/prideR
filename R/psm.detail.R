@@ -51,6 +51,35 @@ setClass(
   )
 )
 
+if (!isGeneric("id")) {
+    setGeneric("id", function(object) standardGeneric("id"))
+}
+#' Returns a PSM id
+#' 
+#' @param object a PsmDetail
+#' @return the ID
+#' @author Jose A. Dianes
+#' @export
+setMethod("id", "PsmDetail", function(object) object@id)
+
+if (!isGeneric("id<-")) {
+    setGeneric("id<-", function(object, value) standardGeneric("id<-"))
+}
+#' Replaces a PSM is
+#' 
+#' @param object a ProteinDetail
+#' @param value the id
+#' @author Jose A. Dianes
+#' @export
+setMethod("id<-", "PsmDetail",
+          function(object, value) {
+              object@id <- value
+              if (validObject(object))
+                  return(object)
+          }
+)
+
+
 #' Returns a data frame from PsmDetail inputs
 #'
 #' @param x The PSM detail inputs
@@ -110,20 +139,20 @@ from.json.PsmDetail <- function(json.object) {
     res <- new("PsmDetail",
                id = json.object$id,
                project.accession = json.object$projectAccession,
-               assay.accession = json.object$assay.accession,
-               start.position = json.object$start.position, 
-               end.position = json.object$end.position, 
+               assay.accession = json.object$assayAccession,
+               start.position = json.object$startPosition, 
+               end.position = json.object$endPosition, 
                modifications = ifelse(is.null(json.object$modifications), c(MISSING_VALUE), json.object$modifications),
                search.engines = ifelse(is.null(json.object$searchEngines), c(MISSING_VALUE), json.object$searchEngines),
                search.engines.scores = ifelse(is.null(json.object$searchEnginesScores), c(MISSING_VALUE), json.object$searchEnginesScores),
-               retention.time = json.object$retentionTime,
+               retention.time = ifelse(is.null(json.object$retentionTime), 0.0, json.object$retentionTime),
                charge = json.object$charge,
-               calculated.mz = json.object$calculatedMz,
-               experimental.mz = json.object$experimentalMz,
-               pre.aa = json.object$preAA,
-               post.aa = json.object$postAA,
-               spectrum.id = json.object$spectrumId,
-               reported.id = json.object$reportedId,
+               calculated.mz = ifelse(is.null(json.object$calculatedMz), 0.0, json.object$calculatedMz),
+               experimental.mz = ifelse(is.null(json.object$experimentalMz), 0.0, json.object$experimentalMz),
+               pre.aa = ifelse(is.null(json.object$preAA), MISSING_VALUE, json.object$preAA),
+               post.aa = ifelse(is.null(json.object$postAA), MISSING_VALUE, json.object$postAA),
+               spectrum.id = ifelse(is.null(json.object$spectrumID), 0.0, json.object$spectrumID),
+               reported.id = ifelse(is.null(json.object$reportedID), 0.0, json.object$reportedID),
                sequence = json.object$sequence
     )
     
