@@ -51,6 +51,19 @@ setClass(
   )
 )
 
+setMethod("show",
+          signature = "PsmDetail",
+          definition = function(object) {
+              cat("An object of class ", class(object), " with\n", sep="")
+              cat("    ID: ", object@id, "\n", sep="")
+              cat("    Project accession: ", object@project.accession, "\n", sep="")
+              cat("    Assay accession: ", object@assay.accession, "\n", sep="")
+              cat("    Protein accession: ", object@protein.accession, "\n", sep="")
+              cat("    Sequence: ", object@sequence, "\n", sep=" ")
+              invisible(NULL)
+          }
+)
+
 if (!isGeneric("id")) {
     setGeneric("id", function(object) standardGeneric("id"))
 }
@@ -615,13 +628,14 @@ from.json.PsmDetail <- function(json.object) {
                id = json.object$id,
                project.accession = json.object$projectAccession,
                assay.accession = json.object$assayAccession,
-               start.position = json.object$startPosition, 
-               end.position = json.object$endPosition, 
+               protein.accession = json.object$proteinAccession,
+               start.position = ifelse(is.null(json.object$startPosition), -1, json.object$startPosition),
+               end.position = ifelse(is.null(json.object$endPosition), -1, json.object$endPosition),
                modifications = ifelse(is.null(json.object$modifications), c(MISSING_VALUE), json.object$modifications),
                search.engines = ifelse(is.null(json.object$searchEngines), c(MISSING_VALUE), json.object$searchEngines),
                search.engines.scores = ifelse(is.null(json.object$searchEnginesScores), c(MISSING_VALUE), json.object$searchEnginesScores),
                retention.time = ifelse(is.null(json.object$retentionTime), 0.0, json.object$retentionTime),
-               charge = json.object$charge,
+               charge = ifelse(is.null(json.object$charge), 0.0, json.object$charge),
                calculated.mz = ifelse(is.null(json.object$calculatedMz), 0.0, json.object$calculatedMz),
                experimental.mz = ifelse(is.null(json.object$experimentalMz), 0.0, json.object$experimentalMz),
                pre.aa = ifelse(is.null(json.object$preAA), MISSING_VALUE, json.object$preAA),
