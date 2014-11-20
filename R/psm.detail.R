@@ -79,6 +79,174 @@ setMethod("id<-", "PsmDetail",
           }
 )
 
+if (!isGeneric("project.accession")) {
+    setGeneric("project.accession", function(object) standardGeneric("project.accession"))
+}
+#' Returns a PSM project.accession
+#' 
+#' @param object a PsmDetail
+#' @return the project.accession
+#' @author Jose A. Dianes
+#' @export
+setMethod("project.accession", "PsmDetail", function(object) object@project.accession)
+
+if (!isGeneric("project.accession<-")) {
+    setGeneric("project.accession<-", function(object, value) standardGeneric("project.accession<-"))
+}
+#' Replaces a PSM project.accession
+#' 
+#' @param object a ProteinDetail
+#' @param value the project.accession
+#' @author Jose A. Dianes
+#' @export
+setMethod("project.accession<-", "PsmDetail",
+          function(object, value) {
+              object@project.accession <- value
+              if (validObject(object))
+                  return(object)
+          }
+)
+
+if (!isGeneric("assay.accession")) {
+    setGeneric("assay.accession", function(object) standardGeneric("assay.accession"))
+}
+#' Returns a PSM assay.accession
+#' 
+#' @param object a PsmDetail
+#' @return the assay.accession
+#' @author Jose A. Dianes
+#' @export
+setMethod("assay.accession", "PsmDetail", function(object) object@assay.accession)
+
+if (!isGeneric("assay.accession<-")) {
+    setGeneric("assay.accession<-", function(object, value) standardGeneric("assay.accession<-"))
+}
+#' Replaces a PSM assay.accession
+#' 
+#' @param object a ProteinDetail
+#' @param value the assay.accession
+#' @author Jose A. Dianes
+#' @export
+setMethod("assay.accession<-", "PsmDetail",
+          function(object, value) {
+              object@assay.accession <- value
+              if (validObject(object))
+                  return(object)
+          }
+)
+
+if (!isGeneric("protein.accession")) {
+    setGeneric("protein.accession", function(object) standardGeneric("protein.accession"))
+}
+#' Returns a PSM protein.accession
+#' 
+#' @param object a PsmDetail
+#' @return the protein.accession
+#' @author Jose A. Dianes
+#' @export
+setMethod("protein.accession", "PsmDetail", function(object) object@protein.accession)
+
+if (!isGeneric("protein.accession<-")) {
+    setGeneric("protein.accession<-", function(object, value) standardGeneric("protein.accession<-"))
+}
+#' Replaces a PSM assay.accession
+#' 
+#' @param object a ProteinDetail
+#' @param value the protein.accession
+#' @author Jose A. Dianes
+#' @export
+setMethod("protein.accession<-", "PsmDetail",
+          function(object, value) {
+              object@protein.accession <- value
+              if (validObject(object))
+                  return(object)
+          }
+)
+
+if (!isGeneric("start.postion")) {
+    setGeneric("start.postion", function(object) standardGeneric("start.postion"))
+}
+#' Returns a PSM start.postion
+#' 
+#' @param object a PsmDetail
+#' @return the start.postion
+#' @author Jose A. Dianes
+#' @export
+setMethod("start.postion", "PsmDetail", function(object) object@start.postion)
+
+if (!isGeneric("start.postion<-")) {
+    setGeneric("start.postion<-", function(object, value) standardGeneric("start.postion<-"))
+}
+#' Replaces a PSM start.postion
+#' 
+#' @param object a ProteinDetail
+#' @param value the start.postion
+#' @author Jose A. Dianes
+#' @export
+setMethod("start.postion<-", "PsmDetail",
+          function(object, value) {
+              object@start.postion <- value
+              if (validObject(object))
+                  return(object)
+          }
+)
+
+if (!isGeneric("end.position")) {
+    setGeneric("end.position", function(object) standardGeneric("end.position"))
+}
+#' Returns a PSM end.position
+#' 
+#' @param object a PsmDetail
+#' @return the end.position
+#' @author Jose A. Dianes
+#' @export
+setMethod("end.position", "PsmDetail", function(object) object@end.position)
+
+if (!isGeneric("end.position<-")) {
+    setGeneric("end.position<-", function(object, value) standardGeneric("end.position<-"))
+}
+#' Replaces a PSM end.position
+#' 
+#' @param object a ProteinDetail
+#' @param value the end.position
+#' @author Jose A. Dianes
+#' @export
+setMethod("end.position<-", "PsmDetail",
+          function(object, value) {
+              object@end.position <- value
+              if (validObject(object))
+                  return(object)
+          }
+)
+
+if (!isGeneric("modifications")) {
+    setGeneric("modifications", function(object) standardGeneric("modifications"))
+}
+#' Returns a PSM modifications
+#' 
+#' @param object a PsmDetail
+#' @return the modifications
+#' @author Jose A. Dianes
+#' @export
+setMethod("modifications", "PsmDetail", function(object) object@modifications)
+
+if (!isGeneric("modifications<-")) {
+    setGeneric("modifications<-", function(object, value) standardGeneric("modifications<-"))
+}
+#' Replaces a PSM modifications
+#' 
+#' @param object a ProteinDetail
+#' @param value the id
+#' @author Jose A. Dianes
+#' @export
+setMethod("modifications<-", "PsmDetail",
+          function(object, value) {
+              object@modifications <- value
+              if (validObject(object))
+                  return(object)
+          }
+)
+
 
 #' Returns a data frame from PsmDetail inputs
 #'
