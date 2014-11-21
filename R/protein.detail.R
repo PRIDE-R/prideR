@@ -272,7 +272,7 @@ from.json.ProteinDetail <- function(json.object) {
 #' @details TODO
 #' @export
 get.list.ProteinDetail <- function(project.accession, count=100) {
-    json.list <- fromJSON(file=paste0(pride_archive_url_dev, "/protein/list/project/", project.accession, "?show=", count), method="C")
+    json.list <- fromJSON(file=paste0(pride_archive_url, "/protein/list/project/", project.accession, "?show=", count), method="C")
     details.list <- lapply(json.list[[1]], function(x) { from.json.ProteinDetail(x)})
     return(details.list)
 }
@@ -286,7 +286,7 @@ get.list.ProteinDetail <- function(project.accession, count=100) {
 #' @export
 #' @importFrom rjson fromJSON
 count.ProteinDetail <- function(project.accession) {    
-    protein.count <- fromJSON(file=URLencode(paste0(pride_archive_url_dev, "/protein/count/project/", project.accession)), method="C")
+    protein.count <- fromJSON(file=URLencode(paste0(pride_archive_url, "/protein/count/project/", project.accession)), method="C")
     protein.count                          
 }
 

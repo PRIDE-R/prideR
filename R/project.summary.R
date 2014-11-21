@@ -57,8 +57,7 @@ setMethod("show",
 )
 
 if (!isGeneric("accession")) {
-    fun <- function(object) standardGeneric("accession")
-    setGeneric("accession", fun)
+    setGeneric("accession", function(object) standardGeneric("accession"))
 }
 #' Returns a project accession
 #' 
@@ -78,11 +77,11 @@ if (!isGeneric("accession<-")) {
 #' @author Jose A. Dianes
 #' @export
 setMethod("accession<-", "ProjectSummary",
-    function(object, value) {
-        object@accession <- value
-        if (validObject(object))
-            return(object)
-    }
+          function(object, value) {
+              object@accession <- value
+              if (validObject(object))
+                  return(object)
+          }
 )
 
 if (!isGeneric("title")) {

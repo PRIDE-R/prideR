@@ -657,7 +657,7 @@ from.json.PsmDetail <- function(json.object) {
 #' @details TODO
 #' @export
 get.list.PsmDetail <- function(project.accession, count=100) {
-    json.list <- fromJSON(file=paste0(pride_archive_url_dev, "/peptide/list/project/", project.accession, "?show=", count), method="C")
+    json.list <- fromJSON(file=paste0(pride_archive_url, "/peptide/list/project/", project.accession, "?show=", count), method="C")
     details.list <- lapply(json.list[[1]], function(x) { from.json.PsmDetail(x)})
     return(details.list)
 }
@@ -671,7 +671,7 @@ get.list.PsmDetail <- function(project.accession, count=100) {
 #' @export
 #' @importFrom rjson fromJSON
 count.PsmDetail <- function(project.accession) {    
-    psm.count <- fromJSON(file=URLencode(paste0(pride_archive_url_dev, "/peptide/count/project/", project.accession)), method="C")
+    psm.count <- fromJSON(file=URLencode(paste0(pride_archive_url, "/peptide/count/project/", project.accession)), method="C")
     psm.count                          
 }
 
