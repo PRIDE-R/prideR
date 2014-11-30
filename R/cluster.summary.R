@@ -170,7 +170,7 @@ get.list.ClusterSummary <- function(page=1, size=10) {
 #' @details TODO
 #' @importFrom rjson fromJSON
 #' @export
-search.list.ClusterSummary <- function(q,page=1,size=10) {
+search.list.ClusterSummary <- function(q="", page=1,size=10) {
     json.list <- fromJSON(file=paste0(pride_cluster_url, "/clusterSummary/search", "?page=", page, "&size=", size,"&q=", q), method="C")$results
     cluster.list <- lapply(json.list, function(x) { from.json.ClusterSummary(x)})
     return(cluster.list)

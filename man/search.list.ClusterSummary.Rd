@@ -5,7 +5,7 @@
 to satisify a given query. This is actually a
 query filtered version of get.list.ClusterSummary}
 \usage{
-search.list.ClusterSummary(q, page = 1, size = 10)
+search.list.ClusterSummary(q = "", page = 1, size = 10)
 }
 \arguments{
 \item{q}{The query terms}
