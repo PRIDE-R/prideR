@@ -1,4 +1,4 @@
-tps://travis-ci.org/PRIDE-R/prideR.svg  
+[](https://travis-ci.org/PRIDE-R/prideR.svg)  
 
 prideR
 ======
