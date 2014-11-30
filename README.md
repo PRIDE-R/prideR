@@ -2,7 +2,7 @@
 prideR
 ======
 
-This is an R package to obtain data from the EMBL-EBI Proteomics Repository Identifications Database ([PRIDE Archive](http://www.ebi.ac.uk/pride/archive/) and [PRIDE Cluster](http://www.dev.ebi.ac.uk/pride/cluster)). It uses its RESTful Web Services at [PRIDE Archive WS](http://www.ebi.ac.uk/pride/ws/archive/) and [PRIDE Cluster WS](http://wwwdev.ebi.ac.uk/pride/ws/archive) for that purpose.  
+This is an R package to obtain data from the EMBL-EBI Proteomics Repository Identifications Database ([PRIDE Archive](http://www.ebi.ac.uk/pride/archive/) and [PRIDE Cluster](http://wwwdev.ebi.ac.uk/pride/cluster)). It uses its RESTful Web Services at [PRIDE Archive WS](http://www.ebi.ac.uk/pride/ws/archive/) and [PRIDE Cluster WS](http://wwwdev.ebi.ac.uk/pride/ws/archive) for that purpose.  
 
 Currently, the following domain entities are supported:  
 
