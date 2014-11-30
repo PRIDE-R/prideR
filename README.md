@@ -24,6 +24,8 @@ Then we just call
 
 ### Examples  
 
+#### PRIDE Archive  
+
 Get project `PXD000001` summary:  
 
     get.ProjectSummary("PXD000001")
@@ -49,6 +51,8 @@ Get 5 PSMs for project `PXD000001` as a list of `PsmDetail` objects:
     get.list.PsmDetail("PXD000001", 5)
 
 There are also count methods for each of the PRIDE Archive entitites.  
+
+#### PRIDE Cluster  
 
 Get page 1 with a size of 20 clusters for peptide sequence *ELISN*:  
 
