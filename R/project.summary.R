@@ -432,11 +432,11 @@ from.json.ProjectSummary <- function(json.object) {
 #' Returns a PRIDE Archive project
 #'
 #' @param accession The project accession
-#' @return The project in a data frame
+#' @return The project in as object
 #' @author Jose A. Dianes
 #' @details TODO
-#' @export
 #' @importFrom rjson fromJSON
+#' @export
 get.ProjectSummary <- function(accession) {
     from.json.ProjectSummary(fromJSON(file=paste0(pride_archive_url, "/project/", accession), method="C"))
 }
@@ -447,8 +447,9 @@ get.ProjectSummary <- function(accession) {
 #' @return The list of ProjectSummary objects
 #' @author Jose A. Dianes
 #' @details TODO
+#' @importFrom rjson fromJSON
 #' @export
-get.list.ProjectSummary <- function(count=1) {
+get.list.ProjectSummary <- function(count=10) {
     json.list <- fromJSON(file=paste0(pride_archive_url, "/project/list", "?show=", count), method="C")
     project.list <- lapply(json.list[[1]], function(x) { from.json.ProjectSummary(x)})
     return(project.list)
@@ -460,12 +461,12 @@ get.list.ProjectSummary <- function(count=1) {
 #'
 #' @param q The query terms
 #' @param count The maximum number of search results
-#' @return The search results in a data frame
+#' @return The search results in a list of objects
 #' @author Jose A. Dianes
 #' @details TODO
-#' @export
 #' @importFrom rjson fromJSON
-search.list.ProjectSummary <- function(q,count) {
+#' @export
+search.list.ProjectSummary <- function(q,count=10) {
     json.list <- fromJSON(file=paste0(pride_archive_url, "/project/list", "?show=", count,"&q=", q), method="C")
     project.list <- lapply(json.list[[1]], function(x) { from.json.ProjectSummary(x)})
     return(project.list)
@@ -476,8 +477,8 @@ search.list.ProjectSummary <- function(q,count) {
 #' @return The count of projects
 #' @author Jose A. Dianes
 #' @details TODO
-#' @export
 #' @importFrom rjson fromJSON
+#' @export
 count.ProjectSummary <- function() {
     projectCount <- fromJSON(file=paste0(pride_archive_url, "/project/count"), method="C")
     projectCount                          

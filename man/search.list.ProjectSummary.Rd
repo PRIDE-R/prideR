@@ -5,7 +5,7 @@
 to satisify a given query. This is actually a
 query filtered version of project_list}
 \usage{
-search.list.ProjectSummary(q, count)
+search.list.ProjectSummary(q, count = 10)
 }
 \arguments{
 \item{q}{The query terms}
@@ -13,7 +13,7 @@ search.list.ProjectSummary(q, count)
 \item{count}{The maximum number of search results}
 }
 \value{
-The search results in a data frame
+The search results in a list of objects
 }
 \description{
 Returns a series of PRIDE Archive projects

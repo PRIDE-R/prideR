@@ -9,7 +9,7 @@ get.ProjectSummary(accession)
 \item{accession}{The project accession}
 }
 \value{
-The project in a data frame
+The project in as object
 }
 \description{
 Returns a PRIDE Archive project

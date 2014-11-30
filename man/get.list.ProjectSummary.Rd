@@ -3,7 +3,7 @@
 \alias{get.list.ProjectSummary}
 \title{Returns a list of PRIDE Archive project summaries}
 \usage{
-get.list.ProjectSummary(count = 1)
+get.list.ProjectSummary(count = 10)
 }
 \arguments{
 \item{count}{the maximum number of projects}

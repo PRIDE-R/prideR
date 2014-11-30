@@ -655,6 +655,7 @@ from.json.PsmDetail <- function(json.object) {
 #' @return The list of PSM objects
 #' @author Jose A. Dianes
 #' @details TODO
+#' @importFrom rjson fromJSON
 #' @export
 get.list.PsmDetail <- function(project.accession, count=100) {
     json.list <- fromJSON(file=paste0(pride_archive_url, "/peptide/list/project/", project.accession, "?show=", count), method="C")
@@ -668,8 +669,8 @@ get.list.PsmDetail <- function(project.accession, count=100) {
 #' @return The count of PSM
 #' @author Jose A. Dianes
 #' @details TODO
-#' @export
 #' @importFrom rjson fromJSON
+#' @export
 count.PsmDetail <- function(project.accession) {    
     psm.count <- fromJSON(file=URLencode(paste0(pride_archive_url, "/peptide/count/project/", project.accession)), method="C")
     psm.count                          
