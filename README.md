@@ -48,7 +48,15 @@ Get 5 PSMs for project `PXD000001` as a list of `PsmDetail` objects:
 
     get.list.PsmDetail("PXD000001", 5)
 
-There are also count methods for each of the entitites.  
+There are also count methods for each of the PRIDE Archive entitites.  
+
+Get page 1 with a size of 20 clusters:  
+
+    get.list.ClusterSummary(1,20)
+
+As a data frame:  
+
+    list.to.data.frame(get.list.ClusterSummary())
 
 ### Future Works  
 
