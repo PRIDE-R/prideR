@@ -1,3 +1,5 @@
+tps://travis-ci.org/PRIDE-R/prideR.svg  
+
 prideR
 ======
 
