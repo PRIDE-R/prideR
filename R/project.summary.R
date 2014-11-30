@@ -112,8 +112,8 @@ setMethod("title<-", "ProjectSummary",
           }
 )
 
-if (!isGeneric("description")) {
-    setGeneric("description", function(object) standardGeneric("description"))
+if (!isGeneric("project.description")) {
+    setGeneric("project.description", function(object) standardGeneric("project.description"))
 }
 #' Returns a project description
 #' 
@@ -121,10 +121,10 @@ if (!isGeneric("description")) {
 #' @return the project description
 #' @author Jose A. Dianes
 #' @export
-setMethod("description", "ProjectSummary", function(object) object@project.description)
+setMethod("project.description", "ProjectSummary", function(object) object@project.description)
 
-if (!isGeneric("description<-")) {
-    setGeneric("description<-", function(object, value) standardGeneric("description<-"))
+if (!isGeneric("project.description<-")) {
+    setGeneric("project.description<-", function(object, value) standardGeneric("project.description<-"))
 }
 #' Replaces a project description
 #' 
@@ -132,7 +132,7 @@ if (!isGeneric("description<-")) {
 #' @param value the project description
 #' @author Jose A. Dianes
 #' @export
-setMethod("description<-", "ProjectSummary",
+setMethod("project.description<-", "ProjectSummary",
           function(object, value) {
               object@project.description <- value
               if (validObject(object))
@@ -308,8 +308,8 @@ setMethod("instrument.names<-", "ProjectSummary",
           }
 )
 
-if (!isGeneric("tags")) {
-    setGeneric("tags", function(object) standardGeneric("tags"))
+if (!isGeneric("project.tags")) {
+    setGeneric("project.tags", function(object) standardGeneric("project.tags"))
 }
 #' Returns a project tags
 #' 
@@ -317,10 +317,10 @@ if (!isGeneric("tags")) {
 #' @return the project tags
 #' @author Jose A. Dianes
 #' @export
-setMethod("tags", "ProjectSummary", function(object) object@project.tags)
+setMethod("project.tags", "ProjectSummary", function(object) object@project.tags)
 
-if (!isGeneric("tags<-")) {
-    setGeneric("tags<-", function(object, value) standardGeneric("tags<-"))
+if (!isGeneric("project.tags<-")) {
+    setGeneric("project.tags<-", function(object, value) standardGeneric("project.tags<-"))
 }
 #' Replaces the project tags
 #' 
@@ -328,7 +328,7 @@ if (!isGeneric("tags<-")) {
 #' @param value the project tags
 #' @author Jose A. Dianes
 #' @export
-setMethod("tags<-", "ProjectSummary",
+setMethod("project.tags<-", "ProjectSummary",
           function(object, value) {
               object@project.tags <- value
               if (validObject(object))

@@ -1,7 +1,8 @@
+[![Build Status](https://travis-ci.org/PRIDE-R/prideR.svg)](https://travis-ci.org/PRIDE-R/prideR)
 prideR
 ======
 
-This is an R package to obtain data from the EMBL-EBI Proteomics Repository Identifications Database (PRIDE). It uses its RESTful Web Service for that purpose.  
+This is an R package to obtain data from the EMBL-EBI Proteomics Repository Identifications Database ([PRIDE](http://www.ebi.ac.uk/pride/archive/)). It uses its [RESTful Web Service](http://www.ebi.ac.uk/pride/ws/archive/) for that purpose.  
 
 Currently, the following domain entities are supported:  
 
