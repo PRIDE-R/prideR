@@ -50,13 +50,13 @@ Get 5 PSMs for project `PXD000001` as a list of `PsmDetail` objects:
 
 There are also count methods for each of the PRIDE Archive entitites.  
 
-Get page 1 with a size of 20 clusters:  
+Get page 1 with a size of 20 clusters for peptide sequence *ELISN*:  
 
-    get.list.ClusterSummary(1,20)
+    search.list.ClusterSummary("elisn", 1, 20)
 
 As a data frame:  
 
-    list.to.data.frame(get.list.ClusterSummary())
+    list.to.data.frame(search.list.ClusterSummary("elisn", 1, 20))
 
 ### Future Works  
 
