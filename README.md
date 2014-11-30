@@ -1,5 +1,4 @@
-[](https://travis-ci.org/PRIDE-R/prideR.svg)  
-
+[![Build Status](https://travis-ci.org/PRIDE-R/prideR.svg)](https://travis-ci.org/PRIDE-R/prideR)
 prideR
 ======
 
