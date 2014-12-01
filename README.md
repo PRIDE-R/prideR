@@ -20,7 +20,7 @@ First, we need to install `devtools`:
    
 Then we just call  
 
-    install_github(username="PRIDE-R", repo="prider")
+    install_github(username="PRIDE-R", repo="prideR")
 
 ### Examples  
 
