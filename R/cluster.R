@@ -2,13 +2,13 @@ pride_cluster_url <- "http://wwwdev.ebi.ac.uk/pride/ws/cluster"
 
 MISSING_VALUE <- "Not available"
 
-#' ClusterSummary represents a PRIDE Cluster project summary
+#' Cluster represents a PRIDE Cluster project summary
 #'
 #' @importFrom rjson fromJSON
 #' @export 
-#' @exportClass ClusterSummary
+#' @exportClass Cluster
 setClass(
-    "ClusterSummary", 
+    "Cluster", 
     representation(
         id = "character", 
         average.precursor.mz = "numeric",
@@ -32,7 +32,7 @@ setClass(
 )
 
 setMethod("show",
-          signature = "ClusterSummary",
+          signature = "Cluster",
           definition = function(object) {
               cat("An object of class ", class(object), "\n", sep="")
               cat(" with ", object@num.spectra, " spectra representing the peptide with sequence ", object@peptide.sequence, "\n", sep="")
@@ -46,22 +46,22 @@ if (!isGeneric("id")) {
 }
 #' Returns a cluster id
 #' 
-#' @param object a ClusterSummary
+#' @param object a Cluster
 #' @return the id
 #' @author Jose A. Dianes
 #' @export
-setMethod("id", "ClusterSummary", function(object) object@id)
+setMethod("id", "Cluster", function(object) object@id)
 
 if (!isGeneric("id<-")) {
     setGeneric("id<-", function(object, value) standardGeneric("id<-"))
 }
 #' Replaces a cluster id
 #' 
-#' @param object a ClusterSummary
+#' @param object a Cluster
 #' @param value the id
 #' @author Jose A. Dianes
 #' @export
-setMethod("id<-", "ClusterSummary",
+setMethod("id<-", "Cluster",
           function(object, value) {
               object@id <- value
               if (validObject(object))
@@ -72,7 +72,7 @@ setMethod("id<-", "ClusterSummary",
 
 
 
-#' Returns a data frame from ClusterSummary inputs
+#' Returns a data frame from Cluster inputs
 #'
 #' @param x The cluster summaries
 #' @param row.names optional row names
@@ -81,7 +81,7 @@ setMethod("id<-", "ClusterSummary",
 #' @author Jose A. Dianes
 #' @details TODO
 #' @export
-as.data.frame.ClusterSummary <-
+as.data.frame.Cluster <-
     function(x, row.names=NULL, optional=FALSE, ...)
     {
         # set row names if provided
@@ -104,21 +104,21 @@ as.data.frame.ClusterSummary <-
         return(value)
     }
 
-format.ClusterSummary <- function(x, ...) paste0(x@id, ", ", x@peptide.sequence)
+format.Cluster <- function(x, ...) paste0(x@id, ", ", x@peptide.sequence)
 
-#' Returns a ClusterSummary instance from a JSON string representation
+#' Returns a Cluster instance from a JSON string representation
 #'
 #' @param json_str The JSON object
 #' @param file the name of a file to read the json_str from; this can also be a URL. Only one of json_str or file must be supplied.
 #' @param method use the C implementation, or the older slower (and one day to be depricated) R implementation
 #' @param unexpected.escape changed handling of unexpected escaped characters. Handling value should be one of "error", "skip", or "keep"; on unexpected characters issue an error, skip the character, or keep the character
-#' @return The ClusterSummary instance
+#' @return The Cluster instance
 #' @author Jose A. Dianes
 #' @details TODO
 #' @importFrom rjson fromJSON
 #' @export
-from.json.ClusterSummary <- function(json.object) {
-    res <- new("ClusterSummary",
+from.json.Cluster <- function(json.object) {
+    res <- new("Cluster",
                id = as.character(json.object$id),
                average.precursor.mz = json.object$averagePrecursorMz,
                average.precursor.charge = json.object$averagePrecursorCharge,
@@ -132,7 +132,7 @@ from.json.ClusterSummary <- function(json.object) {
     return (res)
 }
 
-#' Returns a PRIDE Cluster cluster summary
+#' Returns a PRIDE Cluster cluster
 #'
 #' @param id The cluster id
 #' @return The cluster as object
@@ -140,28 +140,28 @@ from.json.ClusterSummary <- function(json.object) {
 #' @details TODO
 #' @importFrom rjson fromJSON
 #' @export
-get.ClusterSummary <- function(id) {
-    from.json.ClusterSummary(fromJSON(file=paste0(pride_cluster_url, "/clusterSummary/", id), method="C"))
+get.Cluster <- function(id) {
+    from.json.Cluster(fromJSON(file=paste0(pride_cluster_url, "/cluster/", id), method="C"))
 }
 
 #' Returns a list of PRIDE Cluster cluster summaries
 #'
 #' @param page the page number
 #' @param size maximum number of results per page
-#' @return The list of ClusterSummary objects
+#' @return The list of Cluster objects
 #' @author Jose A. Dianes
 #' @details TODO
 #' @importFrom rjson fromJSON
 #' @export
-get.list.ClusterSummary <- function(page=1, size=10) {
-    json.list <- fromJSON(file=paste0(pride_cluster_url, "/clusterSummary/search", "?page=", page, "&size=", size), method="C")$results   
-    cluster.list <- lapply(json.list, function(x) { from.json.ClusterSummary(x)})
+get.list.Cluster <- function(page=1, size=10) {
+    json.list <- fromJSON(file=paste0(pride_cluster_url, "/cluster/search", "?page=", page, "&size=", size), method="C")$results   
+    cluster.list <- lapply(json.list, function(x) { from.json.Cluster(x)})
     return(cluster.list)
 }
 
 #' Returns a series of PRIDE Cluster clusters
 #' to satisify a given query. This is actually a 
-#' query filtered version of get.list.ClusterSummary
+#' query filtered version of get.list.Cluster
 #'
 #' @param q The query terms
 #' @param page the page number
@@ -170,9 +170,9 @@ get.list.ClusterSummary <- function(page=1, size=10) {
 #' @details TODO
 #' @importFrom rjson fromJSON
 #' @export
-search.list.ClusterSummary <- function(q="", page=1,size=10) {
-    json.list <- fromJSON(file=paste0(pride_cluster_url, "/clusterSummary/search", "?page=", page, "&size=", size,"&q=", q), method="C")$results
-    cluster.list <- lapply(json.list, function(x) { from.json.ClusterSummary(x)})
+search.list.Cluster <- function(q="", page=1,size=10) {
+    json.list <- fromJSON(file=paste0(pride_cluster_url, "/cluster/search", "?page=", page, "&size=", size,"&q=", q), method="C")$results
+    cluster.list <- lapply(json.list, function(x) { from.json.Cluster(x)})
     return(cluster.list)
 }
 
