@@ -34,8 +34,14 @@ setClass(
 setMethod("show",
           signature = "Cluster",
           definition = function(object) {
-              cat("An object of class ", class(object), "\n", sep="")
-              cat(" with ", object@num.spectra, " spectra representing the peptide with sequence ", object@peptide.sequence, "\n", sep="")
+              cat("An ", class(object), sep="")
+              cat(" representing the peptide ", object@peptide.sequence, "\n", sep="")
+              cat("    Cluster Quality: ", object@cluster.quality, "\n", sep="")
+              cat("    Number of Spectra: ", object@num.spectra, " spectra\n", sep="")
+              cat("    Max. Ratio: ", object@max.ratio, "\n", sep="")
+              cat("    Precursor MZ: ", object@average.precursor.mz, "\n", sep="")
+              cat("    Precursor Charge: ", object@average.precursor.charge, "\n", sep="")
+              cat("    Peptide Sequence: ", object@protein.accession, "\n", sep="")
               cat("    Id: ", object@id, "\n", sep="")
               invisible(NULL)
           }
@@ -69,8 +75,201 @@ setMethod("id<-", "Cluster",
           }
 )
 
+if (!isGeneric("average.precursor.mz")) {
+    setGeneric("average.precursor.mz", function(object) standardGeneric("average.precursor.mz"))
+}
+#' Returns a cluster average.precursor.mz
+#' 
+#' @param object a Cluster
+#' @return the average.precursor.mz
+#' @author Jose A. Dianes
+#' @export
+setMethod("average.precursor.mz", "Cluster", function(object) object@average.precursor.mz)
 
+if (!isGeneric("average.precursor.mz<-")) {
+    setGeneric("average.precursor.mz<-", function(object, value) standardGeneric("average.precursor.mz<-"))
+}
+#' Replaces a cluster average.precursor.mz
+#' 
+#' @param object a Cluster
+#' @param value the average.precursor.mz
+#' @author Jose A. Dianes
+#' @export
+setMethod("average.precursor.mz<-", "Cluster",
+          function(object, value) {
+              object@average.precursor.mz <- value
+              if (validObject(object))
+                  return(object)
+          }
+)
 
+if (!isGeneric("average.precursor.charge")) {
+    setGeneric("average.precursor.charge", function(object) standardGeneric("average.precursor.charge"))
+}
+#' Returns a cluster average.precursor.charge
+#' 
+#' @param object a Cluster
+#' @return the average.precursor.charge
+#' @author Jose A. Dianes
+#' @export
+setMethod("average.precursor.charge", "Cluster", function(object) object@average.precursor.charge)
+
+if (!isGeneric("average.precursor.charge<-")) {
+    setGeneric("average.precursor.charge<-", function(object, value) standardGeneric("average.precursor.charge<-"))
+}
+#' Replaces a cluster average.precursor.charge
+#' 
+#' @param object a Cluster
+#' @param value the average.precursor.charge
+#' @author Jose A. Dianes
+#' @export
+setMethod("average.precursor.charge<-", "Cluster",
+          function(object, value) {
+              object@average.precursor.charge <- value
+              if (validObject(object))
+                  return(object)
+          }
+)
+
+if (!isGeneric("num.spectra")) {
+    setGeneric("num.spectra", function(object) standardGeneric("num.spectra"))
+}
+#' Returns a cluster num.spectra
+#' 
+#' @param object a Cluster
+#' @return the num.spectra
+#' @author Jose A. Dianes
+#' @export
+setMethod("num.spectra", "Cluster", function(object) object@num.spectra)
+
+if (!isGeneric("num.spectra<-")) {
+    setGeneric("num.spectra<-", function(object, value) standardGeneric("num.spectra<-"))
+}
+#' Replaces a cluster num.spectra
+#' 
+#' @param object a Cluster
+#' @param value the num.spectra
+#' @author Jose A. Dianes
+#' @export
+setMethod("num.spectra<-", "Cluster",
+          function(object, value) {
+              object@num.spectra <- value
+              if (validObject(object))
+                  return(object)
+          }
+)
+
+if (!isGeneric("max.ratio")) {
+    setGeneric("max.ratio", function(object) standardGeneric("max.ratio"))
+}
+#' Returns a cluster max.ratio
+#' 
+#' @param object a Cluster
+#' @return the max.ratio
+#' @author Jose A. Dianes
+#' @export
+setMethod("max.ratio", "Cluster", function(object) object@max.ratio)
+
+if (!isGeneric("max.ratio<-")) {
+    setGeneric("max.ratio<-", function(object, value) standardGeneric("max.ratio<-"))
+}
+#' Replaces a cluster max.ratio
+#' 
+#' @param object a Cluster
+#' @param value the max.ratio
+#' @author Jose A. Dianes
+#' @export
+setMethod("max.ratio<-", "Cluster",
+          function(object, value) {
+              object@max.ratio <- value
+              if (validObject(object))
+                  return(object)
+          }
+)
+
+if (!isGeneric("peptide.sequence")) {
+    setGeneric("peptide.sequence", function(object) standardGeneric("peptide.sequence"))
+}
+#' Returns a cluster peptide.sequence
+#' 
+#' @param object a Cluster
+#' @return the peptide.sequence
+#' @author Jose A. Dianes
+#' @export
+setMethod("peptide.sequence", "Cluster", function(object) object@peptide.sequence)
+
+if (!isGeneric("peptide.sequence<-")) {
+    setGeneric("peptide.sequence<-", function(object, value) standardGeneric("peptide.sequence<-"))
+}
+#' Replaces a cluster peptide.sequence
+#' 
+#' @param object a Cluster
+#' @param value the peptide.sequence
+#' @author Jose A. Dianes
+#' @export
+setMethod("peptide.sequence<-", "Cluster",
+          function(object, value) {
+              object@peptide.sequence <- value
+              if (validObject(object))
+                  return(object)
+          }
+)
+
+if (!isGeneric("protein.accession")) {
+    setGeneric("protein.accession", function(object) standardGeneric("protein.accession"))
+}
+#' Returns a cluster protein.accession
+#' 
+#' @param object a Cluster
+#' @return the protein.accession
+#' @author Jose A. Dianes
+#' @export
+setMethod("protein.accession", "Cluster", function(object) object@protein.accession)
+
+if (!isGeneric("protein.accession<-")) {
+    setGeneric("protein.accession<-", function(object, value) standardGeneric("protein.accession<-"))
+}
+#' Replaces a cluster protein.accession
+#' 
+#' @param object a Cluster
+#' @param value the protein.accession
+#' @author Jose A. Dianes
+#' @export
+setMethod("protein.accession<-", "Cluster",
+          function(object, value) {
+              object@protein.accession <- value
+              if (validObject(object))
+                  return(object)
+          }
+)
+
+if (!isGeneric("cluster.quality")) {
+    setGeneric("cluster.quality", function(object) standardGeneric("cluster.quality"))
+}
+#' Returns a cluster cluster.quality
+#' 
+#' @param object a Cluster
+#' @return the cluster.quality
+#' @author Jose A. Dianes
+#' @export
+setMethod("cluster.quality", "Cluster", function(object) object@cluster.quality)
+
+if (!isGeneric("cluster.quality<-")) {
+    setGeneric("cluster.quality<-", function(object, value) standardGeneric("cluster.quality<-"))
+}
+#' Replaces a cluster cluster.quality
+#' 
+#' @param object a Cluster
+#' @param value the cluster.quality
+#' @author Jose A. Dianes
+#' @export
+setMethod("cluster.quality<-", "Cluster",
+          function(object, value) {
+              object@cluster.quality <- value
+              if (validObject(object))
+                  return(object)
+          }
+)
 
 #' Returns a data frame from Cluster inputs
 #'
