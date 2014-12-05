@@ -12,11 +12,21 @@ setClass(
     "AssayDetail", 
     representation(
         assay.accession = "character", 
-        project.accession = "character"
+        project.accession = "character",
+        protein.count = "numeric",
+        peptide.count = "numeric",
+        unique.peptide.count = "numeric",
+        identified.spectrum.count = "numeric",
+        total.spectrum.count = "numeric"
     ),
     prototype(
         assay.accession = MISSING_VALUE, 
-        project.accession = MISSING_VALUE
+        project.accession = MISSING_VALUE,
+        protein.count = 0,
+        peptide.count = 0,
+        unique.peptide.count = 0,
+        identified.spectrum.count = 0,
+        total.spectrum.count = 0
     )
 )
 
@@ -24,8 +34,13 @@ setMethod("show",
           signature = "AssayDetail",
           definition = function(object) {
               cat("An object of class ", class(object), "\n", sep="")
-              cat("    Assay Accession: ", object@assay.accession, "\n", sep="")
-              cat("    Project Accession: ", object@project.accession, "\n", sep="")
+              cat("    Assay accession: ", object@assay.accession, "\n", sep="")
+              cat("    Project accession: ", object@project.accession, "\n", sep="")
+              cat("    Protein #: ", object@protein.count, "\n", sep="")
+              cat("    Peptide #: ", object@peptide.count, "\n", sep="")
+              cat("    Unique Peptide # ", object@unique.peptide.count, "\n", sep="")
+              cat("    Identified Spectrum #: ", object@identified.spectrum.count, "\n", sep="")
+              cat("    Total Spectrum #: ", object@total.spectrum.count, "\n", sep="")
               invisible(NULL)
           }
 )
@@ -109,7 +124,11 @@ as.data.frame.AssayDetail <-
         names(value) <- c("assay.accession")
         # add the rest of the columns
         value$project.accession <- x@project.accession
-        
+        value$protein.count <- x@protein.count
+        value$peptide.count <- x@peptide.count
+        value$unique.peptide.count <- x@unique.peptide.count
+        value$identified.spectrum.count <- x@identified.spectrum.count
+        value$total.spectrum.count <- x@total.spectrum.count
         return(value)
     }
 
@@ -129,7 +148,12 @@ format.AssayDetail <- function(x, ...) paste0(x@assay.accession, ", ", x@project
 from.json.AssayDetail <- function(json.object) {
     res <- new("AssayDetail",
                assay.accession = json.object$assayAccession,
-               project.accession = json.object$projectAccession
+               project.accession = json.object$projectAccession,
+               protein.count = json.object$proteinCount,
+               peptide.count = json.object$peptideCount,
+               unique.peptide.count = json.object$uniquePeptideCount,
+               identified.spectrum.count = json.object$identifiedSpectrumCount,
+               total.spectrum.count = json.object$totalSpectrumCount
     )
     
     return (res)
