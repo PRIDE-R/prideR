@@ -101,7 +101,145 @@ setMethod("project.accession<-", "AssayDetail",
           }
 )
 
+if (!isGeneric("protein.count")) {
+    setGeneric("protein.count", function(object) standardGeneric("protein.count"))
+}
+#' Returns an assay protein.count
+#' 
+#' @param object a AssayDetail
+#' @return the protein.count
+#' @author Jose A. Dianes
+#' @export
+setMethod("protein.count", "AssayDetail", function(object) object@protein.count)
 
+if (!isGeneric("protein.count<-")) {
+    setGeneric("protein.count<-", function(object, value) standardGeneric("protein.count<-"))
+}
+#' Replaces an assay protein.count
+#' 
+#' @param object a AssayDetail
+#' @param value the protein.count
+#' @author Jose A. Dianes
+#' @export
+setMethod("protein.count<-", "AssayDetail",
+          function(object, value) {
+              object@protein.count <- value
+              if (validObject(object))
+                  return(object)
+          }
+)
+
+if (!isGeneric("peptide.count")) {
+    setGeneric("peptide.count", function(object) standardGeneric("peptide.count"))
+}
+#' Returns an assay peptide.count
+#' 
+#' @param object a AssayDetail
+#' @return the peptide.count
+#' @author Jose A. Dianes
+#' @export
+setMethod("peptide.count", "AssayDetail", function(object) object@peptide.count)
+
+if (!isGeneric("peptide.count<-")) {
+    setGeneric("peptide.count<-", function(object, value) standardGeneric("peptide.count<-"))
+}
+#' Replaces an assay peptide.count
+#' 
+#' @param object a AssayDetail
+#' @param value the peptide.count
+#' @author Jose A. Dianes
+#' @export
+setMethod("peptide.count<-", "AssayDetail",
+          function(object, value) {
+              object@peptide.count <- value
+              if (validObject(object))
+                  return(object)
+          }
+)
+
+if (!isGeneric("unique.peptide.count")) {
+    setGeneric("unique.peptide.count", function(object) standardGeneric("unique.peptide.count"))
+}
+#' Returns an assay unique.peptide.count
+#' 
+#' @param object a AssayDetail
+#' @return the unique.peptide.count
+#' @author Jose A. Dianes
+#' @export
+setMethod("unique.peptide.count", "AssayDetail", function(object) object@unique.peptide.count)
+
+if (!isGeneric("unique.peptide.count<-")) {
+    setGeneric("unique.peptide.count<-", function(object, value) standardGeneric("unique.peptide.count<-"))
+}
+#' Replaces an assay unique.peptide.count
+#' 
+#' @param object a AssayDetail
+#' @param value the unique.peptide.count
+#' @author Jose A. Dianes
+#' @export
+setMethod("unique.peptide.count<-", "AssayDetail",
+          function(object, value) {
+              object@unique.peptide.count <- value
+              if (validObject(object))
+                  return(object)
+          }
+)
+
+if (!isGeneric("identified.spectrum.count")) {
+    setGeneric("identified.spectrum.count", function(object) standardGeneric("identified.spectrum.count"))
+}
+#' Returns an assay identified.spectrum.count
+#' 
+#' @param object a AssayDetail
+#' @return the identified.spectrum.count
+#' @author Jose A. Dianes
+#' @export
+setMethod("identified.spectrum.count", "AssayDetail", function(object) object@identified.spectrum.count)
+
+if (!isGeneric("identified.spectrum.count<-")) {
+    setGeneric("identified.spectrum.count<-", function(object, value) standardGeneric("identified.spectrum.count<-"))
+}
+#' Replaces an assay identified.spectrum.count
+#' 
+#' @param object a AssayDetail
+#' @param value the identified.spectrum.count
+#' @author Jose A. Dianes
+#' @export
+setMethod("identified.spectrum.count<-", "AssayDetail",
+          function(object, value) {
+              object@identified.spectrum.count <- value
+              if (validObject(object))
+                  return(object)
+          }
+)
+
+if (!isGeneric("total.spectrum.count")) {
+    setGeneric("total.spectrum.count", function(object) standardGeneric("total.spectrum.count"))
+}
+#' Returns an assay total.spectrum.count
+#' 
+#' @param object a AssayDetail
+#' @return the total.spectrum.count
+#' @author Jose A. Dianes
+#' @export
+setMethod("total.spectrum.count", "AssayDetail", function(object) object@total.spectrum.count)
+
+if (!isGeneric("total.spectrum.count<-")) {
+    setGeneric("total.spectrum.count<-", function(object, value) standardGeneric("total.spectrum.count<-"))
+}
+#' Replaces an assay total.spectrum.count
+#' 
+#' @param object a AssayDetail
+#' @param value the total.spectrum.count
+#' @author Jose A. Dianes
+#' @export
+setMethod("total.spectrum.count<-", "AssayDetail",
+          function(object, value) {
+              object@total.spectrum.count <- value
+              if (validObject(object))
+                  return(object)
+          }
+)
 
 #' Returns a data frame from AssayDetail inputs
 #'
@@ -187,6 +325,7 @@ get.list.AssayDetail <- function(project.accession) {
 
 #' Returns the number of assays associated with a project
 #'
+#'@param project.accession the project accession
 #' @return The count of assays
 #' @author Jose A. Dianes
 #' @details TODO

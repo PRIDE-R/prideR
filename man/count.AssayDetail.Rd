@@ -5,6 +5,9 @@
 \usage{
 count.AssayDetail(project.accession)
 }
+\arguments{
+\item{project.accession}{the project accession}
+}
 \value{
 The count of assays
 }
