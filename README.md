@@ -7,6 +7,8 @@ This is an R package to obtain data from the EMBL-EBI Proteomics Repository Iden
 Currently, the following domain entities are supported:  
 
 * Projects as S4 objects, including methods to get them from PRIDE by accession and `as.data.frame`  
+* Assays as S4 objects, including methods to get them from PRIDE by accession and `as.data.frame`  
+* Files as S4 objects, including methods to get them from PRIDE by project and assay accession and `as.data.frame`  
 * Protein identifications associated with a project, as S4 objects, including methods to get them from PRIDE by project accession and `as.data.frame`  
 * PSM identifications associated with a project, as S4 objects, including methods to get them from PRIDE by project accession and `as.data.frame`  
 * PRIDE Cluster ClusterSummary, as S4 objects and as `as.data.frame`.  
