@@ -17,7 +17,15 @@ setClass(
         peptide.count = "numeric",
         unique.peptide.count = "numeric",
         identified.spectrum.count = "numeric",
-        total.spectrum.count = "numeric"
+        total.spectrum.count = "numeric",
+        diseases = "vector",
+        species = "vector",
+        softwares = "vector",
+        instrument.names = "vector",
+        sample.details = "vector",
+        ptm.names = "vector",
+        quant.methods = "vector",
+        contacts = "vector"
     ),
     prototype(
         assay.accession = MISSING_VALUE, 
@@ -26,7 +34,15 @@ setClass(
         peptide.count = 0,
         unique.peptide.count = 0,
         identified.spectrum.count = 0,
-        total.spectrum.count = 0
+        total.spectrum.count = 0,
+        diseases = c(MISSING_VALUE),
+        species = c(MISSING_VALUE),
+        softwares = c(MISSING_VALUE),
+        instrument.names = c(MISSING_VALUE),
+        sample.details = c(MISSING_VALUE),
+        ptm.names = c(MISSING_VALUE),
+        quant.methods = c(MISSING_VALUE),
+        contacts = c(MISSING_VALUE)
     )
 )
 
@@ -41,6 +57,14 @@ setMethod("show",
               cat("    Unique Peptide # ", object@unique.peptide.count, "\n", sep="")
               cat("    Identified Spectrum #: ", object@identified.spectrum.count, "\n", sep="")
               cat("    Total Spectrum #: ", object@total.spectrum.count, "\n", sep="")
+              cat("    Diseases: ", object@diseases, "\n", sep=" ")
+              cat("    Species: ", object@species, "\n", sep=" ")
+              cat("    Softwares: ", object@softwares, "\n", sep=" ")
+              cat("    Instrument names: ", object@instrument.names, "\n", sep=" ")
+              cat("    Sample details: ", object@sample.details, "\n", sep=" ")
+              cat("    PTM names: ", object@ptm.names, "\n", sep=" ")
+              cat("    Quant methods: ", object@quant.methods, "\n", sep=" ")
+              cat("    Contacts: ", object@contacts[[1]]@email, "\n", sep=" ")
               invisible(NULL)
           }
 )
@@ -291,7 +315,15 @@ from.json.AssayDetail <- function(json.object) {
                peptide.count = json.object$peptideCount,
                unique.peptide.count = json.object$uniquePeptideCount,
                identified.spectrum.count = json.object$identifiedSpectrumCount,
-               total.spectrum.count = json.object$totalSpectrumCount
+               total.spectrum.count = json.object$totalSpectrumCount,
+               diseases = ifelse(is.null(json.object$diseases)||(length(json.object$diseases)==0), c(MISSING_VALUE), json.object$diseases),
+               species = ifelse(is.null(json.object$species)||(length(json.object$species)==0), c(MISSING_VALUE), json.object$species),
+               softwares = ifelse(is.null(json.object$softwares)||(length(json.object$softwares)==0), c(MISSING_VALUE), json.object$softwares),
+               instrument.names = ifelse(is.null(json.object$instrumentNames)||(length(json.object$instrumentNames)==0), c(MISSING_VALUE), json.object$instrumentNames),
+               sample.details = ifelse(is.null(json.object$sampleDetails)||(length(json.object$sampleDetails)==0), c(MISSING_VALUE), json.object$sampleDetails),
+               ptm.names = ifelse(is.null(json.object$ptmNames)||(length(json.object$ptmNames)==0), c(MISSING_VALUE), json.object$ptmNames),
+               quant.methods = ifelse(is.null(json.object$quantMethods)||(length(json.object$quantMethods)==0), c(MISSING_VALUE), json.object$quantMethods),
+               contacts = ifelse(is.null(json.object$contacts)||(length(json.object$contacts)==0), c(MISSING_VALUE), lapply(json.object$contacts, function (x) {from.json.ContactDetail(x)}))
     )
     
     return (res)
