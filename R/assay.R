@@ -25,7 +25,13 @@ setClass(
         sample.details = "vector",
         ptm.names = "vector",
         quant.methods = "vector",
-        contacts = "vector"
+        contacts = "vector",
+        experimental.factor = "character",
+        chromatogram = "logical",
+        ms2.annotation = "logical",
+        keywords = "character",
+        short.label = "character",
+        title = "character"
     ),
     prototype(
         assay.accession = MISSING_VALUE, 
@@ -42,7 +48,13 @@ setClass(
         sample.details = c(MISSING_VALUE),
         ptm.names = c(MISSING_VALUE),
         quant.methods = c(MISSING_VALUE),
-        contacts = c(MISSING_VALUE)
+        contacts = c(MISSING_VALUE),
+        experimental.factor = MISSING_VALUE,
+        chromatogram = FALSE,
+        ms2.annotation = FALSE,
+        keywords = MISSING_VALUE,
+        short.label = MISSING_VALUE,
+        title = MISSING_VALUE
     )
 )
 
@@ -50,6 +62,7 @@ setMethod("show",
           signature = "AssayDetail",
           definition = function(object) {
               cat("An object of class ", class(object), "\n", sep="")
+              cat("    Title: ", object@title, "\n", sep="")
               cat("    Assay accession: ", object@assay.accession, "\n", sep="")
               cat("    Project accession: ", object@project.accession, "\n", sep="")
               cat("    Protein #: ", object@protein.count, "\n", sep="")
@@ -65,6 +78,10 @@ setMethod("show",
               cat("    PTM names: ", object@ptm.names, "\n", sep=" ")
               cat("    Quant methods: ", object@quant.methods, "\n", sep=" ")
               cat("    Contacts: ", object@contacts[[1]]@email, "\n", sep=" ")
+              cat("    Experimental factor: ", object@experimental.factor, "\n", sep=" ")
+              cat("    Chromatogram: ", object@chromatogram, "\n", sep=" ")
+              cat("    MS2 annotation: ", object@ms2.annotation, "\n", sep=" ")
+              cat("    Short label: ", object@short.label, "\n", sep=" ")
               invisible(NULL)
           }
 )
@@ -323,7 +340,13 @@ from.json.AssayDetail <- function(json.object) {
                sample.details = ifelse(is.null(json.object$sampleDetails)||(length(json.object$sampleDetails)==0), c(MISSING_VALUE), json.object$sampleDetails),
                ptm.names = ifelse(is.null(json.object$ptmNames)||(length(json.object$ptmNames)==0), c(MISSING_VALUE), json.object$ptmNames),
                quant.methods = ifelse(is.null(json.object$quantMethods)||(length(json.object$quantMethods)==0), c(MISSING_VALUE), json.object$quantMethods),
-               contacts = ifelse(is.null(json.object$contacts)||(length(json.object$contacts)==0), c(MISSING_VALUE), lapply(json.object$contacts, function (x) {from.json.ContactDetail(x)}))
+               contacts = ifelse(is.null(json.object$contacts)||(length(json.object$contacts)==0), c(MISSING_VALUE), lapply(json.object$contacts, function (x) {from.json.ContactDetail(x)})),
+               experimental.factor = json.object$experimentalFactor,
+               chromatogram = json.object$chromatogram,
+               ms2.annotation = json.object$ms2Annotation,
+               keywords = ifelse(is.null(json.object$keywords), MISSING_VALUE, json.object$keywords),
+               short.label = json.object$shortLabel,
+               title = json.object$title
     )
     
     return (res)
