@@ -3,7 +3,7 @@
 \alias{get.list.Cluster}
 \title{Returns a list of PRIDE Cluster cluster summaries}
 \usage{
-get.list.Cluster(page = 1, size = 10)
+get.list.Cluster(page = 0, size = 10)
 }
 \arguments{
 \item{page}{the page number}

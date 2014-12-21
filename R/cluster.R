@@ -10,14 +10,14 @@ MISSING_VALUE <- "Not available"
 setClass(
     "ClusterSearchResults", 
     representation(
-        clusters = "list", 
-        num.results = "numeric",
+        results = "list", 
+        total.results = "numeric",
         page.number = "numeric",
         page.size = "numeric"
     ),
     prototype(
-        clusters = list(), 
-        num.results = 0,
+        results = list(), 
+        total.results = 0,
         page.number = 0,
         page.size = 10
     )
@@ -325,7 +325,7 @@ get.Cluster <- function(id) {
 #' @details TODO
 #' @importFrom rjson fromJSON
 #' @export
-get.list.Cluster <- function(page=1, size=10) {
+get.list.Cluster <- function(page=0, size=10) {
     json.list <- fromJSON(file=paste0(pride_cluster_url, "/cluster/search", "?page=", page, "&size=", size), method="C")$results   
     cluster.list <- lapply(json.list, function(x) { from.json.Cluster(x)})
     return(cluster.list)
@@ -342,11 +342,26 @@ get.list.Cluster <- function(page=1, size=10) {
 #' @details TODO
 #' @importFrom rjson fromJSON
 #' @export
-search.list.Cluster <- function(q="", page=1,size=10) {
+search.list.Cluster <- function(q="", page=0,size=10) {
     json.list <- fromJSON(file=paste0(pride_cluster_url, "/cluster/search", "?page=", page, "&size=", size,"&q=", q), method="C")$results
     cluster.list <- lapply(json.list, function(x) { from.json.Cluster(x)})
     return(cluster.list)
 }
 
-
+#' Returns a series of PRIDE Cluster clusters
+#' to satisify a given spectral search. 
+#'
+#' @param precursor The input precursor MZ
+#' @param peaks The input spectrum peak list
+#' @param page the page number
+#' @param size maximum number of results per page
+#' @author Jose A. Dianes
+#' @details TODO
+#' @importFrom rjson fromJSON
+#' @export
+spectra.search.Cluster <- function(page=0,size=10) {
+    json.list <- fromJSON(file=paste0(pride_cluster_url, "/cluster/nearest", "?precursor=", precursor, "&peaks=", peaks, "&page=", page, "&size=", size), method="C")$results
+    cluster.list <- lapply(json.list, function(x) { from.json.Cluster(x)})
+    return(cluster.list)
+}
 

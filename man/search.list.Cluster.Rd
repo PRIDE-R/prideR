@@ -5,7 +5,7 @@
 to satisify a given query. This is actually a
 query filtered version of get.list.Cluster}
 \usage{
-search.list.Cluster(q = "", page = 1, size = 10)
+search.list.Cluster(q = "", page = 0, size = 10)
 }
 \arguments{
 \item{q}{The query terms}
