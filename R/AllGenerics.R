@@ -1,3 +1,61 @@
+# file related generics
+if (!isGeneric("assay.accession")) {
+  setGeneric("assay.accession", function(object) standardGeneric("assay.accession"))
+}
+
+if (!isGeneric("assay.accession<-")) {
+  setGeneric("assay.accession<-", function(object, value) standardGeneric("assay.accession<-"))
+}
+
+if (!isGeneric("project.accession")) {
+  setGeneric("project.accession", function(object) standardGeneric("project.accession"))
+}
+
+if (!isGeneric("project.accession<-")) {
+  setGeneric("project.accession<-", function(object, value) standardGeneric("project.accession<-"))
+}
+
+if (!isGeneric("file.name")) {
+  setGeneric("file.name", function(object) standardGeneric("file.name"))
+}
+
+if (!isGeneric("file.name<-")) {
+  setGeneric("file.name<-", function(object, value) standardGeneric("file.name<-"))
+}
+
+if (!isGeneric("file.type")) {
+  setGeneric("file.type", function(object) standardGeneric("file.type"))
+}
+
+if (!isGeneric("file.type<-")) {
+  setGeneric("file.type<-", function(object, value) standardGeneric("file.type<-"))
+}
+
+if (!isGeneric("file.source")) {
+  setGeneric("file.source", function(object) standardGeneric("file.source"))
+}
+
+if (!isGeneric("file.source<-")) {
+  setGeneric("file.source<-", function(object, value) standardGeneric("file.source<-"))
+}
+
+if (!isGeneric("file.size")) {
+  setGeneric("file.size", function(object) standardGeneric("file.size"))
+}
+
+if (!isGeneric("file.size<-")) {
+  setGeneric("file.size<-", function(object, value) standardGeneric("file.size<-"))
+}
+
+if (!isGeneric("download.link")) {
+  setGeneric("download.link", function(object) standardGeneric("download.link"))
+}
+
+if (!isGeneric("download.link<-")) {
+  setGeneric("download.link<-", function(object, value) standardGeneric("download.link<-"))
+}
+
+# cluster related generics
 if (!isGeneric("id")) {
     setGeneric("id", function(object) standardGeneric("id"))
 }
