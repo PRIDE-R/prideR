@@ -10,24 +10,24 @@ MISSING_VALUE <- "Not available"
 #' @exportClass FileDetail
 setClass(
     "FileDetail", 
-    representation(
-        assay.accession = "character", 
-        project.accession = "character",
-        file.name = "character",
-        file.type = "character",
-        file.source = "character",
-        file.size = "numeric",
-        download.link = "character"
-    ),
-    prototype(
-        assay.accession = MISSING_VALUE, 
-        project.accession = MISSING_VALUE,
-        file.name = MISSING_VALUE,
-        file.type = MISSING_VALUE,
-        file.source = MISSING_VALUE,
-        file.size = 0,
-        download.link = MISSING_VALUE
-    )
+    slots = c(
+              assay.accession = "character", 
+              project.accession = "character",
+              file.name = "character",
+              file.type = "character",
+              file.source = "character",
+              file.size = "numeric",
+              download.link = "character"
+            ),
+    prototype = list(
+                    assay.accession = MISSING_VALUE, 
+                    project.accession = MISSING_VALUE,
+                    file.name = MISSING_VALUE,
+                    file.type = MISSING_VALUE,
+                    file.source = MISSING_VALUE,
+                    file.size = 0,
+                    download.link = MISSING_VALUE
+                )
 )
 
 setMethod("show",
