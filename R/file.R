@@ -114,8 +114,8 @@ setMethod("project.accession", "FileDetail", function(object) object@project.acc
 setReplaceMethod("project.accession", "FileDetail",
           function(object, value) {
               object@project.accession <- value
-              if (validObject(object))
-                  return(object)
+              validObject(object)
+              return(object)
           }
 )
 
@@ -136,8 +136,8 @@ setMethod("file.name", "FileDetail", function(object) object@file.name)
 setReplaceMethod("file.name", "FileDetail",
           function(object, value) {
               object@file.name <- value
-              if (validObject(object))
-                  return(object)
+              validObject(object)
+              return(object)
           }
 )
 
@@ -158,8 +158,8 @@ setMethod("file.type", "FileDetail", function(object) object@file.type)
 setReplaceMethod("file.type", "FileDetail",
           function(object, value) {
               object@file.type <- value
-              if (validObject(object))
-                  return(object)
+              validObject(object)
+              return(object)
           }
 )
 
@@ -180,8 +180,8 @@ setMethod("file.source", "FileDetail", function(object) object@file.source)
 setReplaceMethod("file.source", "FileDetail",
           function(object, value) {
               object@file.source <- value
-              if (validObject(object))
-                  return(object)
+              validObject(object)
+              return(object)
           }
 )
 
@@ -202,8 +202,8 @@ setMethod("file.size", "FileDetail", function(object) object@file.size)
 setReplaceMethod("file.size", "FileDetail",
           function(object, value) {
               object@file.size <- value
-              if (validObject(object))
-                  return(object)
+              validObject(object)
+              return(object)
           }
 )
 
@@ -224,8 +224,8 @@ setMethod("download.link", "FileDetail", function(object) object@download.link)
 setReplaceMethod("download.link", "FileDetail",
           function(object, value) {
               object@download.link <- value
-              if (validObject(object))
-                  return(object)
+              validObject(object)
+              return(object)
           }
 )
 
