@@ -60,6 +60,31 @@ setClass(
     }
 )
 
+#' Constructor for FileDetail
+#' 
+#' @param assay.accession assay accession
+#' @param project.accession project accession
+#' @param file.name the name of the file
+#' @param file.type the type of the file. e.g. RAW, PEAK, RESULT and etc
+#' @param file.source the source of the file. e.g. SUBMITTED or GENERATED
+#' @param file.size the size of the file
+#' @param download.link URL for downloading the file
+#' @export
+FileDetail <- function(assay.accession, project.accession, file.name, file.type, file.source, file.size, download.link) {
+  new("FileDetail", assay.accession = assay.accession, 
+                    project.accession = project.accession, 
+                    file.name = file.name, 
+                    file.type = file.type, 
+                    file.source = file.source, 
+                    file.size = file.size, 
+                    download.link = download.link)
+}
+
+#' print out the details of the FileDetail on screen
+#' 
+#' @param object a FileDetail object
+#' @author Jose A. Dianes
+#' @export
 setMethod("show",
           signature = "FileDetail",
           definition = function(object) {
