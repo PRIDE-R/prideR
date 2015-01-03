@@ -1,4 +1,4 @@
-# file related generics
+# FileDetail related generics
 if (!isGeneric("assay.accession")) {
   setGeneric("assay.accession", function(object) standardGeneric("assay.accession"))
 }
@@ -53,6 +53,47 @@ if (!isGeneric("download.link")) {
 
 if (!isGeneric("download.link<-")) {
   setGeneric("download.link<-", function(object, value) standardGeneric("download.link<-"))
+}
+
+# ContactDetail related generics
+if (!isGeneric("title")) {
+  setGeneric("title", function(object) standardGeneric("title"))
+}
+
+if (!isGeneric("title<-")) {
+  setGeneric("title<-", function(object, value) standardGeneric("title<-"))
+}
+
+if (!isGeneric("first.name")) {
+  setGeneric("first.name", function(object) standardGeneric("first.name"))
+}
+
+if (!isGeneric("first.name<-")) {
+  setGeneric("first.name<-", function(object, value) standardGeneric("first.name<-"))
+}
+
+if (!isGeneric("last.name")) {
+  setGeneric("last.name", function(object) standardGeneric("last.name"))
+}
+
+if (!isGeneric("last.name<-")) {
+  setGeneric("last.name<-", function(object, value) standardGeneric("last.name<-"))
+}
+
+if (!isGeneric("email")) {
+  setGeneric("email", function(object) standardGeneric("email"))
+}
+
+if (!isGeneric("email<-")) {
+  setGeneric("email<-", function(object, value) standardGeneric("email<-"))
+}
+
+if (!isGeneric("affiliation")) {
+  setGeneric("affiliation", function(object) standardGeneric("affiliation"))
+}
+
+if (!isGeneric("affiliation<-")) {
+  setGeneric("affiliation<-", function(object, value) standardGeneric("affiliation<-"))
 }
 
 # cluster related generics

@@ -19,3 +19,4 @@ License: GPL-3
 Encoding: UTF-8
 URL: http://github.com/PRIDE-R/prideR
 BugReports: http://github.com/PRIDE-R/prideR/issues
+VignetteBuilder: knitr

@@ -1,24 +1,3 @@
-pride_archive_url <- "http://www.ebi.ac.uk/pride/ws/archive"
-pride_archive_url_dev <- "http://wwwdev.ebi.ac.uk/pride/ws/archive"
-
-MISSING_VALUE <- "Not available"
-
-#' ContactDetail represents a PRIDE Archive assay
-#'
-#' @importFrom rjson fromJSON
-#' @export 
-#' @exportClass ContactDetail
-setClass(
-    "ContactDetail", 
-    representation(
-        email = "character"
-    ),
-    prototype(
-        email = MISSING_VALUE
-    )
-)
-
-
 #' Returns a ContactDetail instance from a JSON string representation
 #'
 #' @param json_str The JSON object
@@ -32,7 +11,11 @@ setClass(
 #' @export
 from.json.ContactDetail <- function(json.object) {
     res <- new("ContactDetail",
-               email = json.object$email
+               title = json.object$title,
+               first.name = json.object$first.name,
+               last.name = json.object$last.name,
+               email = json.object$email,
+               affiliation = json.object$affiliation
     )
     
     return (res)

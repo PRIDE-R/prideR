@@ -57,3 +57,49 @@ setClass(
     return(TRUE)
   }
 )
+
+#' ContactDetail represents a PRIDE Archive assay's contact
+#'
+#' @export 
+#' @exportClass ContactDetail
+setClass(
+  "ContactDetail", 
+  
+  slots = c(
+            title = "character",
+            first.name = "character",
+            last.name = "character",
+            email = "character",
+            affiliation = "character"
+          ),
+  
+  prototype = list(
+                title = MISSING_VALUE,
+                first.name = MISSING_VALUE,
+                last.name = MISSING_VALUE,
+                email = MISSING_VALUE,
+                affiliation = MISSING_VALUE
+              ),
+  
+  validity = function(object) {
+    # check title
+    if (!is.character(object@title) || nchar(object@title) == 0 || is.na(object@title))
+      return("'title' must be a single valid string")          
+    
+    # check first.name
+    if (!is.character(object@first.name) || nchar(object@first.name) == 0 || is.na(object@first.name))
+      return("'first.name' must be a single valid string")          
+    
+    # check last.name
+    if (!is.character(object@last.name) || nchar(object@last.name) == 0 || is.na(object@last.name))
+      return("'last.name' must be a single valid string")          
+    
+    # check email
+    if (!is.character(object@email) || nchar(object@email) == 0 || !grepl("@", object@email) || is.na(object@email))
+      return("'email' must be a single valid email address")          
+    
+    # check affiliation
+    if (!is.character(object@affiliation) || nchar(object@affiliation) == 0 || is.na(object@affiliation))
+      return("'affiliation' must be a single valid string")          
+  }   
+)
