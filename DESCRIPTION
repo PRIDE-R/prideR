@@ -12,7 +12,8 @@ Maintainer: Jose A Dianes <jadianes@gmail.com>, Rui Wang <harry.r.wang@gmail.com
 Depends: R (>= 3.0.0), methods
 Imports: 
     rjson
-Suggests: testthat,
+Suggests: 
+    testthat,
     knitr
 Description: An R package to programatically access the PRIDE Archive Web
     Service
