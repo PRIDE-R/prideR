@@ -10,14 +10,15 @@ Authors@R: c(person("Jose", "A Dianes", role=c("aut", "cre"),
 Author: Jose A Dianes, Rui Wang
 Maintainer: Jose A Dianes <jadianes@gmail.com>, Rui Wang <harry.r.wang@gmail.com>
 Depends: R (>= 3.0.0), methods
-Imports:
+Imports: 
     rjson
-Suggests: testthat
+Suggests: testthat,
+    knitr
 Description: An R package to programatically access the PRIDE Archive Web
     Service
 License: GPL-3
 Encoding: UTF-8
 URL: http://github.com/PRIDE-R/prideR
 BugReports: http://github.com/PRIDE-R/prideR/issues
-VignetteBuilder: knitr
 biocViews: Infrastructure, Proteomics, MassSpectrometry,DataImport
+VignetteBuilder: knitr
