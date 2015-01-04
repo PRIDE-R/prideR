@@ -10,34 +10,122 @@ MISSING_VALUE <- "Not available"
 #' @exportClass ProjectSummary
 setClass(
     "ProjectSummary", 
-    representation(
-        accession = "character", 
-        title = "character",
-        project.description = "character",
-        publication.date = "POSIXct",
-        num.assays = "numeric",
-        species = "vector",
-        tissues = "vector",
-        ptm.names = "vector",
-        instrument.names = "vector",
-        project.tags = "vector",
-        submission.type = "character"
-    ),
-    prototype(
-        accession = MISSING_VALUE, 
-        title = MISSING_VALUE,
-        project.description = MISSING_VALUE,
-        publication.date = Sys.time(),
-        num.assays = 0,
-        species = c(MISSING_VALUE),
-        tissues = c(MISSING_VALUE),
-        ptm.names = c(MISSING_VALUE),
-        instrument.names = c(MISSING_VALUE),
-        project.tags = c(MISSING_VALUE),
-        submission.type = MISSING_VALUE
-    )
+    slots = c(
+              accession = "character", 
+              project.title = "character",
+              project.description = "character",
+              publication.date = "POSIXct",
+              num.assays = "numeric",
+              species = "character",
+              tissues = "character",
+              ptm.names = "character",
+              instrument.names = "character",
+              project.tags = "character",
+              submission.type = "character"
+            ),
+    prototype = list(
+                  project.title = MISSING_VALUE,
+                  project.description = MISSING_VALUE,
+                  publication.date = Sys.time(),
+                  num.assays = 0,
+                  species = MISSING_VALUE,
+                  tissues = MISSING_VALUE,
+                  ptm.names = MISSING_VALUE,
+                  instrument.names = MISSING_VALUE,
+                  project.tags = MISSING_VALUE,
+                  submission.type = MISSING_VALUE
+                ),
+    validity = function(object) {
+      # check accession
+      if (!is.character(object@accession) || nchar(object@accession) == 0 || is.na(object@accession))
+        return("'accession' must be a single valid string")  
+      
+      # check project.title
+      if (!is.character(object@project.title) || nchar(object@project.title) == 0 || is.na(object@project.title))
+        return("'project.title' must be a single valid string")  
+      
+      # check project.description
+      if (!is.character(object@project.description) || nchar(object@project.description) == 0 || is.na(object@project.description))
+        return("'project description' must be a single valid string")  
+      
+      # check publication.date
+      if (!is(object@publication.date, "POSIXct") || is.na(object@publication.date))
+        return("'publication.date' must be a single valid date")  
+      
+      # check num.assays
+      if (!is.numeric(object@num.assays) || object@num.assays < 0 || is.na(object@num.assays))
+        return("'num.assays' must be a none negative integer")  
+      
+      # check species
+      if (!is.character(object@species) || 0 %in% nchar(object@species) || is.na(object@species))
+        return("'species' must be a one or multiple valid strings")  
+      
+      # check tissues
+      if (!is.character(object@tissues) || 0 %in% nchar(object@tissues) || is.na(object@tissues))
+        return("'tissues' must be a one or multiple valid strings")  
+      
+      # check ptm.names
+      if (!is.character(object@ptm.names) || 0 %in% nchar(object@ptm.names) || is.na(object@ptm.names))
+        return("'ptm.names' must be a one or multiple valid strings")
+      
+      # check instrument.names
+      if (!is.character(object@instrument.names) || 0 %in% nchar(object@instrument.names) || is.na(object@instrument.names))
+        return("'instrument.names' must be a one or multiple valid strings")
+      
+      # check project.tags
+      if (!is.character(object@project.tags) || 0 %in% nchar(object@project.tags) || is.na(object@project.tags))
+        return("'project.tags' must be a one or multiple valid strings")
+      
+      # check submission.type
+      if (!is.character(object@submission.type) || nchar(object@submission.type) == 0 || is.na(object@submission.type))
+        return("'submission.type' must be a single valid string")
+    }
 )
 
+#' Constructor for ProjectSummary
+#' 
+#' @param accession project accession
+#' @param project.title the title of the project
+#' @param project.description the description of the project
+#' @param publication.date the date when the project was made public by PRIDE
+#' @param num.assays the number of assays
+#' @param species the species of the project
+#' @param tissues the tissues of the projecte
+#' @param ptm.names the names of the PTM for the project
+#' @param instrument.names the names of the instruments used in the project
+#' @param project.tags the tags for the project
+#' @param submission.type the type of the submission, e.g. COMPLETE, PARTIAL or PRIDE
+#' @export 
+ProjectSummary <- function(accession, 
+                           project.title, 
+                           project.description, 
+                           publication.date, 
+                           num.assays, 
+                           species,
+                           tissues,
+                           ptm.names,
+                           instrument.names,
+                           project.tags,
+                           submission.type) {
+  new("ProjectSummary", 
+      accession = accession,
+      project.title = project.title,
+      project.description = project.description,
+      publication.date = publication.date,
+      num.assays = num.assays,
+      species = species,
+      tissues = tissues,
+      ptm.names = ptm.names,
+      instrument.names = instrument.names,
+      project.tags = project.tags,
+      submission.type
+      )
+}
+
+#' Show the print-out version of the content in a ProjectSummary
+#' 
+#' @param object a given ProjectSummary
+#' @export 
 setMethod("show",
           signature = "ProjectSummary",
           definition = function(object) {
@@ -56,9 +144,6 @@ setMethod("show",
           }
 )
 
-if (!isGeneric("accession")) {
-    setGeneric("accession", function(object) standardGeneric("accession"))
-}
 #' Returns a project accession
 #' 
 #' @param object a ProjectSummary
@@ -67,16 +152,13 @@ if (!isGeneric("accession")) {
 #' @export
 setMethod("accession", "ProjectSummary", function(object) object@accession)
 
-if (!isGeneric("accession<-")) {
-    setGeneric("accession<-", function(object, value) standardGeneric("accession<-"))
-}
 #' Replaces a project accession
 #' 
 #' @param object a ProjectSummary
 #' @param value the accession
 #' @author Jose A. Dianes
 #' @export
-setMethod("accession<-", "ProjectSummary",
+setReplaceMethod("accession", "ProjectSummary",
           function(object, value) {
               object@accession <- value
               if (validObject(object))
@@ -84,37 +166,28 @@ setMethod("accession<-", "ProjectSummary",
           }
 )
 
-if (!isGeneric("title")) {
-    setGeneric("title", function(object) standardGeneric("title"))
-}
 #' Returns a project title
 #' 
 #' @param object a ProjectSummary
 #' @return the project title
 #' @author Jose A. Dianes
 #' @export
-setMethod("title", "ProjectSummary", function(object) object@title)
+setMethod("project.title", "ProjectSummary", function(object) object@project.title)
 
-if (!isGeneric("title<-")) {
-    setGeneric("title<-", function(object, value) standardGeneric("title<-"))
-}
 #' Replaces a project title
 #' 
 #' @param object a ProjectSummary
 #' @param value the title
 #' @author Jose A. Dianes
 #' @export
-setMethod("title<-", "ProjectSummary",
+setReplaceMethod("project.title", "ProjectSummary",
           function(object, value) {
-              object@title <- value
+              object@project.title <- value
               if (validObject(object))
                   return(object)
           }
 )
 
-if (!isGeneric("project.description")) {
-    setGeneric("project.description", function(object) standardGeneric("project.description"))
-}
 #' Returns a project description
 #' 
 #' @param object a ProjectSummary
@@ -123,16 +196,13 @@ if (!isGeneric("project.description")) {
 #' @export
 setMethod("project.description", "ProjectSummary", function(object) object@project.description)
 
-if (!isGeneric("project.description<-")) {
-    setGeneric("project.description<-", function(object, value) standardGeneric("project.description<-"))
-}
 #' Replaces a project description
 #' 
 #' @param object a ProjectSummary
 #' @param value the project description
 #' @author Jose A. Dianes
 #' @export
-setMethod("project.description<-", "ProjectSummary",
+setReplaceMethod("project.description", "ProjectSummary",
           function(object, value) {
               object@project.description <- value
               if (validObject(object))
@@ -140,9 +210,6 @@ setMethod("project.description<-", "ProjectSummary",
           }
 )
 
-if (!isGeneric("publication.date")) {
-    setGeneric("publication.date", function(object) standardGeneric("publication.date"))
-}
 #' Returns a project publication date
 #' 
 #' @param object a ProjectSummary
@@ -151,16 +218,13 @@ if (!isGeneric("publication.date")) {
 #' @export
 setMethod("publication.date", "ProjectSummary", function(object) object@publication.date)
 
-if (!isGeneric("publication.date<-")) {
-    setGeneric("publication.date<-", function(object, value) standardGeneric("publication.date<-"))
-}
 #' Replaces a project publication date
 #' 
 #' @param object a ProjectSummary
 #' @param value the publication date
 #' @author Jose A. Dianes
 #' @export
-setMethod("publication.date<-", "ProjectSummary",
+setReplaceMethod("publication.date", "ProjectSummary",
           function(object, value) {
               object@publication.date <- value
               if (validObject(object))
@@ -168,9 +232,6 @@ setMethod("publication.date<-", "ProjectSummary",
           }
 )
 
-if (!isGeneric("num.assays")) {
-    setGeneric("num.assays", function(object) standardGeneric("num.assays"))
-}
 #' Returns a project number of assays
 #' 
 #' @param object a ProjectSummary
@@ -179,16 +240,13 @@ if (!isGeneric("num.assays")) {
 #' @export
 setMethod("num.assays", "ProjectSummary", function(object) object@num.assays)
 
-if (!isGeneric("num.assays<-")) {
-    setGeneric("num.assays<-", function(object, value) standardGeneric("num.assays<-"))
-}
 #' Replaces a project number of assays
 #' 
 #' @param object a ProjectSummary
 #' @param value the number of assays
 #' @author Jose A. Dianes
 #' @export
-setMethod("num.assays<-", "ProjectSummary",
+setReplaceMethod("num.assays", "ProjectSummary",
           function(object, value) {
               object@num.assays <- value
               if (validObject(object))
@@ -196,9 +254,6 @@ setMethod("num.assays<-", "ProjectSummary",
           }
 )
 
-if (!isGeneric("species")) {
-    setGeneric("species", function(object) standardGeneric("species"))
-}
 #' Returns a project species
 #' 
 #' @param object a ProjectSummary
@@ -207,16 +262,13 @@ if (!isGeneric("species")) {
 #' @export
 setMethod("species", "ProjectSummary", function(object) object@species)
 
-if (!isGeneric("species<-")) {
-    setGeneric("species<-", function(object, value) standardGeneric("species<-"))
-}
 #' Replaces the project species
 #' 
 #' @param object a ProjectSummary
 #' @param value the species
 #' @author Jose A. Dianes
 #' @export
-setMethod("species<-", "ProjectSummary",
+setReplaceMethod("species", "ProjectSummary",
           function(object, value) {
               object@species <- value
               if (validObject(object))
@@ -224,9 +276,6 @@ setMethod("species<-", "ProjectSummary",
           }
 )
 
-if (!isGeneric("tissues")) {
-    setGeneric("tissues", function(object) standardGeneric("tissues"))
-}
 #' Returns a project tissues
 #' 
 #' @param object a ProjectSummary
@@ -235,16 +284,13 @@ if (!isGeneric("tissues")) {
 #' @export
 setMethod("tissues", "ProjectSummary", function(object) object@tissues)
 
-if (!isGeneric("tissues<-")) {
-    setGeneric("tissues<-", function(object, value) standardGeneric("tissues<-"))
-}
 #' Replaces the project tissues
 #' 
 #' @param object a ProjectSummary
 #' @param value the tissues
 #' @author Jose A. Dianes
 #' @export
-setMethod("tissues<-", "ProjectSummary",
+setReplaceMethod("tissues", "ProjectSummary",
           function(object, value) {
               object@tissues <- value
               if (validObject(object))
@@ -252,9 +298,6 @@ setMethod("tissues<-", "ProjectSummary",
           }
 )
 
-if (!isGeneric("ptm.names")) {
-    setGeneric("ptm.names", function(object) standardGeneric("ptm.names"))
-}
 #' Returns a project modification names
 #' 
 #' @param object a ProjectSummary
@@ -263,16 +306,13 @@ if (!isGeneric("ptm.names")) {
 #' @export
 setMethod("ptm.names", "ProjectSummary", function(object) object@ptm.names)
 
-if (!isGeneric("ptm.names<-")) {
-    setGeneric("ptm.names<-", function(object, value) standardGeneric("ptm.names<-"))
-}
 #' Replaces the project PTMs
 #' 
 #' @param object a ProjectSummary
 #' @param value the PTMs
 #' @author Jose A. Dianes
 #' @export
-setMethod("ptm.names<-", "ProjectSummary",
+setReplaceMethod("ptm.names", "ProjectSummary",
           function(object, value) {
               object@ptm.names <- value
               if (validObject(object))
@@ -280,9 +320,6 @@ setMethod("ptm.names<-", "ProjectSummary",
           }
 )
 
-if (!isGeneric("instrument.names")) {
-    setGeneric("instrument.names", function(object) standardGeneric("instrument.names"))
-}
 #' Returns a project instrument names
 #' 
 #' @param object a ProjectSummary
@@ -291,16 +328,13 @@ if (!isGeneric("instrument.names")) {
 #' @export
 setMethod("instrument.names", "ProjectSummary", function(object) object@instrument.names)
 
-if (!isGeneric("instrument.names<-")) {
-    setGeneric("instrument.names<-", function(object, value) standardGeneric("instrument.names<-"))
-}
 #' Replaces the project instrument nanmes
 #' 
 #' @param object a ProjectSummary
 #' @param value the instrument names
 #' @author Jose A. Dianes
 #' @export
-setMethod("instrument.names<-", "ProjectSummary",
+setReplaceMethod("instrument.names", "ProjectSummary",
           function(object, value) {
               object@instrument.names <- value
               if (validObject(object))
@@ -308,9 +342,6 @@ setMethod("instrument.names<-", "ProjectSummary",
           }
 )
 
-if (!isGeneric("project.tags")) {
-    setGeneric("project.tags", function(object) standardGeneric("project.tags"))
-}
 #' Returns a project tags
 #' 
 #' @param object a ProjectSummary
@@ -319,16 +350,13 @@ if (!isGeneric("project.tags")) {
 #' @export
 setMethod("project.tags", "ProjectSummary", function(object) object@project.tags)
 
-if (!isGeneric("project.tags<-")) {
-    setGeneric("project.tags<-", function(object, value) standardGeneric("project.tags<-"))
-}
 #' Replaces the project tags
 #' 
 #' @param object a ProjectSummary
 #' @param value the project tags
 #' @author Jose A. Dianes
 #' @export
-setMethod("project.tags<-", "ProjectSummary",
+setReplaceMethod("project.tags", "ProjectSummary",
           function(object, value) {
               object@project.tags <- value
               if (validObject(object))
@@ -336,9 +364,6 @@ setMethod("project.tags<-", "ProjectSummary",
           }
 )
 
-if (!isGeneric("submission.type")) {
-    setGeneric("submission.type", function(object) standardGeneric("submission.type"))
-}
 #' Returns a project submission type
 #' 
 #' @param object a ProjectSummary
@@ -347,16 +372,13 @@ if (!isGeneric("submission.type")) {
 #' @export
 setMethod("submission.type", "ProjectSummary", function(object) object@submission.type)
 
-if (!isGeneric("submission.type<-")) {
-    setGeneric("submission.type<-", function(object, value) standardGeneric("submission.type<-"))
-}
 #' Replaces the project submission type
 #' 
 #' @param object a ProjectSummary
 #' @param value the submission type
 #' @author Jose A. Dianes
 #' @export
-setMethod("submission.type<-", "ProjectSummary",
+setReplaceMethod("submission.type", "ProjectSummary",
           function(object, value) {
               object@submission.type <- value
               if (validObject(object))
@@ -414,7 +436,7 @@ format.ProjectSummary <- function(x, ...) paste0(x@accession, ", ", x@title)
 from.json.ProjectSummary <- function(json.object) {
     res <- new("ProjectSummary",
                accession = json.object$accession,
-               title = json.object$title,
+               project.title = json.object$title,
                project.description = ifelse(is.null(json.object$projectDescription), MISSING_VALUE, json.object$projectDescription),
                publication.date = as.POSIXct(json.object$publicationDate),
                num.assays = json.object$numAssays,

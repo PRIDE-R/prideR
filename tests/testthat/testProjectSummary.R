@@ -3,7 +3,7 @@ context("Project Summary")
 
 test.project <- new("ProjectSummary",
                     accession = "Test.Accession",
-                    title = "Test.Title",
+                    project.title = "Test.Title",
                     project.description = "Test.Project.Description",
                     publication.date = as.POSIXct("6-6-2006"),
                     num.assays = 10,
@@ -17,7 +17,7 @@ test.project <- new("ProjectSummary",
 
 test_that("A Project is created properly", {
     expect_equal(accession(test.project), "Test.Accession")
-    expect_equal(title(test.project), "Test.Title")
+    expect_equal(project.title(test.project), "Test.Title")
     expect_equal(project.description(test.project), "Test.Project.Description")
     expect_equal(publication.date(test.project), as.POSIXct("6-6-2006"))
     expect_equal(num.assays(test.project), 10)

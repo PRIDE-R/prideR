@@ -1,3 +1,94 @@
+# PorjectSummary related generics
+if (!isGeneric("accession")) {
+  setGeneric("accession", function(object) standardGeneric("accession"))
+}
+
+if (!isGeneric("accession<-")) {
+  setGeneric("accession<-", function(object, value) standardGeneric("accession<-"))
+}
+
+if (!isGeneric("project.title")) {
+  setGeneric("project.title", function(object) standardGeneric("project.title"))
+}
+
+if (!isGeneric("project.title<-")) {
+  setGeneric("project.title<-", function(object, value) standardGeneric("project.title<-"))
+}
+
+if (!isGeneric("project.description")) {
+  setGeneric("project.description", function(object) standardGeneric("project.description"))
+}
+
+if (!isGeneric("project.description<-")) {
+  setGeneric("project.description<-", function(object, value) standardGeneric("project.description<-"))
+}
+
+if (!isGeneric("publication.date")) {
+  setGeneric("publication.date", function(object) standardGeneric("publication.date"))
+}
+
+if (!isGeneric("publication.date<-")) {
+  setGeneric("publication.date<-", function(object, value) standardGeneric("publication.date<-"))
+}
+
+if (!isGeneric("num.assays")) {
+  setGeneric("num.assays", function(object) standardGeneric("num.assays"))
+}
+
+if (!isGeneric("num.assays<-")) {
+  setGeneric("num.assays<-", function(object, value) standardGeneric("num.assays<-"))
+}
+
+if (!isGeneric("species")) {
+  setGeneric("species", function(object) standardGeneric("species"))
+}
+
+if (!isGeneric("species<-")) {
+  setGeneric("species<-", function(object, value) standardGeneric("species<-"))
+}
+
+if (!isGeneric("tissues")) {
+  setGeneric("tissues", function(object) standardGeneric("tissues"))
+}
+
+if (!isGeneric("tissues<-")) {
+  setGeneric("tissues<-", function(object, value) standardGeneric("tissues<-"))
+}
+
+if (!isGeneric("ptm.names")) {
+  setGeneric("ptm.names", function(object) standardGeneric("ptm.names"))
+}
+
+if (!isGeneric("ptm.names<-")) {
+  setGeneric("ptm.names<-", function(object, value) standardGeneric("ptm.names<-"))
+}
+
+
+if (!isGeneric("instrument.names")) {
+  setGeneric("instrument.names", function(object) standardGeneric("instrument.names"))
+}
+
+if (!isGeneric("instrument.names<-")) {
+  setGeneric("instrument.names<-", function(object, value) standardGeneric("instrument.names<-"))
+}
+
+if (!isGeneric("project.tags")) {
+  setGeneric("project.tags", function(object) standardGeneric("project.tags"))
+}
+
+if (!isGeneric("project.tags<-")) {
+  setGeneric("project.tags<-", function(object, value) standardGeneric("project.tags<-"))
+}
+
+if (!isGeneric("submission.type")) {
+  setGeneric("submission.type", function(object) standardGeneric("submission.type"))
+}
+
+if (!isGeneric("submission.type<-")) {
+  setGeneric("submission.type<-", function(object, value) standardGeneric("submission.type<-"))
+}
+
+
 # FileDetail related generics
 if (!isGeneric("assay.accession")) {
   setGeneric("assay.accession", function(object) standardGeneric("assay.accession"))
