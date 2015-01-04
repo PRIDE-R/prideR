@@ -10,6 +10,7 @@ MISSING_VALUE <- "Not available"
 #' @exportClass ProjectSummary
 setClass(
     "ProjectSummary", 
+    
     slots = c(
               accession = "character", 
               project.title = "character",
@@ -23,6 +24,7 @@ setClass(
               project.tags = "character",
               submission.type = "character"
             ),
+    
     prototype = list(
                   project.title = MISSING_VALUE,
                   project.description = MISSING_VALUE,
@@ -118,7 +120,7 @@ ProjectSummary <- function(accession,
       ptm.names = ptm.names,
       instrument.names = instrument.names,
       project.tags = project.tags,
-      submission.type
+      submission.type = submission.type
       )
 }
 
@@ -132,7 +134,7 @@ setMethod("show",
               cat("An object of class ", class(object), "\n", sep="")
               cat(" with ", object@num.assays, " assays and made public in ", as.character(object@publication.date), "\n", sep="")
               cat("    Accession: ", object@accession, "\n", sep="")
-              cat("    Title: ", object@title, "\n", sep="")
+              cat("    Title: ", object@project.title, "\n", sep="")
               cat("    Description: ", object@project.description, "\n", sep="")
               cat("    Species: ", object@species, "\n", sep=" ")
               cat("    Tissues: ", object@tissues, "\n", sep=" ")
@@ -406,7 +408,7 @@ as.data.frame.ProjectSummary <-
         class(value) <- "data.frame"
         names(value) <- c("accession")
         # add the rest of the columns
-        value$title <- x@title
+        value$project.title <- x@project.title
         value$project.description <- x@project.description
         value$publication.date <- x@publication.date
         value$num.assays <- x@num.assays

@@ -1,7 +1,11 @@
 library(prideR)
 context("Project Summary")
 
-test.project <- new("ProjectSummary",
+# TODO(rwang): add test for validity method
+# TODO(rwang): add test for setter methods
+# TODO(rwang): add test for as.date.frame method
+
+test.project <- ProjectSummary(
                     accession = "Test.Accession",
                     project.title = "Test.Title",
                     project.description = "Test.Project.Description",
@@ -13,7 +17,7 @@ test.project <- new("ProjectSummary",
                     instrument.names = c("Test.Instrument.A", "Test.Instrument.B"),
                     project.tags = c("Test.Tag.A", "Test.Tag.B"),
                     submission.type = "Test.Submission.Type"
-)
+                )
 
 test_that("A Project is created properly", {
     expect_equal(accession(test.project), "Test.Accession")

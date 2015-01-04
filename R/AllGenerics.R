@@ -88,6 +88,57 @@ if (!isGeneric("submission.type<-")) {
   setGeneric("submission.type<-", function(object, value) standardGeneric("submission.type<-"))
 }
 
+# ProteinDetail related generics
+if (!isGeneric("protein.accession")) {
+  setGeneric("protein.accession", function(object) standardGeneric("protein.accession"))
+}
+
+if (!isGeneric("protein.accession<-")) {
+  setGeneric("protein.accession<-", function(object, value) standardGeneric("protein.accession<-"))
+}
+
+if (!isGeneric("project.accession")) {
+  setGeneric("project.accession", function(object) standardGeneric("project.accession"))
+}
+
+if (!isGeneric("project.accession<-")) {
+  setGeneric("project.accession<-", function(object, value) standardGeneric("project.accession<-"))
+}
+
+if (!isGeneric("assay.accession")) {
+  setGeneric("assay.accession", function(object) standardGeneric("assay.accession"))
+}
+
+if (!isGeneric("assay.accession<-")) {
+  setGeneric("assay.accession<-", function(object, value) standardGeneric("assay.accession<-"))
+}
+
+if (!isGeneric("protein.synonyms")) {
+  setGeneric("protein.synonyms", function(object) standardGeneric("protein.synonyms"))
+}
+
+if (!isGeneric("protein.synonyms<-")) {
+  setGeneric("protein.synonyms<-", function(object, value) standardGeneric("protein.synonyms<-"))
+}
+
+if (!isGeneric("protein.description")) {
+  setGeneric("protein.description", function(object) standardGeneric("protein.description"))
+}
+
+if (!isGeneric("protein.description<-")) {
+  setGeneric("protein.description<-", function(object, value) standardGeneric("protein.description<-"))
+}
+
+if (!isGeneric("protein.sequence")) {
+  setGeneric("protein.sequence", function(object) standardGeneric("protein.sequence"))
+}
+
+if (!isGeneric("protein.sequence<-")) {
+  setGeneric("protein.sequence<-", function(object, value) standardGeneric("protein.sequence<-"))
+}
+
+
+
 
 # FileDetail related generics
 if (!isGeneric("assay.accession")) {
