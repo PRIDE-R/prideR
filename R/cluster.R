@@ -12,7 +12,7 @@ setClass(
     representation(
         query = "character",
         precursor = "numeric",
-        peaks = "list",
+        peaks = "character",
         results = "list", 
         total.results = "numeric",
         page.number = "numeric",
@@ -21,7 +21,7 @@ setClass(
     prototype(
         query = "",
         precursor = 0.0,
-        peaks = list(),
+        peaks = "",
         results = list(), 
         total.results = 0,
         page.number = 0,

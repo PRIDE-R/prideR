@@ -85,7 +85,8 @@ search.ClusterSearchResults <- function(q="", page=0,size=10) {
 #' @importFrom rjson fromJSON
 #' @export
 spectral.search.ClusterSearchResults <- function(precursor,peaks,page=0,size=10) {
-  json.object <- fromJSON(file=paste0(pride_cluster_url, "/cluster/nearest", "?precursor=", precursor, "&peaks=", peaks, "&page=", page, "&size=", size), method="C")
+  peaks_escape <- gsub(" ", "%20", peaks)
+  json.object <- fromJSON(file=paste0(pride_cluster_url, "/cluster/nearest", "?precursor=", precursor, "&peaks=", peaks_escape, "&page=", page, "&size=", size), method="C")
   results <- from.json.ClusterSearchResults(json.object)
   results@precursor <- precursor
   results@peaks <- peaks
