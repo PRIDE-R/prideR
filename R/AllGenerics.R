@@ -303,8 +303,21 @@ if (!isGeneric("cluster.quality<-")) {
     setGeneric("cluster.quality<-", function(object, value) standardGeneric("cluster.quality<-"))
 }
 
+if (!isGeneric("results")) {
+  setGeneric("results", function(object) standardGeneric("results"))
+}
 
+if (!isGeneric("total.results")) {
+  setGeneric("total.results", function(object) standardGeneric("total.results"))
+}
 
+if (!isGeneric("page.number")) {
+  setGeneric("page.number", function(object) standardGeneric("page.number"))
+}
+
+if (!isGeneric("page.size")) {
+  setGeneric("page.size", function(object) standardGeneric("page.size"))
+}
 
 
 

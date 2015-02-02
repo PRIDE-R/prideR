@@ -10,18 +10,71 @@ MISSING_VALUE <- "Not available"
 setClass(
     "ClusterSearchResults", 
     representation(
+        query = "character",
+        precursor = "numeric",
+        peaks = "list",
         results = "list", 
         total.results = "numeric",
         page.number = "numeric",
         page.size = "numeric"
     ),
     prototype(
+        query = "",
+        precursor = 0.0,
+        peaks = list(),
         results = list(), 
         total.results = 0,
         page.number = 0,
         page.size = 10
     )
 )
+
+setMethod("show",
+          signature = "ClusterSearchResults",
+          definition = function(object) {
+            cat("An ", class(object), sep="")
+            cat(" representing a search for Clusters with \n", sep="")
+            cat("    Query: ", object@query, "\n", sep="")
+            cat("    Total results: ", object@total.results, "\n", sep="")
+            cat("    Page number: ", object@page.number, " \n", sep="")
+            cat("    Page size: ", object@page.size, " clusters in page\n", sep="")
+            invisible(NULL)
+          }
+)
+
+#' Returns a cluster search results list
+#' 
+#' @param object a ClusterSearchResults results
+#' @return the results
+#' @author Jose A. Dianes
+#' @export
+setMethod("results", "ClusterSearchResults", function(object) object@results)
+
+#' Returns the total number of clusters for a given search results
+#' 
+#' @param object a ClusterSearchResults total results
+#' @return the total number of results
+#' @author Jose A. Dianes
+#' @export
+setMethod("total.results", "ClusterSearchResults", function(object) object@total.results)
+
+#' Returns the page number for a given search results
+#' 
+#' @param object a ClusterSearchResults page number
+#' @return the page number 
+#' @author Jose A. Dianes
+#' @export
+setMethod("page.number", "ClusterSearchResults", function(object) object@page.number)
+
+#' Returns the page size for a given search results
+#' 
+#' @param object a ClusterSearchResults page size
+#' @return the page size 
+#' @author Jose A. Dianes
+#' @export
+setMethod("page.size", "ClusterSearchResults", function(object) object@page.size)
+
+
 
 #' Cluster represents a PRIDE Cluster project summary
 #'
@@ -277,91 +330,3 @@ as.data.frame.Cluster <-
     }
 
 format.Cluster <- function(x, ...) paste0(x@id, ", ", x@peptide.sequence)
-
-#' Returns a Cluster instance from a JSON string representation
-#'
-#' @param json_str The JSON object
-#' @param file the name of a file to read the json_str from; this can also be a URL. Only one of json_str or file must be supplied.
-#' @param method use the C implementation, or the older slower (and one day to be depricated) R implementation
-#' @param unexpected.escape changed handling of unexpected escaped characters. Handling value should be one of "error", "skip", or "keep"; on unexpected characters issue an error, skip the character, or keep the character
-#' @return The Cluster instance
-#' @author Jose A. Dianes
-#' @details TODO
-#' @importFrom rjson fromJSON
-#' @export
-from.json.Cluster <- function(json.object) {
-    res <- new("Cluster",
-               id = as.character(json.object$id),
-               average.precursor.mz = json.object$averagePrecursorMz,
-               average.precursor.charge = json.object$averagePrecursorCharge,
-               num.spectra = json.object$numberOfSpectra,
-               max.ratio = json.object$maxRatio,
-               peptide.sequence = json.object$peptideSequence,
-               protein.accession = json.object$proteinAccession,
-               cluster.quality = json.object$clusterQuality
-    )
-    
-    return (res)
-}
-
-#' Returns a PRIDE Cluster cluster
-#'
-#' @param id The cluster id
-#' @return The cluster as object
-#' @author Jose A. Dianes
-#' @details TODO
-#' @importFrom rjson fromJSON
-#' @export
-get.Cluster <- function(id) {
-    from.json.Cluster(fromJSON(file=paste0(pride_cluster_url, "/cluster/", id), method="C"))
-}
-
-#' Returns a list of PRIDE Cluster cluster summaries
-#'
-#' @param page the page number
-#' @param size maximum number of results per page
-#' @return The list of Cluster objects
-#' @author Jose A. Dianes
-#' @details TODO
-#' @importFrom rjson fromJSON
-#' @export
-get.list.Cluster <- function(page=0, size=10) {
-    json.list <- fromJSON(file=paste0(pride_cluster_url, "/cluster/search", "?page=", page, "&size=", size), method="C")$results   
-    cluster.list <- lapply(json.list, function(x) { from.json.Cluster(x)})
-    return(cluster.list)
-}
-
-#' Returns a series of PRIDE Cluster clusters
-#' to satisify a given query. This is actually a 
-#' query filtered version of get.list.Cluster
-#'
-#' @param q The query terms
-#' @param page the page number
-#' @param size maximum number of results per page
-#' @author Jose A. Dianes
-#' @details TODO
-#' @importFrom rjson fromJSON
-#' @export
-search.list.Cluster <- function(q="", page=0,size=10) {
-    json.list <- fromJSON(file=paste0(pride_cluster_url, "/cluster/search", "?page=", page, "&size=", size,"&q=", q), method="C")$results
-    cluster.list <- lapply(json.list, function(x) { from.json.Cluster(x)})
-    return(cluster.list)
-}
-
-#' Returns a series of PRIDE Cluster clusters
-#' to satisify a given spectral search. 
-#'
-#' @param precursor The input precursor MZ
-#' @param peaks The input spectrum peak list
-#' @param page the page number
-#' @param size maximum number of results per page
-#' @author Jose A. Dianes
-#' @details TODO
-#' @importFrom rjson fromJSON
-#' @export
-spectra.search.Cluster <- function(page=0,size=10) {
-    json.list <- fromJSON(file=paste0(pride_cluster_url, "/cluster/nearest", "?precursor=", precursor, "&peaks=", peaks, "&page=", page, "&size=", size), method="C")$results
-    cluster.list <- lapply(json.list, function(x) { from.json.Cluster(x)})
-    return(cluster.list)
-}
-
