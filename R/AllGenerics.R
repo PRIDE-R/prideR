@@ -319,6 +319,6 @@ if (!isGeneric("page.size")) {
   setGeneric("page.size", function(object) standardGeneric("page.size"))
 }
 
-
-
-
+if (!isGeneric("as.data.frame")) {
+  setGeneric("as.data.frame", function(object, ...) standardGeneric("as.data.frame"))
+}

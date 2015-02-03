@@ -4,8 +4,7 @@
 \alias{as.data.frame.AssayDetail}
 \title{Returns a data frame from AssayDetail inputs}
 \usage{
-\method{as.data.frame}{AssayDetail}(x, row.names = NULL, optional = FALSE,
-  ...)
+as.data.frame.AssayDetail(x, row.names = NULL, optional = FALSE, ...)
 }
 \arguments{
 \item{x}{The assay details}

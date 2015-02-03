@@ -9,7 +9,7 @@ Authors@R: c(person("Jose", "A Dianes", role=c("aut", "cre"),
                     email="harry.r.wang@gmail.com"))
 Author: Jose A Dianes, Rui Wang
 Maintainer: Jose A Dianes <jadianes@gmail.com>, Rui Wang <harry.r.wang@gmail.com>
-Depends: R (>= 3.0.0), methods
+Depends: R (>= 3.0.0), methods, rjson
 Imports: 
     rjson
 Suggests: 

@@ -4,8 +4,7 @@
 \alias{as.data.frame.ProjectSummary}
 \title{Returns a data frame from ProjectSummary inputs}
 \usage{
-\method{as.data.frame}{ProjectSummary}(x, row.names = NULL,
-  optional = FALSE, ...)
+as.data.frame.ProjectSummary(x, row.names = NULL, optional = FALSE, ...)
 }
 \arguments{
 \item{x}{The project summaries}

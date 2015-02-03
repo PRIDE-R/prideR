@@ -4,8 +4,7 @@
 \alias{as.data.frame.FileDetail}
 \title{Returns a data frame from FileDetail inputs}
 \usage{
-\method{as.data.frame}{FileDetail}(x, row.names = NULL, optional = FALSE,
-  ...)
+as.data.frame.FileDetail(x, row.names = NULL, optional = FALSE, ...)
 }
 \arguments{
 \item{x}{The file details}

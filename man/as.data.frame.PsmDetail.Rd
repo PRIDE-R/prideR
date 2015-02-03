@@ -4,8 +4,7 @@
 \alias{as.data.frame.PsmDetail}
 \title{Returns a data frame from PsmDetail inputs}
 \usage{
-\method{as.data.frame}{PsmDetail}(x, row.names = NULL, optional = FALSE,
-  ...)
+as.data.frame.PsmDetail(x, row.names = NULL, optional = FALSE, ...)
 }
 \arguments{
 \item{x}{The PSM detail inputs}

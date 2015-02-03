@@ -1,5 +1,3 @@
-pride_cluster_url <- "http://wwwdev.ebi.ac.uk/pride/ws/cluster"
-
 MISSING_VALUE <- "Not available"
 
 #' ClusterSearchResults represents a PRIDE Cluster project summary result set
@@ -74,6 +72,23 @@ setMethod("page.number", "ClusterSearchResults", function(object) object@page.nu
 #' @export
 setMethod("page.size", "ClusterSearchResults", function(object) object@page.size)
 
+#' Returns a data frame from a ClusterSearchResult results
+#'
+#' @param x The cluster search results
+#' @param row.names optional row names
+#' @param optional optional
+#' @return The cluster search results as a data frame
+#' @author Jose A. Dianes
+#' @details TODO
+#' @export
+setMethod("as.data.frame", "ClusterSearchResults",
+          function(object, row.names=NULL, optional=FALSE, ...)
+          {
+            value <- list.to.data.frame(object@results)
+            
+            return(value)
+          }
+)
 
 
 #' Cluster represents a PRIDE Cluster project summary
@@ -297,36 +312,37 @@ setMethod("cluster.quality<-", "Cluster",
           }
 )
 
-#' Returns a data frame from Cluster inputs
+#' Returns a data frame from a Cluster
 #'
-#' @param x The cluster summaries
+#' @param x The cluster
 #' @param row.names optional row names
 #' @param optional optional
-#' @return The cluster summaries as a data frame
+#' @return The cluster as a data frame
 #' @author Jose A. Dianes
 #' @details TODO
 #' @export
-as.data.frame.Cluster <-
-    function(x, row.names=NULL, optional=FALSE, ...)
+setMethod("as.data.frame", "Cluster",
+    function(object, row.names=NULL, optional=FALSE, ...)
     {
         # set row names if provided
         if (is.null(row.names))
-            row.names <- x@id
+            row.names <- object@id
         # create the data frame just with the id column
-        value <- list(x@id)
+        value <- list(object@id)
         attr(value, "row.names") <- row.names
         class(value) <- "data.frame"
         names(value) <- c("accession")
         # add the rest of the columns
-        value$average.precursor.mz <- x@average.precursor.mz
-        value$average.precursor.charge <- x@average.precursor.charge
-        value$num.spectra <- x@num.spectra
-        value$max.ratio <- x@max.ratio
-        value$peptide.sequence <- x@peptide.sequence
-        value$protein.accession <- x@protein.accession
-        value$cluster.quality <- x@cluster.quality
+        value$average.precursor.mz <- object@average.precursor.mz
+        value$average.precursor.charge <- object@average.precursor.charge
+        value$num.spectra <- object@num.spectra
+        value$max.ratio <- object@max.ratio
+        value$peptide.sequence <- object@peptide.sequence
+        value$protein.accession <- object@protein.accession
+        value$cluster.quality <- object@cluster.quality
         
         return(value)
     }
+)
 
 format.Cluster <- function(x, ...) paste0(x@id, ", ", x@peptide.sequence)

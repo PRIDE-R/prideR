@@ -1,3 +1,5 @@
+pride_cluster_url <- "http://wwwdev.ebi.ac.uk/pride/ws/cluster"
+
 #' Returns a Cluster instance from a JSON string representation
 #'
 #' @param json_str The JSON object

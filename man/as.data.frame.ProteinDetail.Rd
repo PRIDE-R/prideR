@@ -4,8 +4,7 @@
 \alias{as.data.frame.ProteinDetail}
 \title{Returns a data frame from ProteinDetail inputs}
 \usage{
-\method{as.data.frame}{ProteinDetail}(x, row.names = NULL, optional = FALSE,
-  ...)
+as.data.frame.ProteinDetail(x, row.names = NULL, optional = FALSE, ...)
 }
 \arguments{
 \item{x}{The protein detail inputs}
