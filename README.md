@@ -56,13 +56,13 @@ There are also count methods for each of the PRIDE Archive entitites.
 
 #### PRIDE Cluster  
 
-Get page 1 with a size of 20 clusters for peptide sequence *ELISN*:  
+Get page 0 with a size of 20 clusters for peptide sequence *ELISN*:  
 
-    search.list.Cluster("elisn", 1, 20)
+    search.ClusterSearchResults("elisn", 0, 20)
 
 As a data frame:  
 
-    list.to.data.frame(search.list.Cluster("elisn", 1, 20))
+    as.data.frame(search.ClusterSearchResults("elisn", 1, 20))
 
 ### Future Works  
 
