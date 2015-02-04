@@ -64,6 +64,10 @@ As a data frame:
 
     as.data.frame(search.ClusterSearchResults("elisn", 1, 20))
 
+Plot results:
+
+    plotresults(search.ClusterSearchResults("elisn", 0, 20))
+
 ### Future Works  
 
 Some things to be done, sooner than later:  
