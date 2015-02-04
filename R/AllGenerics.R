@@ -1,3 +1,7 @@
+if (!isGeneric("plotresults")) {
+  setGeneric("plotresults", function(object) standardGeneric("plotresults"))
+}
+
 # PorjectSummary related generics
 if (!isGeneric("accession")) {
   setGeneric("accession", function(object) standardGeneric("accession"))

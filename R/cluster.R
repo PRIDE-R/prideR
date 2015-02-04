@@ -40,6 +40,38 @@ setMethod("show",
           }
 )
 
+#' Plot function
+#' 
+#' @param object a ClusterSearchResults results
+#' @author Jose A. Dianes
+#' @export
+setMethod("plotresults",
+          "ClusterSearchResults",
+          function(object) {
+            opar <- par(no.readonly=TRUE)
+            layout(matrix(c(1,1,1,2,2,2,3,3,4,4,5,5), 2, 6, byrow = TRUE)) 
+            results.df <- as.data.frame(object)
+            
+            # plot protein accession counts
+            protein.counts <- sort(table(results.df$protein.accession),decreasing=TRUE)[1:5]
+            barplot(protein.counts, main="Protein accessions", ylab="Protein frequency")
+            # plot peptide sequence counts
+            peptide.counts <- sort(table(results.df$peptide.sequence),decreasing=TRUE)[1:5]
+            barplot(peptide.counts, main="Peptide sequence", ylab="Peptide frequency")
+            #polygon(d, col="red", border="blue")
+            d <- density(results.df$average.precursor.mz)
+            plot(d, main="Precursor M/Z distribution",xlab="",ylab="")
+            # plot max ratio
+            d <- density(results.df$max.ratio)
+            plot(d, main="Max. peptide ratio distribution",xlab="",ylab="")
+            # plot number of spectra
+            d <- density(results.df$num.spectra)
+            plot(d, main="Number of spectra distribution",xlab="",ylab="")
+            
+            par(opar)
+          }
+)
+
 #' Returns a cluster search results list
 #' 
 #' @param object a ClusterSearchResults results
