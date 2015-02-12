@@ -7,7 +7,7 @@
 \S4method{plot}{ClusterSearchResults}(x, y, ...)
 }
 \arguments{
-\item{object}{a ClusterSearchResults results}
+\item{object}{a ClusterSearchResults instance}
 }
 \description{
 Plot function

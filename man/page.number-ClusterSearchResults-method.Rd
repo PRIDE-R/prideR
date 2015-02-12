@@ -7,7 +7,7 @@
 \S4method{page.number}{ClusterSearchResults}(object)
 }
 \arguments{
-\item{object}{a ClusterSearchResults page number}
+\item{object}{a ClusterSearchResults instance}
 }
 \value{
 the page number

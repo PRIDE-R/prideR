@@ -7,7 +7,7 @@
 \S4method{results}{ClusterSearchResults}(object)
 }
 \arguments{
-\item{object}{a ClusterSearchResults results}
+\item{object}{a ClusterSearchResults instance}
 }
 \value{
 the results

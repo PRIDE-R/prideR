@@ -1,6 +1,132 @@
-pride_archive_url <- "http://www.ebi.ac.uk/pride/ws/archive"
-pride_archive_url_dev <- "http://wwwdev.ebi.ac.uk/pride/ws/archive"
+
 MISSING_VALUE <- "Not available"
+
+#' ProteinDetailList represents a PRIDE Archive project proteins collection
+#'
+#' @importFrom rjson fromJSON
+#' @export 
+#' @exportClass ProteinDetailList
+setClass(
+  "ProteinDetailList", 
+  representation(
+    project.accession = "character",
+    protein.list = "list",
+    page.number = "numeric",
+    page.size = "numeric"
+  ),
+  prototype(
+    project.accession = "",
+    protein.list = list(), 
+    page.number = 0,
+    page.size = 10
+  )
+)
+
+setMethod("show",
+          signature = "ProteinDetailList",
+          definition = function(object) {
+            cat("A ", class(object), sep="")
+            cat(" representing the list of proteins for project ", object@project.accession, " with \n", sep="")
+            cat("    Proteins in page: ", length(object@protein.list), "\n", sep="")
+            cat("    Page number: ", object@page.number, " \n", sep="")
+            cat("    Page size: ", object@page.size, " protein details in page\n", sep="")
+            invisible(NULL)
+          }
+)
+
+#' Plot function
+#' 
+#' @param object a ProteinDetailList instance
+#' @author Jose A. Dianes
+#' @export
+setMethod("plot",
+          "ProteinDetailList",
+          function(x,y,...) {
+            # Save present graphic params
+            opar <- par(no.readonly=TRUE)
+            
+            object <- x
+            results.df <- as.data.frame(object)
+
+            # plot protein accession mappings counts
+            mapped.proteins.df <- results.df[results.df$protein.synonyms!=MISSING_VALUE,]
+            if (nrow(mapped.proteins.df)>0) {
+              protein.counts.mapped <- sort(table(mapped.proteins.df$protein.synonyms),decreasing=TRUE)[1:min(10,nrow(mapped.proteins.df))]
+              
+              layout(matrix(c(1,1,2,2), 2, 2, byrow = TRUE)) 
+              barplot(protein.counts.mapped, 
+                      main=paste("Top Proteins in ", project.accession(object), " with known ID mappings (UniProt, ENSEMBL)", sep=""), 
+                      ylab="Times reported",
+                      cex.names = 0.75,
+                      cex.lab   = 0.75,
+                      space=1.5)
+            }
+            
+            # plot protein accession counts
+            protein.counts <- sort(table(results.df$protein.accession),decreasing=TRUE)[1:10]
+            barplot(protein.counts, 
+                    main=paste("Top Proteins in ", project.accession(object), " as submitted", sep=""), 
+                    ylab="Times reported",
+                    cex.names = 0.75,
+                    cex.lab   = 0.75,
+                    space=1.5)
+            
+            # Restore previous graphics params
+            par(opar)
+          }
+)
+
+#' Returns a project accession for a protein list page
+#' 
+#' @param object a ProteinDetailList instance
+#' @return the project accession
+#' @author Jose A. Dianes
+#' @export
+setMethod("project.accession", "ProteinDetailList", function(object) object@project.accession)
+
+#' Returns a project protein list page as a list
+#' 
+#' @param object a ProteinDetailList instance
+#' @return the protein list
+#' @author Jose A. Dianes
+#' @export
+setMethod("protein.list", "ProteinDetailList", function(object) object@protein.list)
+
+#' Returns the page number for a given protein details list
+#' 
+#' @param object a ProteinDetailList instance
+#' @return the page number 
+#' @author Jose A. Dianes
+#' @export
+setMethod("page.number", "ProteinDetailList", function(object) object@page.number)
+
+#' Returns the page size for a given protein details list
+#' 
+#' @param object a ProteinDetailList instance
+#' @return the page size 
+#' @author Jose A. Dianes
+#' @export
+setMethod("page.size", "ProteinDetailList", function(object) object@page.size)
+
+#' Returns a data frame from a ProteinDetailList instance
+#'
+#' @param x The ProteinDetailList instance
+#' @param row.names optional row names
+#' @param optional optional
+#' @return The page of protein details as a data frame
+#' @author Jose A. Dianes
+#' @details TODO
+#' @export
+setMethod("as.data.frame", "ProteinDetailList",
+          function(object, row.names=NULL, optional=FALSE, ...)
+          {
+            value <- list.to.data.frame(object@protein.list)
+            
+            return(value)
+          }
+)
+
+
 
 #' ProteinDetail represents a PRIDE Archive protein identification
 #'
@@ -40,7 +166,7 @@ setClass(
       
       # check protein.synonyms
       if (!is.character(object@protein.synonyms) || 0 %in% nchar(object@protein.synonyms) || is.na(object@protein.synonyms))
-        return("'proetin.synonyms' must be a one or multiple valid strings")
+        return("'protein.synonyms' must be a one or multiple valid strings")
       
       # check protein.description
       if (!is.character(object@protein.description) || nchar(object@protein.description) == 0 || is.na(object@protein.description))
@@ -67,6 +193,7 @@ ProteinDetail <- function(protein.accession,
                           protein.synonyms, 
                           protein.description, 
                           protein.sequence) {
+
   new("ProteinDetail",
       protein.accession = protein.accession,
       project.accession = project.accession,
@@ -235,80 +362,26 @@ setReplaceMethod("protein.sequence", "ProteinDetail",
 #' @author Jose A. Dianes
 #' @details TODO
 #' @export
-as.data.frame.ProteinDetail <-
-    function(x, row.names=NULL, optional=FALSE, ...)
+setMethod("as.data.frame", "ProteinDetail",
+    function(object, row.names=NULL, optional=FALSE, ...)
     {
         # set row names if provided
         if (is.null(row.names))
-            row.names <- x@protein.accession
+            row.names <- object@protein.accession
         # create the data frame just with the accession column
-        value <- list(x@protein.accession)
+        value <- list(object@protein.accession)
         attr(value, "row.names") <- row.names
         class(value) <- "data.frame"
         names(value) <- c("protein.accession")
         # add the rest of the columns
-        value$project.accession <- x@project.accession
-        value$assay.accession <- x@assay.accession
-        value$protein.synonyms <- paste(x@protein.synonyms, collapse=" || ")
-        value$protein.description <- x@protein.description
-        value$protein.sequence <- x@protein.sequence
+        value$project.accession <- object@project.accession
+        value$assay.accession <- object@assay.accession
+        value$protein.synonyms <- paste(object@protein.synonyms, collapse=" || ")
+        value$protein.description <- object@protein.description
+        value$protein.sequence <- object@protein.sequence
         
         return(value)
     }
-
-#' Returns a ProteinDetail instance from a JSON string representation
-#'
-#' @param json_str The JSON object
-#' @param file the name of a file to read the json_str from; this can also be a URL. Only one of json_str or file must be supplied.
-#' @param method use the C implementation, or the older slower (and one day to be depricated) R implementation
-#' @param unexpected.escape changed handling of unexpected escaped characters. Handling value should be one of "error", "skip", or "keep"; on unexpected characters issue an error, skip the character, or keep the character
-#' @return The ProteinDetail instance
-#' @author Jose A. Dianes
-#' @details TODO
-#' @importFrom rjson fromJSON
-#' @export
-from.json.ProteinDetail <- function(json.object) {
-
-    res <- new("ProteinDetail",
-               protein.accession = json.object$accession,
-               project.accession = json.object$projectAccession,
-               assay.accession = json.object$assayAccession,
-               protein.synonyms = ifelse(is.null(json.object$synonyms), c(MISSING_VALUE), json.object$synonyms),
-               protein.description = ifelse(is.null(json.object$description), MISSING_VALUE, json.object$description),
-               protein.sequence = ifelse(is.null(json.object$sequence), MISSING_VALUE, json.object$sequence)
-    )
-    
-    return (res)
-}
-
-#' Returns a list of PRIDE Archive PSMs associated with a given project
-#'
-#' @param accession The project accession
-#' @param count The maximum proteins to return from the project (deault is 1)
-#' @return The list of ProteinDetail objects
-#' @author Jose A. Dianes
-#' @details TODO
-#' @importFrom rjson fromJSON
-#' @export
-get.list.ProteinDetail <- function(project.accession, count=100) {
-    json.list <- fromJSON(file=paste0(pride_archive_url, "/protein/list/project/", project.accession, "?show=", count), method="C")
-    details.list <- lapply(json.list[[1]], function(x) { from.json.ProteinDetail(x)})
-    return(details.list)
-}
-
-#' Returns the number of proteins for a particual public project
-#'
-#' @param project.accession The project accession to count proteins from
-#' @return The count of proteins
-#' @author Jose A. Dianes
-#' @details TODO
-#' @importFrom rjson fromJSON
-#' @export
-count.ProteinDetail <- function(project.accession) {    
-    protein.count <- fromJSON(file=URLencode(paste0(pride_archive_url, "/protein/count/project/", project.accession)), method="C")
-    protein.count                          
-}
+)
 
 format.ProteinDetail <- function(x, ...) paste0(x@accession, ", ", x@assayAccession)
-
-

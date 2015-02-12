@@ -30,7 +30,7 @@ setClass(
 setMethod("show",
           signature = "ClusterSearchResults",
           definition = function(object) {
-            cat("An ", class(object), sep="")
+            cat("A ", class(object), sep="")
             cat(" representing a search for Clusters with \n", sep="")
             cat("    Query: ", object@query, "\n", sep="")
             cat("    Total results: ", object@total.results, "\n", sep="")
@@ -42,7 +42,7 @@ setMethod("show",
 
 #' Plot function
 #' 
-#' @param object a ClusterSearchResults results
+#' @param object a ClusterSearchResults instance
 #' @author Jose A. Dianes
 #' @export
 setMethod("plot",
@@ -75,7 +75,7 @@ setMethod("plot",
 
 #' Returns a cluster search results list
 #' 
-#' @param object a ClusterSearchResults results
+#' @param object a ClusterSearchResults instance
 #' @return the results
 #' @author Jose A. Dianes
 #' @export
@@ -83,7 +83,7 @@ setMethod("results", "ClusterSearchResults", function(object) object@results)
 
 #' Returns the total number of clusters for a given search results
 #' 
-#' @param object a ClusterSearchResults total results
+#' @param object a ClusterSearchResults instance
 #' @return the total number of results
 #' @author Jose A. Dianes
 #' @export
@@ -91,7 +91,7 @@ setMethod("total.results", "ClusterSearchResults", function(object) object@total
 
 #' Returns the page number for a given search results
 #' 
-#' @param object a ClusterSearchResults page number
+#' @param object a ClusterSearchResults instance
 #' @return the page number 
 #' @author Jose A. Dianes
 #' @export

@@ -22,7 +22,7 @@ First, we need to install `devtools`:
    
 Then we just call  
 
-    install_github(username="PRIDE-R", repo="prideR")
+    install_github("PRIDE-R/prideR")
 
 ### Examples  
 
@@ -40,13 +40,17 @@ Get them as a `data.frame`:
 
     list.to.data.frame(search.list.ProjectSummary("blood",20))
 
-Get 5 Proteins for project `PXD000001` as a list of `ProteinDetail` objects:  
+Get the first 50 Proteins for project `PXD000001` as a list of `ProteinDetail` objects:  
 
-    get.list.ProteinDetail("PXD000001", 5)
+    protein.list(list.ProteinDetailList("PXD000001", 0, 50))
 
 Or as a `data.frame`:  
 
-    list.to.data.frame(get.list.ProteinDetail("PXD000001",5))
+    as.data.frame(list.ProteinDetailList("PXD000001",0, 50))
+
+Plot some counts:  
+
+    plot(list.ProteinDetailList("PXD000001",0, 50))
 
 Get 5 PSMs for project `PXD000001` as a list of `PsmDetail` objects:  
 

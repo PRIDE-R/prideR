@@ -7,7 +7,7 @@
 \S4method{total.results}{ClusterSearchResults}(object)
 }
 \arguments{
-\item{object}{a ClusterSearchResults total results}
+\item{object}{a ClusterSearchResults instance}
 }
 \value{
 the total number of results

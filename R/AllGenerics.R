@@ -1,5 +1,5 @@
-if (!isGeneric("plotresults")) {
-  setGeneric("plotresults", function(object) standardGeneric("plotresults"))
+if (!isGeneric("protein.list")) {
+  setGeneric("protein.list", function(object) standardGeneric("protein.list"))
 }
 
 # PorjectSummary related generics
