@@ -45,9 +45,10 @@ setMethod("show",
 #' @param object a ClusterSearchResults results
 #' @author Jose A. Dianes
 #' @export
-setMethod("plotresults",
+setMethod("plot",
           "ClusterSearchResults",
-          function(object) {
+          function(x,y,...) {
+            object <- x
             opar <- par(no.readonly=TRUE)
             layout(matrix(c(1,1,1,2,2,2,3,3,4,4,5,5), 2, 6, byrow = TRUE)) 
             results.df <- as.data.frame(object)
