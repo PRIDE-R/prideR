@@ -81,12 +81,17 @@ library(prideR)
 
 <p>Search for at most 20 projects by term <code>blood</code>. The results are returned as a <code>list</code> of <code>ProjectSummary</code> objects:  </p>
 
-<pre><code>search.list.ProjectSummary("blood",20)
+<pre><code>search.list.ProjectSummary("blood",0,20)
+</code></pre>
+
+<p>Get the list of results from it:  </p>
+
+<pre><code>project.list(search.list.ProjectSummary("blood",0,20))
 </code></pre>
 
 <p>Get them as a <code>data.frame</code>:  </p>
 
-<pre><code>list.to.data.frame(search.list.ProjectSummary("blood",20))
+<pre><code>as.data.frame(search.list.ProjectSummary("blood",0,20))
 </code></pre>
 
 <p>Get the first 50 Proteins for project <code>PXD000001</code> as a list of <code>ProteinDetail</code> objects:  </p>
