@@ -18,7 +18,7 @@ from.json.Cluster <- function(json.object) {
              average.precursor.charge = json.object$averagePrecursorCharge,
              num.spectra = json.object$numberOfSpectra,
              max.ratio = json.object$maxRatio,
-             peptide.sequence = json.object$peptideSequence,
+             peptide.sequence = json.object$sequence,
              protein.accession = json.object$proteinAccession,
              cluster.quality = json.object$clusterQuality
   )

@@ -442,11 +442,11 @@ from.json.ProjectSummary <- function(json.object) {
                project.description = ifelse(is.null(json.object$projectDescription), MISSING_VALUE, json.object$projectDescription),
                publication.date = as.POSIXct(json.object$publicationDate),
                num.assays = json.object$numAssays,
-               species = json.object$species,
-               tissues = json.object$tissues,
-               ptm.names = json.object$ptmNames,
-               instrument.names = json.object$instrumentNames,
-               project.tags = json.object$projectTags,
+               species = ifelse(is.null(json.object$species) || (length(json.object$species)==0), MISSING_VALUE, json.object$species),
+               tissues = ifelse(is.null(json.object$tissues) || (length(json.object$tissues)==0), MISSING_VALUE, json.object$tissues),
+               ptm.names = ifelse(is.null(json.object$ptmNames) || (length(json.object$ptmNames)==0), MISSING_VALUE, json.object$ptmNames),
+               instrument.names = ifelse(is.null(json.object$instrumentNames) || (length(json.object$instrumentNames)==0), MISSING_VALUE, json.object$instrumentNames),
+               project.tags = ifelse(is.null(json.object$projectTags) || (length(json.object$projectTags)==0), MISSING_VALUE, json.object$projectTags),
                submission.type = json.object$submissionType
     )
     
