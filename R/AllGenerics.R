@@ -323,6 +323,14 @@ if (!isGeneric("page.size")) {
   setGeneric("page.size", function(object) standardGeneric("page.size"))
 }
 
+if (!isGeneric("query")) {
+    setGeneric("query", function(object) standardGeneric("query"))
+}
+
+if (!isGeneric("project.list")) {
+    setGeneric("project.list", function(object) standardGeneric("project.list"))
+}
+
 if (!isGeneric("as.data.frame")) {
   setGeneric("as.data.frame", function(object, ...) standardGeneric("as.data.frame"))
 }

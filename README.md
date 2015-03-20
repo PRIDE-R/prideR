@@ -35,11 +35,15 @@ Get project `PXD000001` summary:
 
 Search for at most 20 projects by term `blood`. The results are returned as a `list` of `ProjectSummary` objects:  
 
-    search.list.ProjectSummary("blood",20)
+    search.list.ProjectSummary("blood",0,20)
+
+Get the list of results from it:  
+
+    project.list(search.list.ProjectSummary("blood",0,20))
 
 Get them as a `data.frame`:  
 
-    list.to.data.frame(search.list.ProjectSummary("blood",20))
+    as.data.frame(search.list.ProjectSummary("blood",0,20))
 
 Get the first 50 Proteins for project `PXD000001` as a list of `ProteinDetail` objects:  
 

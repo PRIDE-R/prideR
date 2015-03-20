@@ -3,6 +3,89 @@ pride_archive_url_dev <- "http://wwwdev.ebi.ac.uk/pride/ws/archive"
 
 MISSING_VALUE <- "Not available"
 
+#' ProjectSummaryList represents a PRIDE Archive project collection
+#'
+#' @importFrom rjson fromJSON
+#' @export 
+#' @exportClass ProjectSummaryList
+setClass(
+    "ProjectSummaryList", 
+    representation(
+        query = "character",
+        project.list = "list",
+        page.number = "numeric",
+        page.size = "numeric"
+    ),
+    prototype(
+        query = "",
+        project.list = list(), 
+        page.number = 0,
+        page.size = 10
+    )
+)
+
+setMethod("show",
+          signature = "ProjectSummaryList",
+          definition = function(object) {
+              cat("A ", class(object), sep="")
+              cat(" representing the search results for query ", object@query, " with \n", sep="")
+              cat("    Projects in page: ", length(object@project.list), "\n", sep="")
+              cat("    Page number: ", object@page.number, " \n", sep="")
+              cat("    Page size: ", object@page.size, " projects per page\n", sep="")
+              invisible(NULL)
+          }
+)
+
+#' Returns the query term used to retrieve the ProjectSummaryList
+#' 
+#' @param object a ProjectSummaryList instance
+#' @return the query term used to retrieve this ProjectSummaryList
+#' @author Jose A. Dianes
+#' @export
+setMethod("query", "ProjectSummaryList", function(object) object@query)
+
+#' Returns a project summary page as a list
+#' 
+#' @param object a ProjectSummaryList instance
+#' @return the protein list
+#' @author Jose A. Dianes
+#' @export
+setMethod("project.list", "ProjectSummaryList", function(object) object@project.list)
+
+#' Returns the page number for a given protein details list
+#' 
+#' @param object a ProjectSummaryList instance
+#' @return the page number 
+#' @author Jose A. Dianes
+#' @export
+setMethod("page.number", "ProjectSummaryList", function(object) object@page.number)
+
+#' Returns the page size for a given protein details list
+#' 
+#' @param object a ProjectSummaryList instance
+#' @return the page size 
+#' @author Jose A. Dianes
+#' @export
+setMethod("page.size", "ProjectSummaryList", function(object) object@page.size)
+
+#' Returns a data frame from a ProteinDetailList instance
+#'
+#' @param x The ProjectSummaryList instance
+#' @param row.names optional row names
+#' @param optional optional
+#' @return The page of project summaries as a data frame
+#' @author Jose A. Dianes
+#' @details TODO
+#' @export
+setMethod("as.data.frame", "ProjectSummaryList",
+          function(object, row.names=NULL, optional=FALSE, ...)
+          {
+              value <- list.to.data.frame(object@project.list)
+              
+              return(value)
+          }
+)
+
 #' ProjectSummary represents a PRIDE Archive project dataset
 #'
 #' @importFrom rjson fromJSON
@@ -396,31 +479,32 @@ setReplaceMethod("submission.type", "ProjectSummary",
 #' @author Jose A. Dianes
 #' @details TODO
 #' @export
-as.data.frame.ProjectSummary <-
-    function(x, row.names=NULL, optional=FALSE, ...)
+setMethod("as.data.frame", "ProjectSummary",
+    function(object, row.names=NULL, optional=FALSE, ...)
     {
         # set row names if provided
         if (is.null(row.names))
-            row.names <- x@accession
+            row.names <- object@accession
         # create the data frame just with the accession column
-        value <- list(x@accession)
+        value <- list(object@accession)
         attr(value, "row.names") <- row.names
         class(value) <- "data.frame"
         names(value) <- c("accession")
         # add the rest of the columns
-        value$project.title <- x@project.title
-        value$project.description <- x@project.description
-        value$publication.date <- x@publication.date
-        value$num.assays <- x@num.assays
-        value$species <- paste(x@species, collapse=" || ")
-        value$tissues <- paste(x@tissues, collapse=" || ")
-        value$ptm.names <- paste(x@ptm.names, collapse=" || ")
-        value$instrument.names <- paste(x@instrument.names, collapse=" || ")
-        value$project.tags <- paste(x@project.tags, collapse=" || ")
-        value$submissionType <- x@submission.type
+        value$project.title <- object@project.title
+        value$project.description <- object@project.description
+        value$publication.date <- object@publication.date
+        value$num.assays <- object@num.assays
+        value$species <- paste(object@species, collapse=" || ")
+        value$tissues <- paste(object@tissues, collapse=" || ")
+        value$ptm.names <- paste(object@ptm.names, collapse=" || ")
+        value$instrument.names <- paste(object@instrument.names, collapse=" || ")
+        value$project.tags <- paste(object@project.tags, collapse=" || ")
+        value$submissionType <- object@submission.type
         
         return(value)
     }
+)
 
 format.ProjectSummary <- function(x, ...) paste0(x@accession, ", ", x@title)
 
@@ -490,10 +574,15 @@ get.list.ProjectSummary <- function(count=10) {
 #' @details TODO
 #' @importFrom rjson fromJSON
 #' @export
-search.list.ProjectSummary <- function(q,count=10) {
-    json.list <- fromJSON(file=paste0(pride_archive_url, "/project/list", "?show=", count,"&q=", q), method="C")
+search.list.ProjectSummary <- function(q, page.number=0, page.size=100) {
+    json.list <- fromJSON(file=paste0(pride_archive_url, "/project/list", "?show=", page.size, "&page=", page.number, "&q=", q), method="C")
     project.list <- lapply(json.list[[1]], function(x) { from.json.ProjectSummary(x)})
-    return(project.list)
+    projectSummaryList <- new("ProjectSummaryList", 
+                               query=q, 
+                               project.list=project.list, 
+                               page.number=page.number, 
+                               page.size=page.size)
+    return(projectSummaryList)
 }
 
 #' Returns the number of public projects in PRIDE Archive
