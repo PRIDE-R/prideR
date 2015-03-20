@@ -1,8 +1,8 @@
 [![Build Status](https://travis-ci.org/PRIDE-R/prideR.svg)](https://travis-ci.org/PRIDE-R/prideR)
-prideR
+[prideR](https://github.com/PRIDE-R/prideR)
 ======
 
-This is an R package to obtain data from the EMBL-EBI Proteomics Repository Identifications Database ([PRIDE Archive](http://www.ebi.ac.uk/pride/archive/) and [PRIDE Cluster](http://wwwdev.ebi.ac.uk/pride/cluster)). It uses its RESTful Web Services at [PRIDE Archive WS](http://www.ebi.ac.uk/pride/ws/archive/) and [PRIDE Cluster WS](http://wwwdev.ebi.ac.uk/pride/ws/archive) for that purpose.  
+An [R package](https://github.com/PRIDE-R/prideR) to obtain data from the EMBL-EBI Proteomics Repository Identifications Database ([PRIDE Archive](http://www.ebi.ac.uk/pride/archive/) and [PRIDE Cluster](http://wwwdev.ebi.ac.uk/pride/cluster)). It uses its RESTful Web Services at [PRIDE Archive WS](http://www.ebi.ac.uk/pride/ws/archive/) and [PRIDE Cluster WS](http://wwwdev.ebi.ac.uk/pride/ws/archive) for that purpose.  
 
 Currently, the following domain entities are supported:  
 
@@ -80,7 +80,13 @@ Some things to be done, sooner than later:
 - Check mandatory parameters  
 - Deal with `SpectrumDetail` entities when available  
 
+
+### About us   
+
+Find out about us in our GitHub profiles:  
+[Jose A. Dianes](https://github.com/jadianes)  
+[Rui Wang](https://github.com/ruiwanguk)  
+
 ### How to cite
 
 * Vizcaíno, J. A., Côté, R. G., Csordas, A., Dianes, J. A., Fabregat, A., Foster, J. M., ... & Hermjakob, H. (2013). *The PRoteomics IDEntifications (PRIDE) database and associated tools: status in 2013*. Nucleic acids research, 41(D1), D1063-D1069. [HERE](http://www.nature.com/nbt/journal/v32/n3/full/nbt.2839.html)  
-
