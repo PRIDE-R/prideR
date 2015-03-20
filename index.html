@@ -114,19 +114,19 @@ library(prideR)
 <h4>
 <a id="pride-cluster" class="anchor" href="#pride-cluster" aria-hidden="true"><span class="octicon octicon-link"></span></a>PRIDE Cluster</h4>
 
-<p>Get page 0 with a size of 20 clusters for peptide sequence <em>ELISN</em>:  </p>
+<p>Get page 0 with a size of 20 clusters for peptide sequence <em>LSVDYGK</em>:  </p>
 
-<pre><code>search.ClusterSearchResults("elisn", 0, 20)
+<pre><code>search.ClusterSearchResults("LSVDYGK", 0, 20)
 </code></pre>
 
 <p>As a data frame:  </p>
 
-<pre><code>as.data.frame(search.ClusterSearchResults("elisn", 1, 20))
+<pre><code>as.data.frame(search.ClusterSearchResults("LSVDYGK", 0, 20))
 </code></pre>
 
 <p>Plot results:</p>
 
-<pre><code>plotresults(search.ClusterSearchResults("elisn", 0, 20))
+<pre><code>plot(search.ClusterSearchResults("LSVDYGK", 0, 20))
 </code></pre>
 
 <h3>
