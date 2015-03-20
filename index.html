@@ -1,0 +1,159 @@
+<!doctype html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="chrome=1">
+    <title>prideR by PRIDE-R</title>
+
+    <link rel="stylesheet" href="stylesheets/styles.css">
+    <link rel="stylesheet" href="stylesheets/pygment_trac.css">
+    <meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no">
+    <!--[if lt IE 9]>
+    <script src="//html5shiv.googlecode.com/svn/trunk/html5.js"></script>
+    <![endif]-->
+  </head>
+  <body>
+    <div class="wrapper">
+      <header>
+        <h1>prideR</h1>
+        <p>EMBL-EBI PRIDE Archive R package</p>
+
+        <p class="view"><a href="https://github.com/PRIDE-R/prideR">View the Project on GitHub <small>PRIDE-R/prideR</small></a></p>
+
+
+        <ul>
+          <li><a href="https://github.com/PRIDE-R/prideR/zipball/master">Download <strong>ZIP File</strong></a></li>
+          <li><a href="https://github.com/PRIDE-R/prideR/tarball/master">Download <strong>TAR Ball</strong></a></li>
+          <li><a href="https://github.com/PRIDE-R/prideR">View On <strong>GitHub</strong></a></li>
+        </ul>
+      </header>
+      <section>
+        <p><a href="https://travis-ci.org/PRIDE-R/prideR"><img src="https://travis-ci.org/PRIDE-R/prideR.svg" alt="Build Status"></a></p>
+
+<h1>
+<a id="prider" class="anchor" href="#prider" aria-hidden="true"><span class="octicon octicon-link"></span></a>prideR</h1>
+
+<p>This is an R package to obtain data from the EMBL-EBI Proteomics Repository Identifications Database (<a href="http://www.ebi.ac.uk/pride/archive/">PRIDE Archive</a> and <a href="http://wwwdev.ebi.ac.uk/pride/cluster">PRIDE Cluster</a>). It uses its RESTful Web Services at <a href="http://www.ebi.ac.uk/pride/ws/archive/">PRIDE Archive WS</a> and <a href="http://wwwdev.ebi.ac.uk/pride/ws/archive">PRIDE Cluster WS</a> for that purpose.  </p>
+
+<p>Currently, the following domain entities are supported:  </p>
+
+<ul>
+<li>Projects as S4 objects, including methods to get them from PRIDE by accession and <code>as.data.frame</code><br>
+</li>
+<li>Assays as S4 objects, including methods to get them from PRIDE by accession and <code>as.data.frame</code><br>
+</li>
+<li>Files as S4 objects, including methods to get them from PRIDE by project and assay accession and <code>as.data.frame</code><br>
+</li>
+<li>Protein identifications associated with a project, as S4 objects, including methods to get them from PRIDE by project accession and <code>as.data.frame</code><br>
+</li>
+<li>PSM identifications associated with a project, as S4 objects, including methods to get them from PRIDE by project accession and <code>as.data.frame</code><br>
+</li>
+<li>PRIDE Cluster ClusterSummary, as S4 objects and as <code>as.data.frame</code>.<br>
+</li>
+</ul>
+
+<h3>
+<a id="installation" class="anchor" href="#installation" aria-hidden="true"><span class="octicon octicon-link"></span></a>Installation</h3>
+
+<p>First, we need to install <code>devtools</code>:  </p>
+
+<pre><code>install.packages("devtools")
+library(devtools)
+</code></pre>
+
+<p>Then we just call  </p>
+
+<pre><code>install_github("PRIDE-R/prideR")
+library(prideR)
+</code></pre>
+
+<h3>
+<a id="examples" class="anchor" href="#examples" aria-hidden="true"><span class="octicon octicon-link"></span></a>Examples</h3>
+
+<h4>
+<a id="pride-archive" class="anchor" href="#pride-archive" aria-hidden="true"><span class="octicon octicon-link"></span></a>PRIDE Archive</h4>
+
+<p>Get project <code>PXD000001</code> summary:  </p>
+
+<pre><code>get.ProjectSummary("PXD000001")
+</code></pre>
+
+<p>Search for at most 20 projects by term <code>blood</code>. The results are returned as a <code>list</code> of <code>ProjectSummary</code> objects:  </p>
+
+<pre><code>search.list.ProjectSummary("blood",20)
+</code></pre>
+
+<p>Get them as a <code>data.frame</code>:  </p>
+
+<pre><code>list.to.data.frame(search.list.ProjectSummary("blood",20))
+</code></pre>
+
+<p>Get the first 50 Proteins for project <code>PXD000001</code> as a list of <code>ProteinDetail</code> objects:  </p>
+
+<pre><code>protein.list(list.ProteinDetailList("PXD000001", 0, 50))
+</code></pre>
+
+<p>Or as a <code>data.frame</code>:  </p>
+
+<pre><code>as.data.frame(list.ProteinDetailList("PXD000001",0, 50))
+</code></pre>
+
+<p>Plot some counts:  </p>
+
+<pre><code>plot(list.ProteinDetailList("PXD000001",0, 50))
+</code></pre>
+
+<p>Get 5 PSMs for project <code>PXD000001</code> as a list of <code>PsmDetail</code> objects:  </p>
+
+<pre><code>get.list.PsmDetail("PXD000001", 5)
+</code></pre>
+
+<p>There are also count methods for each of the PRIDE Archive entitites.  </p>
+
+<h4>
+<a id="pride-cluster" class="anchor" href="#pride-cluster" aria-hidden="true"><span class="octicon octicon-link"></span></a>PRIDE Cluster</h4>
+
+<p>Get page 0 with a size of 20 clusters for peptide sequence <em>ELISN</em>:  </p>
+
+<pre><code>search.ClusterSearchResults("elisn", 0, 20)
+</code></pre>
+
+<p>As a data frame:  </p>
+
+<pre><code>as.data.frame(search.ClusterSearchResults("elisn", 1, 20))
+</code></pre>
+
+<p>Plot results:</p>
+
+<pre><code>plotresults(search.ClusterSearchResults("elisn", 0, 20))
+</code></pre>
+
+<h3>
+<a id="future-works" class="anchor" href="#future-works" aria-hidden="true"><span class="octicon octicon-link"></span></a>Future Works</h3>
+
+<p>Some things to be done, sooner than later:  </p>
+
+<ul>
+<li>Check mandatory parameters<br>
+</li>
+<li>Deal with <code>SpectrumDetail</code> entities when available<br>
+</li>
+</ul>
+
+<h3>
+<a id="how-to-cite" class="anchor" href="#how-to-cite" aria-hidden="true"><span class="octicon octicon-link"></span></a>How to cite</h3>
+
+<ul>
+<li>Vizcaíno, J. A., Côté, R. G., Csordas, A., Dianes, J. A., Fabregat, A., Foster, J. M., ... &amp; Hermjakob, H. (2013). <em>The PRoteomics IDEntifications (PRIDE) database and associated tools: status in 2013</em>. Nucleic acids research, 41(D1), D1063-D1069. <a href="http://www.nature.com/nbt/journal/v32/n3/full/nbt.2839.html">HERE</a><br>
+</li>
+</ul>
+      </section>
+      <footer>
+        <p>This project is maintained by <a href="https://github.com/PRIDE-R">PRIDE-R</a></p>
+        <p><small>Hosted on GitHub Pages &mdash; Theme by <a href="https://github.com/orderedlist">orderedlist</a></small></p>
+      </footer>
+    </div>
+    <script src="javascripts/scale.fix.js"></script>
+    
+  </body>
+</html>
