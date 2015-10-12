@@ -1,4 +1,4 @@
-pride_cluster_url <- "http://wwwdev.ebi.ac.uk/pride/ws/cluster"
+pride_cluster_url <- "http://www.ebi.ac.uk/pride/ws/cluster"
 
 #' Returns a Cluster instance from a JSON string representation
 #'
