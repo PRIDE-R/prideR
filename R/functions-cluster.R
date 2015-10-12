@@ -70,7 +70,7 @@ get.Cluster <- function(id) {
 #' @importFrom rjson fromJSON
 #' @export
 search.ClusterSearchResults <- function(q="", page=0,size=10) {
-  json.object <- fromJSON(file=paste0(pride_cluster_url, "/cluster/search", "?page=", page, "&size=", size,"&q=", q), method="C")
+  json.object <- fromJSON(file=paste0(pride_cluster_url, "/cluster/list", "?page=", page, "&size=", size,"&q=", q), method="C")
   results <- from.json.ClusterSearchResults(json.object)
   results@query <- q
   return(results)
