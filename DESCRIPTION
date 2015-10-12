@@ -16,6 +16,7 @@ Depends:
     rjson
 Imports:
     rjson
+    BiocInstaller
 Suggests:
     testthat,
     knitr
