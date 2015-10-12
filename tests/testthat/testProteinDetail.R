@@ -43,7 +43,7 @@ test_that("ProteinDetail's setters are working properly", {
 # })
 
 test_that("ProteinDetails as.data.frame is working", {
-  test.protein.data.frame <- as.data.frame(ProteinDetail(test.protein))
+  test.protein.data.frame <- as.data.frame(test.protein)
   expect_equal(test.protein.data.frame$protein.accession, "P12345")
   expect_equal(test.protein.data.frame$project.accession, "PXT000001")
   expect_equal(test.protein.data.frame$assay.accession, "123456")
